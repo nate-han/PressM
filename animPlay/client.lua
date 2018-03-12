@@ -1,8 +1,8 @@
-- PressM snippets
-- Play Animation (on player)
-- By github/nate_han
-- Get animation database from here (only amb@ dictionaries work, afaik): https://www.los-santos-multiplayer.com/dev.airdancer?cxt=anim
-- TaskPlayAnim options listed here: https://runtime.fivem.net/doc/reference.html#_0xEA47FE3719165B94
+-- PressM snippets
+-- Play Animation (on player)
+-- By github/nate_han
+-- Get animation database from here (only amb@ dictionaries work, afaik): https://www.los-santos-multiplayer.com/dev.airdancer?cxt=anim
+-- TaskPlayAnim options listed here: https://runtime.fivem.net/doc/reference.html#_0xEA47FE3719165B94
 
 function animPlay(who, dict, anim)
 	RequestAnimDict(dict)
