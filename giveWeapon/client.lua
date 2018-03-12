@@ -1,5 +1,5 @@
 -- PressM snippets
--- Get Coords (of player)
+-- Give Weapon (to player)
 -- By github/nate_han
 -- Weapon IDs found here: https://wiki.fivem.net/wiki/Weapons
 
