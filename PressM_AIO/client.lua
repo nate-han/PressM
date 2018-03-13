@@ -13,25 +13,7 @@ end
 
 function setHealth(who)
 
-	local max_hp = GetEntityMaxHealth(who)
-	local cur_hp = GetEntityHealth(who)
-	
-	if cur_hp == 0 then
-	
-		showNote("You actually died.") -- not working
-		Citizen.Wait(5000)
-		return
-	
-	elseif cur_hp < max_hp then
-	
-		showNote("Health: ~r~" .. cur_hp .. "~w~/~g~" .. max_hp)
-		SetEntityHealth(who, max_hp)
-		
-	else
-	
-		showNote("Health: ~g~" .. cur_hp .. "~w~/~g~" .. max_hp)
-		
-	end
+	SetEntityInvincible(who, 1)
 	
 end
 
@@ -52,6 +34,14 @@ function getCoords(who)
 	
 end
 
+AddEventHandler("playerSpawned", function(spawn)
+	
+	local target = GetPlayerPed(-1)
+	
+	setHealth(target)
+	
+end)
+
 Citizen.CreateThread(function()
 
 	while true do
@@ -67,20 +57,6 @@ Citizen.CreateThread(function()
 			getCoords(target)
 			
 		end
-	end
-	
-end)
-
-Citizen.CreateThread(function()
-
-	while true do
-		
-		Citizen.Wait(1000)
-	
-		local target = GetPlayerPed(-1)
-		
-		setHealth(target)
-		
 	end
 	
 end)
