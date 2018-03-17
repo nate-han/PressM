@@ -20,19 +20,15 @@ end
 
 function setHealth(who, state)
 	
-	local Invincible = state
+	SetEntityInvincible(who, state)
 	
-	if Invincible then
+	if state then
 	
-		SetEntityInvincible(who, 0)
-		showNote("Godmode: ~r~OFF")
-		return false
-		
-	else
-		
-		SetEntityInvincible(who, 1)
 		showNote("Godmode: ~g~ON")
-		return true
+	
+	else
+	
+		showNote("Godmode: ~r~OFF")
 		
 	end
 	
@@ -50,14 +46,11 @@ end
 
 Citizen.CreateThread(function()
 
-    local ammo = { "WEAPON_PISTOL", "GADGET_PARACHUTE"}
-    local currentItemIndex = 1
-    local selectedItemIndex = 1
-    local checkbox = true
 	local target = GetPlayerPed(-1)
 
     WarMenu.CreateMenu('PressM', 'PressM_AIO')
 	WarMenu.CreateSubMenu('Weapons', 'PressM', 'Choose Your Weapon')
+	WarMenu.CreateSubMenu('Invincibility', 'PressM', 'Set Invincibility')
 	
 	while true do
 	
@@ -66,15 +59,30 @@ Citizen.CreateThread(function()
 		if WarMenu.IsMenuOpened("PressM") then
 		
 			if WarMenu.MenuButton('Weapons', 'Weapons') then
-				
+			
+			elseif WarMenu.MenuButton('Invincibility', 'Invincibility') then
 				
 			elseif WarMenu.Button('Get Coordinates') then
 		
 				getCoords(GetPlayerPed(-1))
 				
-			elseif WarMenu.Button("Exit") then
+			end
 			
-				WarMenu.CloseMenu()
+			WarMenu.Display()
+			
+		-- INVINCIBILITY MENU
+			
+		elseif WarMenu.IsMenuOpened("Invincibility") then
+		
+			target = GetPlayerPed(-1)
+				
+			if WarMenu.Button('On') then
+		
+				setHealth(target, true)
+				
+			elseif WarMenu.Button("Off") then
+			
+				setHealth(target, false)
 				
 			end
 			
@@ -103,10 +111,6 @@ Citizen.CreateThread(function()
 			elseif WarMenu.Button('Sniper Rifle') then
 				
 				giveWeapon(target, "WEAPON_HEAVYSNIPER", 100, false)
-				
-			elseif WarMenu.Button("Exit") then
-			
-				WarMenu.CloseMenu()
 				
 			end
 				
