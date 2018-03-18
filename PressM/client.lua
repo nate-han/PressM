@@ -83,7 +83,7 @@ Citizen.CreateThread(function()
 	
 	while true do
 	
-		local target = GetPlayerPed(-1)
+		local target = PlayerPedId()
 		local target2 = PlayerId()
 	
 		-- MAIN MENU
