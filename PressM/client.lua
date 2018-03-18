@@ -39,8 +39,9 @@ function getCoords(who)
 	local coords = GetEntityCoords(who, true)
 	local x, y, z = table.unpack(coords)
 	
-	showNote(x .. "~n~" .. y .. "~n~" .. z .. "~n~(also saved in F8)")
 	Citizen.Trace("LOCATION: " .. x .. " " .. y .. " " .. z)
+	
+	return x, y, z
 	
 end
 
@@ -48,6 +49,24 @@ function wantedLevel(who, level)
 
 	SetPlayerWantedLevel(who, level, false)
 	SetPlayerWantedLevelNow(who, false)
+
+end
+
+function spawnVeh(who, model)
+
+	local x, y, z = getCoords(who)
+	
+		RequestModel(model)
+	
+	while not HasModelLoaded(model) do
+	
+		RequestModel(model)
+		Citizen.Trace("Loading Model...")
+		Citizen.Wait(0)
+		
+	end
+	
+	CreateVehicle(model, x + 4, y + 4, z + 2, 0.0, true, false)
 
 end
 
@@ -65,9 +84,38 @@ Citizen.CreateThread(function()
 	local gadgets = {"GADGET_PARACHUTE", "GADGET_NIGHTVISION"}
 	local op = {"WEAPON_MINIGUN", "WEAPON_RAILGUN"}
 	
-    WarMenu.CreateMenu('PressM', 'PressM_AIO')
-	WarMenu.CreateSubMenu('Weapons', 'PressM', 'Choose Your Weapon')
+	local super = {"sultanrs", "banshee2", "fmj", "pfister811", "prototipo", "reaper", "tyrus", "sheava", "le7b", "turismor", "zentorno", "bullet", "cheetah", "entityxf", "infernus", "adder", "voltic", "vacca", "osiris", "t20"}
+	local sports = {"verlierer2", "schafter3", "schafter4", "seven70", "bestiagts", "lynx", "omnis", "tropos", "tampa2", "raptor", "jester", "alpha",  "massacro",  "buffalo3",  "blista2",  "blista3",  "furoregt",  "kuruma",  "kuruma2",  "ninef",  "ninef2",  "banshee",  "buffalo",  "buffalo2",  "carbonizzare",  "comet2",  "coquette",  "elegy2",  "feltzer2",  "fusilade",  "futo",  "khamelion",  "penumbra",  "rapidgt",  "rapidgt2",  "schwarzer",  "sultan",  "surano"}
+	local sedan = {"limo2", "schafter5", "schafter6", "cog55", "cog552", "cognoscenti", "cognoscenti2", "warrener", "glendale", "asea", "asea2", "asterope",  "emperor",  "emperor2",  "emperor3",  "fugitive",  "ingot",  "intruder",  "premier",  "primo",  "regina",  "romero",  "schafter2",  "stanier",  "stratum",  "superd",  "surge",  "tailgater",  "washington",  "stretch"}
+	local muscle = {"nightshade", "blade", "dukes", "dukes2", "dominator2", "gauntlet2", "stalion", "stalion2", "slamvan2", "buccaneer", "hotknife", "dominator", "gauntlet", "phoenix", "picador", "ratloader", "ruiner", "sabregt", "voodoo2", "vigero", "virgo", "coquette3", "chino", "faction3", "sabregt2", "slamvan3", "virgo2", "virgo3"}
+	local sportsClassic = {"mamba", "tornado6", "btype", "pigalle", "coquette2", "casco", "jb700", "manana", "monroe", "peyote", "stinger", "stingergt", "tornado", "tornado2", "tornado3", "tornado4", "ztype", "feltzer3", "tornado5"}
+	local utility = {"tanker2", "boattrailer", "armytanker", "armytrailer", "armytrailer2", "freighttrailer", "airtug", "caddy", "caddy2", "docktug", "forklift", "mower", "proptrailer", "ripley", "sadler", "sadler2", "scrap", "tractor", "tractor2", "tractor3", "graintrailer", "baletrailer", "towtruck", "towtruck2", "utillitruck", "utillitruck2", "utillitruck3", "docktrailer", "trailers", "trailers2", "trailers3", "tvtrailer", "raketrailer", "tanker", "trailerlogs", "tr2", "tr3", "tr4", "trflat", "trailersmall"}
+	local emergency = {"ambulance", "policet", "fbi", "fbi2", "firetruk", "lguard", "pbus", "police", "police4", "police2", "police3", "policeold1", "policeold2", "pranger", "riot", "sheriff", "sheriff2", "policeb"}
+	local compact = {"brioso", "rhapsody", "panto", "blista", "dilettante", "dilettante2", "issi2", "prairie",}
+	local service = {"brickade", "rallytruck", "trash2", "bus", "coach", "airbus", "rentalbus", "taxi", "trash", "tourbus"}
+	local military = {"barracks3", "barracks", "barracks2", "crusader", "rhino"}
+	local suv = {"baller3", "baller4", "baller5", "baller6", "xls", "xls2", "contender", "huntley", "baller", "baller2", "bjxl", "cavalcade", "cavalcade2", "gresley", "dubsta", "dubsta2", "fq2", "granger", "habanero", "landstalker", "mesa", "mesa2", "patriot", "radi",  "rocoto",  "seminole",  "serrano"}
+	local commercial = {"mule3", "benson", "biff", "hauler", "mule", "mule2", "packer", "phantom", "pounder", "stockade", "stockade3"}
+	local offRoad = {"trophytruck", "trophytruck2", "blazer4", "dubsta3", "monster", "marshall", "insurgent", "insurgent2", "technical", "bfinjection", "blazer", "blazer2", "blazer3", "bodhi2", "dune", "dune2", "dloader", "mesa3", "rancherxl", "rancherxl2", "rebel", "rebel2", "sandking", "sandking2", "brawler"}
+	local van = {"rumpo3", "youga2", "boxville4", "gburrito2", "bison", "bison2", "bison3", "boxville", "boxville2", "boxville3", "bobcatxl", "burrito", "burrito2", "burrito3", "burrito4", "burrito5", "gburrito", "camper", "journey", "minivan", "pony", "pony2", "rumpo", "rumpo2", "speedo", "speedo2", "surfer", "surfer2", "taco", "youga", "minivan2"}
+	local industrial = {"guardian", "bulldozer", "cutter", "dump", "rubble", "flatbed", "handler", "mixer", "mixer2", "tiptruck", "tiptruck2"}
+	local helicopter = {"cargobob4", "supervolito", "supervolito2", "valkyrie2", "volatus", "swift", "savage", "valkyrie", "annihilator", "buzzard", "buzzard2", "cargobob", "cargobob2", "cargobob3", "skylift", "polmav", "maverick", "frogger", "frogger2", "swift2"}
+	local plane = {"nimbus", "vestra", "miljet", "besra", "dodo", "blimp2", "velum2", "hydra", "velum2", "blimp", "cuban800", "duster", "stunt", "mammatus", "jet", "shamal", "luxor", "titan", "lazer", "cargoplane", "velum", "luxor2"}
+	local motorcycle = {"gargoyle", "cliffhanger", "bf400", "faggio3", "faggio", "vortex", "avarus", "sanctus", "hakuchou2", "nightblade", "chimera", "esskey", "wolfsbane", "zombiea", "zombieb", "defiler", "daemon2", "ratbike", "shotaro", "manchez", "thrust", "sovereign", "innovation", "hakuchou", "enduro", "lectro", "sanchez", "sanchez2", "akuma", "carbonrs", "bagger", "bati", "bati2", "ruffian", "daemon", "double", "pcj", "vader", "faggio2", "hexer", "nemesis", "vindicator"}
+	local rail = {"cablecar", "freightcar", "freight", "freightcont1", "freightcont2", "freightgrain", "tankercar", "metrotrain"}
+	local coupe = {"windsor2", "cogcabrio", "exemplar", "f620", "felon", "felon2", "Jackal", "oracle", "oracle2", "sentinel", "sentinel2", "zion",  "zion2",  "windsor"}
+	local cycle = {"scorcher", "tribike", "tribike2", "tribike3", "fixter", "cruiser", "BMX"}
+	local boat = {"toro2", "seashark3", "dinghy4", "tropic2", "speeder2", "tug", "submersible2", "dinghy3", "squalo", "marquis", "dinghy", "dinghy2", "jetmax", "predator", "tropic", "seashark", "seashark2", "submersible", "suntrap", "toro"}
+	
+    WarMenu.CreateMenu('PressM', 'PressM')
+	
+	-- SET STATE
 	WarMenu.CreateSubMenu('Invincibility', 'PressM', 'Set Invincibility')
+	WarMenu.CreateSubMenu('Wanted', 'PressM', 'Set Wanted Level')
+	
+	--WEAPONS
+	WarMenu.CreateSubMenu('Weapons', 'PressM', 'Choose Your Weapons')
+	
 	WarMenu.CreateSubMenu('Pistols', 'Weapons', 'Pistol List')
 	WarMenu.CreateSubMenu('SMGs', 'Weapons', 'SMG List')
 	WarMenu.CreateSubMenu('Rifles', 'Weapons', 'Rifle List')
@@ -79,7 +127,32 @@ Citizen.CreateThread(function()
 	WarMenu.CreateSubMenu('Melee', 'Weapons', 'Melee List')
 	WarMenu.CreateSubMenu('Gadgets', 'Weapons', 'Gadgets List')
 	WarMenu.CreateSubMenu('OP', 'Weapons', 'OP List')
-	WarMenu.CreateSubMenu('Wanted', 'PressM', 'Set Wanted Level')
+	
+	--VEHICLES
+	WarMenu.CreateSubMenu('Vehicles', 'PressM', 'Choose Your Vehicles')
+	
+	WarMenu.CreateSubMenu('Super', 'Vehicles', 'Super List')
+	WarMenu.CreateSubMenu('Sports', 'Vehicles', 'Sports List')
+	WarMenu.CreateSubMenu('Sports Classic', 'Vehicles', 'Sports Classic List')
+	WarMenu.CreateSubMenu('Muscle', 'Vehicles', 'Muscle List')
+	WarMenu.CreateSubMenu('Sedan', 'Vehicles', 'Sedan List')
+	WarMenu.CreateSubMenu('Utility', 'Vehicles', 'Utility List')
+	WarMenu.CreateSubMenu('Emergency', 'Vehicles', 'Emergency List')
+	WarMenu.CreateSubMenu('Compact', 'Vehicles', 'Compact List')
+	WarMenu.CreateSubMenu('Service', 'Vehicles', 'Service List')
+	WarMenu.CreateSubMenu('Military', 'Vehicles', 'Military List')
+	WarMenu.CreateSubMenu('SUV', 'Vehicles', 'SUV List')
+	WarMenu.CreateSubMenu('Commercial', 'Vehicles', 'Commercial List')
+	WarMenu.CreateSubMenu('Off Road', 'Vehicles', 'Off Road List')
+	WarMenu.CreateSubMenu('Van', 'Vehicles', 'Van List')
+	WarMenu.CreateSubMenu('Industrial', 'Vehicles', 'Industrial List')
+	WarMenu.CreateSubMenu('Plane', 'Vehicles', 'Plane List')
+	WarMenu.CreateSubMenu('Helicopter', 'Vehicles', 'Helicopter List')
+	WarMenu.CreateSubMenu('Motorcycle', 'Vehicles', 'Motorcycle List')
+	WarMenu.CreateSubMenu('Rail', 'Vehicles', 'Rail List')
+	WarMenu.CreateSubMenu('Coupe', 'Vehicles', 'Coupe List')
+	WarMenu.CreateSubMenu('Cycle', 'Vehicles', 'Cycle List')
+	WarMenu.CreateSubMenu('Boat', 'Vehicles', 'Boat List')
 	
 	while true do
 	
@@ -90,15 +163,18 @@ Citizen.CreateThread(function()
 	
 		if WarMenu.IsMenuOpened("PressM") then
 		
-			if WarMenu.MenuButton('Weapons', 'Weapons') then
+			if WarMenu.MenuButton('Spawn Weapons', 'Weapons') then
 			
-			elseif WarMenu.MenuButton('Invincibility', 'Invincibility') then
+			elseif WarMenu.MenuButton("Spawn Vehicles", "Vehicles") then
+			
+			elseif WarMenu.MenuButton('Set Invincibility', 'Invincibility') then
 				
 			elseif WarMenu.Button('Get Coordinates') then
 		
-				getCoords(target)
+				local x, y, z = getCoords(target)
+				showNote(x .. "~n~" .. y .. "~n~" .. z .. "~n~(also saved in F8)")
 				
-			elseif WarMenu.MenuButton("Wanted Level", "Wanted") then
+			elseif WarMenu.MenuButton(" Set Wanted Level", "Wanted") then
 				
 			end
 			
@@ -624,7 +700,1100 @@ Citizen.CreateThread(function()
 			
 			WarMenu.Display()
 			
+		-- VEHICLE MENU
+		
+		elseif WarMenu.IsMenuOpened("Vehicles") then
 			
+			if WarMenu.MenuButton("Super", "Super") then
+				
+			elseif WarMenu.MenuButton("Sports", "Sports") then
+			
+			elseif WarMenu.MenuButton("Sedan", "Sedan") then
+			
+			elseif WarMenu.MenuButton("Utility", "Utility") then
+			
+			elseif WarMenu.MenuButton("Emergency", "Emergency") then
+			
+			elseif WarMenu.MenuButton("Compact", "Compact") then
+			
+			elseif WarMenu.MenuButton("Service", "Service") then
+			
+			elseif WarMenu.MenuButton("Military", "Military") then
+			
+			elseif WarMenu.MenuButton("SUV", "SUV") then
+			
+			elseif WarMenu.MenuButton("Commercial", "Commercial") then
+			
+			elseif WarMenu.MenuButton("Off Road", "Off Road") then
+			
+			elseif WarMenu.MenuButton("Van", "Van") then
+			
+			elseif WarMenu.MenuButton("Muscle", "Muscle") then
+			
+			elseif WarMenu.MenuButton("Industrial", "Industrial") then
+			
+			elseif WarMenu.MenuButton("Plane", "Plane") then
+			
+			elseif WarMenu.MenuButton("Helicopter", "Helicopter") then
+			
+			elseif WarMenu.MenuButton("Motorcycle", "Motorcycle") then
+			
+			elseif WarMenu.MenuButton("Rail", "Rail") then
+			
+			elseif WarMenu.MenuButton("Coupe", "Coupe") then
+			
+			elseif WarMenu.MenuButton("Sports Classic", "Sports Classic") then
+			
+			elseif WarMenu.MenuButton("Cycle", "Cycle") then
+			
+			elseif WarMenu.MenuButton("Boat", "Boat") then
+			
+			end
+			
+			WarMenu.Display()
+			
+		--SUPER MENU
+		
+		elseif WarMenu.IsMenuOpened("Super") then
+			
+			if WarMenu.Button(super[1]) then
+			
+				spawnVeh(target, super[1])
+				showNote("Spawning: ~g~" .. super[1])
+			
+			elseif WarMenu.Button(super[3]) then
+			
+				spawnVeh(target, super[2])
+				showNote("Spawning: ~g~" .. super[2])
+			
+			elseif WarMenu.Button(super[3]) then
+			
+				spawnVeh(target, super[3])
+				showNote("Spawning: ~g~" .. super[3])
+			
+			elseif WarMenu.Button(super[4]) then
+			
+				spawnVeh(target, super[4])
+				showNote("Spawning: ~g~" .. super[4])
+			
+			elseif WarMenu.Button(super[5]) then
+			
+				spawnVeh(target, super[5])
+				showNote("Spawning: ~g~" .. super[5])
+			
+			elseif WarMenu.Button(super[6]) then
+			
+				spawnVeh(target, super[6])
+				showNote("Spawning: ~g~" .. super[6])
+			
+			elseif WarMenu.Button(super[7]) then
+			
+				spawnVeh(target, super[7])
+				showNote("Spawning: ~g~" .. super[7])
+			
+			elseif WarMenu.Button(super[8]) then
+			
+				spawnVeh(target, super[8])
+				showNote("Spawning: ~g~" .. super[8])
+						
+			elseif WarMenu.Button(super[9]) then
+			
+				spawnVeh(target, super[9])
+				showNote("Spawning: ~g~" .. super[9])
+			
+			elseif WarMenu.Button(super[10]) then
+			
+				spawnVeh(target, super[10])
+				showNote("Spawning: ~g~" .. super[10])
+			
+			elseif WarMenu.Button(super[11]) then
+			
+				spawnVeh(target, super[11])
+				showNote("Spawning: ~g~" .. super[11])
+			
+			elseif WarMenu.Button(super[12]) then
+			
+				spawnVeh(target, super[12])
+				showNote("Spawning: ~g~" .. super[12])
+			
+			elseif WarMenu.Button(super[13]) then
+			
+				spawnVeh(target, super[13])
+				showNote("Spawning: ~g~" .. super[13])
+			
+			elseif WarMenu.Button(super[14]) then
+			
+				spawnVeh(target, super[14])
+				showNote("Spawning: ~g~" .. super[14])
+			
+			elseif WarMenu.Button(super[15]) then
+			
+				spawnVeh(target, super[15])
+				showNote("Spawning: ~g~" .. super[15])
+			
+			elseif WarMenu.Button(super[16]) then
+			
+				spawnVeh(target, super[16])
+				showNote("Spawning: ~g~" .. super[16])
+			
+			elseif WarMenu.Button(super[17]) then
+			
+				spawnVeh(target, super[17])
+				showNote("Spawning: ~g~" .. super[17])
+			
+			elseif WarMenu.Button(super[18]) then
+			
+				spawnVeh(target, super[18])
+				showNote("Spawning: ~g~" .. super[18])
+			
+			elseif WarMenu.Button(super[19]) then
+			
+				spawnVeh(target, super[19])
+				showNote("Spawning: ~g~" .. super[19])
+			
+			elseif WarMenu.Button(super[20]) then
+			
+				spawnVeh(target, super[20])
+				showNote("Spawning: ~g~" .. super[20])
+			
+			end
+			
+			WarMenu.Display()
+		
+		--SPORTS MENU
+		
+		elseif WarMenu.IsMenuOpened("Sports") then
+			
+			if WarMenu.Button(sports[1]) then
+			
+				spawnVeh(target, sports[1])
+				showNote("Spawning: ~g~" .. sports[1])
+			
+			elseif WarMenu.Button(sports[2]) then
+			
+				spawnVeh(target, sports[2])
+				showNote("Spawning: ~g~" .. sports[2])
+			
+			elseif WarMenu.Button(sports[3]) then
+			
+				spawnVeh(target, sports[3])
+				showNote("Spawning: ~g~" .. sports[3])
+			
+			elseif WarMenu.Button(sports[4]) then
+			
+				spawnVeh(target, sports[4])
+				showNote("Spawning: ~g~" .. sports[4])
+			
+			elseif WarMenu.Button(sports[5]) then
+			
+				spawnVeh(target, sports[5])
+				showNote("Spawning: ~g~" .. sports[5])
+			
+			elseif WarMenu.Button(sports[6]) then
+			
+				spawnVeh(target, sports[6])
+				showNote("Spawning: ~g~" .. sports[6])
+			
+			elseif WarMenu.Button(sports[7]) then
+			
+				spawnVeh(target, sports[7])
+				showNote("Spawning: ~g~" .. sports[7])
+			
+			elseif WarMenu.Button(sports[8]) then
+			
+				spawnVeh(target, sports[8])
+				showNote("Spawning: ~g~" .. sports[8])
+			
+			elseif WarMenu.Button(sports[9]) then
+			
+				spawnVeh(target, sports[9])
+				showNote("Spawning: ~g~" .. sports[9])
+			
+			elseif WarMenu.Button(sports[10]) then
+			
+				spawnVeh(target, sports[10])
+				showNote("Spawning: ~g~" .. sports[10])
+			
+			elseif WarMenu.Button(sports[11]) then
+			
+				spawnVeh(target, sports[11])
+				showNote("Spawning: ~g~" .. sports[11])
+			
+			elseif WarMenu.Button(sports[12]) then
+			
+				spawnVeh(target, sports[12])
+				showNote("Spawning: ~g~" .. sports[12])
+			
+			elseif WarMenu.Button(sports[13]) then
+			
+				spawnVeh(target, sports[13])
+				showNote("Spawning: ~g~" .. sports[13])
+			
+			elseif WarMenu.Button(sports[14]) then
+			
+				spawnVeh(target, sports[14])
+				showNote("Spawning: ~g~" .. sports[14])
+			
+			elseif WarMenu.Button(sports[15]) then
+			
+				spawnVeh(target, sports[15])
+				showNote("Spawning: ~g~" .. sports[15])
+			
+			elseif WarMenu.Button(sports[16]) then
+			
+				spawnVeh(target, sports[16])
+				showNote("Spawning: ~g~" .. sports[16])
+			
+			elseif WarMenu.Button(sports[17]) then
+			
+				spawnVeh(target, sports[17])
+				showNote("Spawning: ~g~" .. sports[17])
+			
+			elseif WarMenu.Button(sports[18]) then
+			
+				spawnVeh(target, sports[18])
+				showNote("Spawning: ~g~" .. sports[18])
+			
+			elseif WarMenu.Button(sports[19]) then
+			
+				spawnVeh(target, sports[19])
+				showNote("Spawning: ~g~" .. sports[19])
+			
+			elseif WarMenu.Button(sports[20]) then
+			
+				spawnVeh(target, sports[20])
+				showNote("Spawning: ~g~" .. sports[20])
+			
+			elseif WarMenu.Button(sports[21]) then
+			
+				spawnVeh(target, sports[21])
+				showNote("Spawning: ~g~" .. sports[21])
+			
+			elseif WarMenu.Button(sports[22]) then
+			
+				spawnVeh(target, sports[22])
+				showNote("Spawning: ~g~" .. sports[22])
+			
+			elseif WarMenu.Button(sports[23]) then
+			
+				spawnVeh(target, sports[23])
+				showNote("Spawning: ~g~" .. sports[23])
+			
+			elseif WarMenu.Button(sports[24]) then
+			
+				spawnVeh(target, sports[24])
+				showNote("Spawning: ~g~" .. sports[24])
+			
+			elseif WarMenu.Button(sports[25]) then
+			
+				spawnVeh(target, sports[25])
+				showNote("Spawning: ~g~" .. sports[25])
+			
+			elseif WarMenu.Button(sports[26]) then
+			
+				spawnVeh(target, sports[26])
+				showNote("Spawning: ~g~" .. sports[26])
+			
+			elseif WarMenu.Button(sports[27]) then
+			
+				spawnVeh(target, sports[27])
+				showNote("Spawning: ~g~" .. sports[27])
+			
+			elseif WarMenu.Button(sports[28]) then
+			
+				spawnVeh(target, sports[28])
+				showNote("Spawning: ~g~" .. sports[28])
+			
+			elseif WarMenu.Button(sports[29]) then
+			
+				spawnVeh(target, sports[29])
+				showNote("Spawning: ~g~" .. sports[29])
+			
+			elseif WarMenu.Button(sports[30]) then
+			
+				spawnVeh(target, sports[30])
+				showNote("Spawning: ~g~" .. sports[30])
+			
+			elseif WarMenu.Button(sports[31]) then
+			
+				spawnVeh(target, sports[31])
+				showNote("Spawning: ~g~" .. sports[31])
+			
+			elseif WarMenu.Button(sports[32]) then
+			
+				spawnVeh(target, sports[32])
+				showNote("Spawning: ~g~" .. sports[32])
+			
+			elseif WarMenu.Button(sports[33]) then
+			
+				spawnVeh(target, sports[33])
+				showNote("Spawning: ~g~" .. sports[33])
+			
+			elseif WarMenu.Button(sports[34]) then
+			
+				spawnVeh(target, sports[34])
+				showNote("Spawning: ~g~" .. sports[34])
+			
+			elseif WarMenu.Button(sports[35]) then
+			
+				spawnVeh(target, sports[35])
+				showNote("Spawning: ~g~" .. sports[35])
+			
+			elseif WarMenu.Button(sports[36]) then
+			
+				spawnVeh(target, sports[36])
+				showNote("Spawning: ~g~" .. sports[36])
+			
+			elseif WarMenu.Button(sports[37]) then
+			
+				spawnVeh(target, sports[37])
+				showNote("Spawning: ~g~" .. sports[37])
+			
+			elseif WarMenu.Button(sports[38]) then
+			
+				spawnVeh(target, sports[38])
+				showNote("Spawning: ~g~" .. sports[38])
+			
+			end
+			
+			WarMenu.Display()
+		
+		--SPORTS CLASSIC MENU
+		
+		elseif WarMenu.IsMenuOpened("Sports Classic") then
+			
+			if WarMenu.Button(sportsClassic[1]) then
+			
+				spawnVeh(target, sportsClassic[1])
+				showNote("Spawning: ~g~" .. sportsClassic[1])
+			
+			elseif WarMenu.Button(sportsClassic[2]) then
+			
+				spawnVeh(target, sportsClassic[2])
+				showNote("Spawning: ~g~" .. sportsClassic[2])
+			
+			elseif WarMenu.Button(sportsClassic[3]) then
+			
+				spawnVeh(target, sportsClassic[3])
+				showNote("Spawning: ~g~" .. sportsClassic[3])
+			
+			elseif WarMenu.Button(sportsClassic[4]) then
+			
+				spawnVeh(target, sportsClassic[4])
+				showNote("Spawning: ~g~" .. sportsClassic[4])
+			
+			elseif WarMenu.Button(sportsClassic[5]) then
+			
+				spawnVeh(target, sportsClassic[5])
+				showNote("Spawning: ~g~" .. sportsClassic[5])
+			
+			elseif WarMenu.Button(sportsClassic[6]) then
+			
+				spawnVeh(target, sportsClassic[6])
+				showNote("Spawning: ~g~" .. sportsClassic[6])
+			
+			elseif WarMenu.Button(sportsClassic[7]) then
+			
+				spawnVeh(target, sportsClassic[7])
+				showNote("Spawning: ~g~" .. sportsClassic[7])
+			
+			elseif WarMenu.Button(sportsClassic[8]) then
+			
+				spawnVeh(target, sportsClassic[8])
+				showNote("Spawning: ~g~" .. sportsClassic[8])
+			
+			elseif WarMenu.Button(sportsClassic[9]) then
+			
+				spawnVeh(target, sportsClassic[9])
+				showNote("Spawning: ~g~" .. sportsClassic[9])
+			
+			elseif WarMenu.Button(sportsClassic[10]) then
+			
+				spawnVeh(target, sportsClassic[10])
+				showNote("Spawning: ~g~" .. sportsClassic[10])
+			
+			elseif WarMenu.Button(sportsClassic[11]) then
+			
+				spawnVeh(target, sportsClassic[11])
+				showNote("Spawning: ~g~" .. sportsClassic[11])
+			
+			elseif WarMenu.Button(sportsClassic[12]) then
+			
+				spawnVeh(target, sportsClassic[12])
+				showNote("Spawning: ~g~" .. sportsClassic[12])
+			
+			elseif WarMenu.Button(sportsClassic[13]) then
+			
+				spawnVeh(target, sportsClassic[13])
+				showNote("Spawning: ~g~" .. sportsClassic[13])
+			
+			elseif WarMenu.Button(sportsClassic[14]) then
+			
+				spawnVeh(target, sportsClassic[14])
+				showNote("Spawning: ~g~" .. sportsClassic[14])
+			
+			elseif WarMenu.Button(sportsClassic[15]) then
+			
+				spawnVeh(target, sportsClassic[15])
+				showNote("Spawning: ~g~" .. sportsClassic[15])
+			
+			elseif WarMenu.Button(sportsClassic[16]) then
+			
+				spawnVeh(target, sportsClassic[16])
+				showNote("Spawning: ~g~" .. sportsClassic[16])
+			
+			elseif WarMenu.Button(sportsClassic[17]) then
+			
+				spawnVeh(target, sportsClassic[17])
+				showNote("Spawning: ~g~" .. sportsClassic[17])
+			
+			elseif WarMenu.Button(sportsClassic[18]) then
+			
+				spawnVeh(target, sportsClassic[18])
+				showNote("Spawning: ~g~" .. sportsClassic[18])
+			
+			elseif WarMenu.Button(sportsClassic[19]) then
+			
+				spawnVeh(target, sportsClassic[19])
+				showNote("Spawning: ~g~" .. sportsClassic[19])
+			
+			end
+			
+			WarMenu.Display()
+		
+		--MOTORCYCLE MENU
+		
+		elseif WarMenu.IsMenuOpened("Motorcycle") then
+			
+			if WarMenu.Button(motorcycle[1]) then
+			
+				spawnVeh(target, motorcycle[1])
+				showNote("Spawning: ~g~" .. motorcycle[1])
+			
+			elseif WarMenu.Button(motorcycle[2]) then
+			
+				spawnVeh(target, motorcycle[2])
+				showNote("Spawning: ~g~" .. motorcycle[2])
+			
+			elseif WarMenu.Button(motorcycle[3]) then
+			
+				spawnVeh(target, motorcycle[3])
+				showNote("Spawning: ~g~" .. motorcycle[3])
+			
+			elseif WarMenu.Button(motorcycle[4]) then
+			
+				spawnVeh(target, motorcycle[4])
+				showNote("Spawning: ~g~" .. motorcycle[4])
+			
+			elseif WarMenu.Button(motorcycle[5]) then
+			
+				spawnVeh(target, motorcycle[5])
+				showNote("Spawning: ~g~" .. motorcycle[5])
+			
+			elseif WarMenu.Button(motorcycle[6]) then
+			
+				spawnVeh(target, motorcycle[6])
+				showNote("Spawning: ~g~" .. motorcycle[6])
+			
+			elseif WarMenu.Button(motorcycle[7]) then
+			
+				spawnVeh(target, motorcycle[7])
+				showNote("Spawning: ~g~" .. motorcycle[7])
+			
+			elseif WarMenu.Button(motorcycle[8]) then
+			
+				spawnVeh(target, motorcycle[8])
+				showNote("Spawning: ~g~" .. motorcycle[8])
+			
+			elseif WarMenu.Button(motorcycle[9]) then
+			
+				spawnVeh(target, motorcycle[9])
+				showNote("Spawning: ~g~" .. motorcycle[9])
+			
+			elseif WarMenu.Button(motorcycle[10]) then
+			
+				spawnVeh(target, motorcycle[10])
+				showNote("Spawning: ~g~" .. motorcycle[10])
+			
+			elseif WarMenu.Button(motorcycle[11]) then
+			
+				spawnVeh(target, motorcycle[11])
+				showNote("Spawning: ~g~" .. motorcycle[11])
+			
+			elseif WarMenu.Button(motorcycle[12]) then
+			
+				spawnVeh(target, motorcycle[12])
+				showNote("Spawning: ~g~" .. motorcycle[12])
+			
+			elseif WarMenu.Button(motorcycle[13]) then
+			
+				spawnVeh(target, motorcycle[13])
+				showNote("Spawning: ~g~" .. motorcycle[13])
+			
+			elseif WarMenu.Button(motorcycle[14]) then
+			
+				spawnVeh(target, motorcycle[14])
+				showNote("Spawning: ~g~" .. motorcycle[14])
+			
+			elseif WarMenu.Button(motorcycle[15]) then
+			
+				spawnVeh(target, motorcycle[15])
+				showNote("Spawning: ~g~" .. motorcycle[15])
+			
+			elseif WarMenu.Button(motorcycle[16]) then
+			
+				spawnVeh(target, motorcycle[16])
+				showNote("Spawning: ~g~" .. motorcycle[16])
+			
+			elseif WarMenu.Button(motorcycle[17]) then
+			
+				spawnVeh(target, motorcycle[17])
+				showNote("Spawning: ~g~" .. motorcycle[17])
+			
+			elseif WarMenu.Button(motorcycle[18]) then
+			
+				spawnVeh(target, motorcycle[18])
+				showNote("Spawning: ~g~" .. motorcycle[18])
+			
+			elseif WarMenu.Button(motorcycle[19]) then
+			
+				spawnVeh(target, motorcycle[19])
+				showNote("Spawning: ~g~" .. motorcycle[19])
+			
+			elseif WarMenu.Button(motorcycle[20]) then
+			
+				spawnVeh(target, motorcycle[20])
+				showNote("Spawning: ~g~" .. motorcycle[20])
+			
+			elseif WarMenu.Button(motorcycle[21]) then
+			
+				spawnVeh(target, motorcycle[21])
+				showNote("Spawning: ~g~" .. motorcycle[21])
+			
+			elseif WarMenu.Button(motorcycle[22]) then
+			
+				spawnVeh(target, motorcycle[22])
+				showNote("Spawning: ~g~" .. motorcycle[22])
+			
+			elseif WarMenu.Button(motorcycle[23]) then
+			
+				spawnVeh(target, motorcycle[23])
+				showNote("Spawning: ~g~" .. motorcycle[23])
+			
+			elseif WarMenu.Button(motorcycle[24]) then
+			
+				spawnVeh(target, motorcycle[24])
+				showNote("Spawning: ~g~" .. motorcycle[24])
+			
+			elseif WarMenu.Button(motorcycle[25]) then
+			
+				spawnVeh(target, motorcycle[25])
+				showNote("Spawning: ~g~" .. motorcycle[25])
+			
+			elseif WarMenu.Button(motorcycle[26]) then
+			
+				spawnVeh(target, motorcycle[26])
+				showNote("Spawning: ~g~" .. motorcycle[26])
+			
+			elseif WarMenu.Button(motorcycle[27]) then
+			
+				spawnVeh(target, motorcycle[27])
+				showNote("Spawning: ~g~" .. motorcycle[27])
+			
+			elseif WarMenu.Button(motorcycle[28]) then
+			
+				spawnVeh(target, motorcycle[28])
+				showNote("Spawning: ~g~" .. motorcycle[28])
+			
+			elseif WarMenu.Button(motorcycle[29]) then
+			
+				spawnVeh(target, motorcycle[29])
+				showNote("Spawning: ~g~" .. motorcycle[29])
+			
+			elseif WarMenu.Button(motorcycle[30]) then
+			
+				spawnVeh(target, motorcycle[30])
+				showNote("Spawning: ~g~" .. motorcycle[30])
+			
+			elseif WarMenu.Button(motorcycle[31]) then
+			
+				spawnVeh(target, motorcycle[31])
+				showNote("Spawning: ~g~" .. motorcycle[31])
+			
+			elseif WarMenu.Button(motorcycle[32]) then
+			
+				spawnVeh(target, motorcycle[32])
+				showNote("Spawning: ~g~" .. motorcycle[32])
+			
+			elseif WarMenu.Button(motorcycle[33]) then
+			
+				spawnVeh(target, motorcycle[33])
+				showNote("Spawning: ~g~" .. motorcycle[33])
+			
+			elseif WarMenu.Button(motorcycle[34]) then
+			
+				spawnVeh(target, motorcycle[34])
+				showNote("Spawning: ~g~" .. motorcycle[34])
+			
+			elseif WarMenu.Button(motorcycle[35]) then
+			
+				spawnVeh(target, motorcycle[35])
+				showNote("Spawning: ~g~" .. motorcycle[35])
+			
+			elseif WarMenu.Button(motorcycle[36]) then
+			
+				spawnVeh(target, motorcycle[36])
+				showNote("Spawning: ~g~" .. motorcycle[36])
+			
+			elseif WarMenu.Button(motorcycle[37]) then
+			
+				spawnVeh(target, motorcycle[37])
+				showNote("Spawning: ~g~" .. motorcycle[37])
+			
+			elseif WarMenu.Button(motorcycle[38]) then
+			
+				spawnVeh(target, motorcycle[38])
+				showNote("Spawning: ~g~" .. motorcycle[38])
+			
+			elseif WarMenu.Button(motorcycle[39]) then
+			
+				spawnVeh(target, motorcycle[39])
+				showNote("Spawning: ~g~" .. motorcycle[39])
+			
+			elseif WarMenu.Button(motorcycle[40]) then
+			
+				spawnVeh(target, motorcycle[40])
+				showNote("Spawning: ~g~" .. motorcycle[40])
+			
+			elseif WarMenu.Button(motorcycle[41]) then
+			
+				spawnVeh(target, motorcycle[41])
+				showNote("Spawning: ~g~" .. motorcycle[41])
+			
+			elseif WarMenu.Button(motorcycle[42]) then
+			
+				spawnVeh(target, motorcycle[42])
+				showNote("Spawning: ~g~" .. motorcycle[42])
+			
+			end
+			
+			WarMenu.Display()
+		
+		--COUPE MENU
+		
+		elseif WarMenu.IsMenuOpened("Coupe") then
+			
+			if WarMenu.Button(coupe[1]) then
+			
+				spawnVeh(target, coupe[1])
+				showNote("Spawning: ~g~" .. coupe[1])
+			
+			elseif WarMenu.Button(coupe[2]) then
+			
+				spawnVeh(target, coupe[2])
+				showNote("Spawning: ~g~" .. coupe[2])
+			
+			elseif WarMenu.Button(coupe[3]) then
+			
+				spawnVeh(target, coupe[3])
+				showNote("Spawning: ~g~" .. coupe[3])
+			
+			elseif WarMenu.Button(coupe[4]) then
+			
+				spawnVeh(target, coupe[4])
+				showNote("Spawning: ~g~" .. coupe[4])
+			
+			elseif WarMenu.Button(coupe[5]) then
+			
+				spawnVeh(target, coupe[5])
+				showNote("Spawning: ~g~" .. coupe[5])
+			
+			elseif WarMenu.Button(coupe[6]) then
+			
+				spawnVeh(target, coupe[6])
+				showNote("Spawning: ~g~" .. coupe[6])
+			
+			elseif WarMenu.Button(coupe[7]) then
+			
+				spawnVeh(target, coupe[7])
+				showNote("Spawning: ~g~" .. coupe[7])
+			
+			elseif WarMenu.Button(coupe[8]) then
+			
+				spawnVeh(target, coupe[8])
+				showNote("Spawning: ~g~" .. coupe[8])
+			
+			elseif WarMenu.Button(coupe[9]) then
+			
+				spawnVeh(target, coupe[9])
+				showNote("Spawning: ~g~" .. coupe[9])
+			
+			elseif WarMenu.Button(coupe[10]) then
+			
+				spawnVeh(target, coupe[10])
+				showNote("Spawning: ~g~" .. coupe[10])
+			
+			elseif WarMenu.Button(coupe[11]) then
+			
+				spawnVeh(target, coupe[11])
+				showNote("Spawning: ~g~" .. coupe[11])
+			
+			elseif WarMenu.Button(coupe[12]) then
+			
+				spawnVeh(target, coupe[12])
+				showNote("Spawning: ~g~" .. coupe[12])
+			
+			elseif WarMenu.Button(coupe[13]) then
+			
+				spawnVeh(target, coupe[13])
+				showNote("Spawning: ~g~" .. coupe[13])
+			
+			elseif WarMenu.Button(coupe[14]) then
+			
+				spawnVeh(target, coupe[14])
+				showNote("Spawning: ~g~" .. coupe[14])
+			
+			end
+			
+			WarMenu.Display()
+		
+		--COMPACT MENU
+		
+		elseif WarMenu.IsMenuOpened("Compact") then
+		
+			if WarMenu.Button(compact[1]) then
+			
+				spawnVeh(target, compact[1])
+				showNote("Spawning: ~g~" .. compact[1])
+			
+			elseif WarMenu.Button(compact[2]) then
+			
+				spawnVeh(target, compact[2])
+				showNote("Spawning: ~g~" .. compact[2])
+			
+			elseif WarMenu.Button(compact[3]) then
+			
+				spawnVeh(target, compact[3])
+				showNote("Spawning: ~g~" .. compact[3])
+			
+			elseif WarMenu.Button(compact[4]) then
+			
+				spawnVeh(target, compact[4])
+				showNote("Spawning: ~g~" .. compact[4])
+			
+			elseif WarMenu.Button(compact[5]) then
+			
+				spawnVeh(target, compact[5])
+				showNote("Spawning: ~g~" .. compact[5])
+			
+			elseif WarMenu.Button(compact[6]) then
+			
+				spawnVeh(target, compact[6])
+				showNote("Spawning: ~g~" .. compact[6])
+			
+			elseif WarMenu.Button(compact[7]) then
+			
+				spawnVeh(target, compact[7])
+				showNote("Spawning: ~g~" .. compact[7])
+			
+			elseif WarMenu.Button(compact[8]) then
+			
+				spawnVeh(target, compact[8])
+				showNote("Spawning: ~g~" .. compact[8])
+			
+			end
+			
+			WarMenu.Display()
+			
+		
+		--SEDAN MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Sedan") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--CYCLE MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Cycle") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--OFF ROAD MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Off Road") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--SUV MENU
+		
+		-- elseif WarMenu.IsMenuOpened("SUV") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--HELICOPTER MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Helicopter") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--PLANE MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Plane") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--EMERGENCY MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Emergency") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--SERVICE MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Service") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--MILITARY MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Military") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--COMMERCIAL MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Commercial") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--VAN MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Van") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--INDUSTRIAL MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Industrial") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--BOAT MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Boat") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--RAIL MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Rail") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--UTILITY MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Utility") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
+		--MUSCLE MENU
+		
+		-- elseif WarMenu.IsMenuOpened("Muscle") then
+			
+			-- if WarMenu.Button(sports[1]) then
+			
+				-- spawnVeh(target, sports[1])
+				-- showNote("Spawning: ~g~" .. sports[1])
+			
+			-- elseif WarMenu.Button(sports[2]) then
+			
+				-- spawnVeh(target, sports[2])
+				-- showNote("Spawning: ~g~" .. sports[2])
+			
+			-- end
+			
+			-- WarMenu.Display()
+		
 		-- OPEN MENU
 		
 		elseif IsControlJustReleased(0, 244) then
@@ -642,8 +1811,6 @@ end)
 --DRAW_MARKER
 
 --GetPlayersLastVehicle()
-
---CreateVehicle
 
 --SetPedCoordsKeepVehicle
 
