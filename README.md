@@ -1,2 +1,2 @@
 # PressM
-FiveM code snippets
+FiveM AIO admin script (w/ GUI)
