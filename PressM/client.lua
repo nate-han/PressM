@@ -72,40 +72,40 @@ end
 
 Citizen.CreateThread(function()
 
-	local pistols = {"WEAPON_APPISTOL", "WEAPON_COMBATPISTOL", "WEAPON_FLAREGUN", "WEAPON_HEAVYPISTOL", "WEAPON_MARKSMANPISTOL", "WEAPON_PISTOL", "WEAPON_PISTOL50", "WEAPON_REVOLVER", "WEAPON_SNSPISTOL", "WEAPON_STUNGUN", "WEAPON_VINTAGEPISTOL"}
-	local smgs = {"WEAPON_ASSAULTSMG", "WEAPON_COMBATPDW", "WEAPON_MACHINEPISTOL", "WEAPON_MICROSMG", "WEAPON_MINISMG", "WEAPON_SMG"}
-	local rifles = {"WEAPON_ASSAULTRIFLE", "WEAPON_CARBINERIFLE", "WEAPON_ADVANCEDRIFLE", "WEAPON_SPECIALCARBINE", "WEAPON_COMPACTRIFLE", "WEAPON_BULLPUPRIFLE", "WEAPON_MUSKET"}
-	local machineGuns = {"WEAPON_MG", "WEAPON_COMBATMG", "WEAPON_GUSENBERG"}
-	local shotguns = {"WEAPON_PUMPSHOTGUN", "WEAPON_SAWNOFFSHOTGUN", "WEAPON_ASSAULTSHOTGUN", "WEAPON_BULLPUPSHOTGUN", "WEAPON_HEAVYSHOTGUN", "WEAPON_DBSHOTGUN", "WEAPON_AUTOSHOTGUN"}
-	local snipers = {"WEAPON_SNIPERRIFLE", "WEAPON_HEAVYSNIPER", "WEAPON_MARKSMANRIFLE"}
-	local launchers = {"WEAPON_GRENADELAUNCHER", "WEAPON_RPG", "WEAPON_FIREWORK", "WEAPON_HOMINGLAUNCHER", "WEAPON_COMPACTLAUNCHER"}
-	local thrown = {"WEAPON_GRENADE", "WEAPON_STICKYBOMB", "WEAPON_SMOKEGRENADE", "WEAPON_BZGAS", "WEAPON_MOLOTOV", "WEAPON_BALL", "WEAPON_FLARE", "WEAPON_PROXMINE", "WEAPON_PIPEBOMB", "WEAPON_SNOWBALL"}
-	local melee = {"WEAPON_KNIFE", "WEAPON_NIGHTSTICK", "WEAPON_HAMMER", "WEAPON_BAT", "WEAPON_GOLFCLUB", "WEAPON_CROWBAR", "WEAPON_PETROLCAN", "WEAPON_FIREEXTINGUISHER", "WEAPON_BOTTLE", "WEAPON_DAGGER", "WEAPON_KNUCKLE", "WEAPON_SWITCHBLADE", "WEAPON_BATTLEAXE", "WEAPON_POOLCUE", "WEAPON_WRENCH"}
+	local pistols = {"WEAPON_APPISTOL","WEAPON_COMBATPISTOL","WEAPON_FLAREGUN","WEAPON_HEAVYPISTOL","WEAPON_MARKSMANPISTOL","WEAPON_PISTOL","WEAPON_PISTOL50","WEAPON_REVOLVER","WEAPON_SNSPISTOL","WEAPON_STUNGUN","WEAPON_VINTAGEPISTOL"}
+	local smgs = {"WEAPON_ASSAULTSMG","WEAPON_COMBATPDW","WEAPON_MACHINEPISTOL","WEAPON_MICROSMG","WEAPON_MINISMG","WEAPON_SMG"}
+	local rifles = {"WEAPON_ADVANCEDRIFLE","WEAPON_ASSAULTRIFLE","WEAPON_BULLPUPRIFLE","WEAPON_CARBINERIFLE","WEAPON_COMPACTRIFLE","WEAPON_MUSKET","WEAPON_SPECIALCARBINE"}
+	local machineGuns = {"WEAPON_COMBATMG","WEAPON_GUSENBERG","WEAPON_MG"}
+	local shotguns = {"WEAPON_ASSAULTSHOTGUN","WEAPON_AUTOSHOTGUN","WEAPON_BULLPUPSHOTGUN","WEAPON_DBSHOTGUN","WEAPON_HEAVYSHOTGUN","WEAPON_PUMPSHOTGUN","WEAPON_SAWNOFFSHOTGUN"}
+	local snipers = {"WEAPON_HEAVYSNIPER","WEAPON_MARKSMANRIFLE","WEAPON_SNIPERRIFLE"}
+	local launchers = {"WEAPON_COMPACTLAUNCHER","WEAPON_FIREWORK","WEAPON_GRENADELAUNCHER","WEAPON_HOMINGLAUNCHER","WEAPON_RPG"}
+	local thrown = {"WEAPON_BALL","WEAPON_BZGAS","WEAPON_FLARE","WEAPON_GRENADE","WEAPON_MOLOTOV","WEAPON_PIPEBOMB","WEAPON_PROXMINE","WEAPON_SMOKEGRENADE","WEAPON_SNOWBALL","WEAPON_STICKYBOMB"}
+	local melee = {"WEAPON_BAT","WEAPON_BATTLEAXE","WEAPON_BOTTLE","WEAPON_CROWBAR","WEAPON_DAGGER","WEAPON_FIREEXTINGUISHER","WEAPON_GOLFCLUB","WEAPON_HAMMER","WEAPON_KNIFE","WEAPON_KNUCKLE","WEAPON_NIGHTSTICK","WEAPON_PETROLCAN","WEAPON_POOLCUE","WEAPON_SWITCHBLADE","WEAPON_WRENCH"}
 	local gadgets = {"GADGET_PARACHUTE", "GADGET_NIGHTVISION"}
 	local op = {"WEAPON_MINIGUN", "WEAPON_RAILGUN"}
 	
-	local super = {"sultanrs", "banshee2", "fmj", "pfister811", "prototipo", "reaper", "tyrus", "sheava", "le7b", "turismor", "zentorno", "bullet", "cheetah", "entityxf", "infernus", "adder", "voltic", "vacca", "osiris", "t20"}
-	local sports = {"verlierer2", "schafter3", "schafter4", "seven70", "bestiagts", "lynx", "omnis", "tropos", "tampa2", "raptor", "jester", "alpha",  "massacro",  "buffalo3",  "blista2",  "blista3",  "furoregt",  "kuruma",  "kuruma2",  "ninef",  "ninef2",  "banshee",  "buffalo",  "buffalo2",  "carbonizzare",  "comet2",  "coquette",  "elegy2",  "feltzer2",  "fusilade",  "futo",  "khamelion",  "penumbra",  "rapidgt",  "rapidgt2",  "schwarzer",  "sultan",  "surano"}
-	local sedan = {"limo2", "schafter5", "schafter6", "cog55", "cog552", "cognoscenti", "cognoscenti2", "warrener", "glendale", "asea", "asea2", "asterope",  "emperor",  "emperor2",  "emperor3",  "fugitive",  "ingot",  "intruder",  "premier",  "primo",  "regina",  "romero",  "schafter2",  "stanier",  "stratum",  "superd",  "surge",  "tailgater",  "washington",  "stretch"}
-	local muscle = {"nightshade", "blade", "dukes", "dukes2", "dominator2", "gauntlet2", "stalion", "stalion2", "slamvan2", "buccaneer", "hotknife", "dominator", "gauntlet", "phoenix", "picador", "ratloader", "ruiner", "sabregt", "voodoo2", "vigero", "virgo", "coquette3", "chino", "faction3", "sabregt2", "slamvan3", "virgo2", "virgo3"}
-	local sportsClassic = {"mamba", "tornado6", "btype", "pigalle", "coquette2", "casco", "jb700", "manana", "monroe", "peyote", "stinger", "stingergt", "tornado", "tornado2", "tornado3", "tornado4", "ztype", "feltzer3", "tornado5"}
-	local utility = {"tanker2", "boattrailer", "armytanker", "armytrailer", "armytrailer2", "freighttrailer", "airtug", "caddy", "caddy2", "docktug", "forklift", "mower", "proptrailer", "ripley", "sadler", "sadler2", "scrap", "tractor", "tractor2", "tractor3", "graintrailer", "baletrailer", "towtruck", "towtruck2", "utillitruck", "utillitruck2", "utillitruck3", "docktrailer", "trailers", "trailers2", "trailers3", "tvtrailer", "raketrailer", "tanker", "trailerlogs", "tr2", "tr3", "tr4", "trflat", "trailersmall"}
-	local emergency = {"ambulance", "policet", "fbi", "fbi2", "firetruk", "lguard", "pbus", "police", "police4", "police2", "police3", "policeold1", "policeold2", "pranger", "riot", "sheriff", "sheriff2", "policeb"}
-	local compact = {"brioso", "rhapsody", "panto", "blista", "dilettante", "dilettante2", "issi2", "prairie",}
-	local service = {"brickade", "rallytruck", "trash2", "bus", "coach", "airbus", "rentalbus", "taxi", "trash", "tourbus"}
-	local military = {"barracks3", "barracks", "barracks2", "crusader", "rhino"}
-	local suv = {"baller3", "baller4", "baller5", "baller6", "xls", "xls2", "contender", "huntley", "baller", "baller2", "bjxl", "cavalcade", "cavalcade2", "gresley", "dubsta", "dubsta2", "fq2", "granger", "habanero", "landstalker", "mesa", "mesa2", "patriot", "radi",  "rocoto",  "seminole",  "serrano"}
-	local commercial = {"mule3", "benson", "biff", "hauler", "mule", "mule2", "packer", "phantom", "pounder", "stockade", "stockade3"}
-	local offRoad = {"trophytruck", "trophytruck2", "blazer4", "dubsta3", "monster", "marshall", "insurgent", "insurgent2", "technical", "bfinjection", "blazer", "blazer2", "blazer3", "bodhi2", "dune", "dune2", "dloader", "mesa3", "rancherxl", "rancherxl2", "rebel", "rebel2", "sandking", "sandking2", "brawler"}
-	local van = {"rumpo3", "youga2", "boxville4", "gburrito2", "bison", "bison2", "bison3", "boxville", "boxville2", "boxville3", "bobcatxl", "burrito", "burrito2", "burrito3", "burrito4", "burrito5", "gburrito", "camper", "journey", "minivan", "pony", "pony2", "rumpo", "rumpo2", "speedo", "speedo2", "surfer", "surfer2", "taco", "youga", "minivan2"}
-	local industrial = {"guardian", "bulldozer", "cutter", "dump", "rubble", "flatbed", "handler", "mixer", "mixer2", "tiptruck", "tiptruck2"}
-	local helicopter = {"cargobob4", "supervolito", "supervolito2", "valkyrie2", "volatus", "swift", "savage", "valkyrie", "annihilator", "buzzard", "buzzard2", "cargobob", "cargobob2", "cargobob3", "skylift", "polmav", "maverick", "frogger", "frogger2", "swift2"}
-	local plane = {"nimbus", "vestra", "miljet", "besra", "dodo", "blimp2", "velum2", "hydra", "velum2", "blimp", "cuban800", "duster", "stunt", "mammatus", "jet", "shamal", "luxor", "titan", "lazer", "cargoplane", "velum", "luxor2"}
-	local motorcycle = {"gargoyle", "cliffhanger", "bf400", "faggio3", "faggio", "vortex", "avarus", "sanctus", "hakuchou2", "nightblade", "chimera", "esskey", "wolfsbane", "zombiea", "zombieb", "defiler", "daemon2", "ratbike", "shotaro", "manchez", "thrust", "sovereign", "innovation", "hakuchou", "enduro", "lectro", "sanchez", "sanchez2", "akuma", "carbonrs", "bagger", "bati", "bati2", "ruffian", "daemon", "double", "pcj", "vader", "faggio2", "hexer", "nemesis", "vindicator"}
-	local rail = {"cablecar", "freightcar", "freight", "freightcont1", "freightcont2", "freightgrain", "tankercar", "metrotrain"}
-	local coupe = {"windsor2", "cogcabrio", "exemplar", "f620", "felon", "felon2", "Jackal", "oracle", "oracle2", "sentinel", "sentinel2", "zion",  "zion2",  "windsor"}
-	local cycle = {"scorcher", "tribike", "tribike2", "tribike3", "fixter", "cruiser", "BMX"}
-	local boat = {"toro2", "seashark3", "dinghy4", "tropic2", "speeder2", "tug", "submersible2", "dinghy3", "squalo", "marquis", "dinghy", "dinghy2", "jetmax", "predator", "tropic", "seashark", "seashark2", "submersible", "suntrap", "toro"}
+	local super = {"adder","banshee2","bullet","cheetah","entityxf","fmj","infernus","le7b","osiris","pfister811","prototipo","reaper","sheava","sultanrs","t20","turismor","tyrus","vacca","voltic","zentorno"}
+	local sports = {"alpha","banshee","bestiagts","blista2","blista3","buffalo","buffalo2","buffalo3","carbonizzare","comet2","coquette","elegy2","feltzer2","furoregt","fusilade","futo","jester","khamelion","kuruma","kuruma2","lynx","massacro","ninef","ninef2","omnis","penumbra","rapidgt","rapidgt2","raptor","schafter3","schafter4","schwarzer","seven70","sultan","surano","tampa2","tropos","verlierer2"}
+	local sedan = {"asea","asea2","asterope","cog55","cog552","cognoscenti","cognoscenti2","emperor","emperor2","emperor3","fugitive","glendale","ingot","intruder","limo2","premier","primo","regina","romero","schafter2","schafter5","schafter6","stanier","stratum","stretch","superd","surge","tailgater","warrener","washington"}
+	local muscle = {"blade","buccaneer","chino","coquette3","dominator","dominator2","dukes","dukes2","faction3","gauntlet","gauntlet2","hotknife","nightshade","phoenix","picador","ratloader","ruiner","sabregt","sabregt2","slamvan2","slamvan3","stalion","stalion2","vigero","virgo","virgo2","virgo3","voodoo2"}
+	local sportsClassic = {"btype","casco","coquette2","feltzer3","jb700","mamba","manana","monroe","peyote","pigalle","stinger","stingergt","tornado","tornado2","tornado3","tornado4","tornado5","tornado6","ztype"}
+	local utility = {"airtug","armytanker","armytrailer","armytrailer2","baletrailer","boattrailer","caddy","caddy2","docktrailer","docktug","forklift","freighttrailer","graintrailer","mower","proptrailer","raketrailer","ripley","sadler","sadler2","scrap","tanker","tanker2","towtruck","towtruck2","tr2","tr3","tr4","tractor","tractor2","tractor3","trailerlogs","trailers","trailers2","trailers3","trailersmall","trflat","tvtrailer","utillitruck","utillitruck2","utillitruck3"}
+	local emergency = {"ambulance","fbi","fbi2","firetruk","lguard","pbus","police","police2","police3","police4","policeb","policeold1","policeold2","policet","pranger","riot","sheriff","sheriff2"}
+	local compact = {"blista","brioso","dilettante","dilettante2","issi2","panto","prairie","rhapsody"}
+	local service = {"airbus","brickade","bus","coach","rallytruck","rentalbus","taxi","tourbus","trash","trash2"}
+	local military = {"barracks","barracks2","barracks3","crusader","rhino"}
+	local suv = {"baller","baller2","baller3","baller4","baller5","baller6","bjxl","cavalcade","cavalcade2","contender","dubsta","dubsta2","fq2","granger","gresley","habanero","huntley","landstalker","mesa","mesa2","patriot","radi","rocoto","seminole","serrano","xls","xls2"}
+	local commercial = {"benson","biff","hauler","mule","mule2","mule3","packer","phantom","pounder","stockade","stockade3"}
+	local offRoad = {"bfinjection","blazer","blazer2","blazer3","blazer4","bodhi2","brawler","dloader","dubsta3","dune","dune2","insurgent","insurgent2","marshall","mesa3","monster","rancherxl","rancherxl2","rebel","rebel2","sandking","sandking2","technical","trophytruck","trophytruck2"}
+	local van = {"bison","bison2","bison3","bobcatxl","boxville","boxville2","boxville3","boxville4","burrito","burrito2","burrito3","burrito4","burrito5","camper","gburrito","gburrito2","journey","minivan","minivan2","pony","pony2","rumpo","rumpo2","rumpo3","speedo","speedo2","surfer","surfer2","taco","youga","youga2"}
+	local industrial = {"bulldozer","cutter","dump","flatbed","guardian","handler","mixer","mixer2","rubble","tiptruck","tiptruck2"}
+	local helicopter = {"annihilator","buzzard","buzzard2","cargobob","cargobob2","cargobob3","cargobob4","frogger","frogger2","maverick","polmav","savage","skylift","supervolito","supervolito2","swift","swift2","valkyrie","valkyrie2","volatus"}
+	local plane = {"besra","blimp","blimp2","cargoplane","cuban800","dodo","duster","hydra","jet","lazer","luxor","luxor2","mammatus","miljet","nimbus","shamal","stunt","titan","velum","velum2","velum2","vestra"}
+	local motorcycle = {"akuma","avarus","bagger","bati","bati2","bf400","carbonrs","chimera","cliffhanger","daemon","daemon2","defiler","double","enduro","esskey","faggio","faggio2","faggio3","gargoyle","hakuchou","hakuchou2","hexer","innovation","lectro","manchez","nemesis","nightblade","pcj","ratbike","ruffian","sanchez","sanchez2","sanctus","shotaro","sovereign","thrust","vader","vindicator","vortex","wolfsbane","zombiea","zombieb"}
+	local rail = {"cablecar","freight","freightcar","freightcont1","freightcont2","freightgrain","metrotrain","tankercar"}
+	local coupe = {"Jackal","cogcabrio","exemplar","f620","felon","felon2","oracle","oracle2","sentinel","sentinel2","windsor","windsor2","zion","zion2"}
+	local cycle = {"BMX","cruiser","fixter","scorcher","tribike","tribike2","tribike3"}
+	local boat = {"dinghy","dinghy2","dinghy3","dinghy4","jetmax","marquis","predator","seashark","seashark2","seashark3","speeder2","squalo","submersible","submersible2","suntrap","toro","toro2","tropic","tropic2","tug"}
 	
     WarMenu.CreateMenu('PressM', 'PressM')
 	
