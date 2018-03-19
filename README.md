@@ -7,5 +7,6 @@ Implemented (so far):
 - Spawn Weapons
 - Spawn Vehicles
 - Toggle Invincibility
-- Set Wanted Level
 - Get Coordinates
+- Set Wanted Level
+- Change Weather
