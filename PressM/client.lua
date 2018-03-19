@@ -184,9 +184,9 @@ Citizen.CreateThread(function()
 				
 			elseif WarMenu.MenuButton('Set Invincibility', 'Invincibility') then
 				
-			elseif WarMenu.MenuButton(" Set Wanted Level", "Wanted") then
+			elseif WarMenu.MenuButton("Set Wanted Level", "Wanted") then
 			
-			elseif WarMenu.MenuButton(" Set Weather", "Weather") then
+			elseif WarMenu.MenuButton("Set Weather", "Weather") then
 			
 			elseif WarMenu.MenuButton("Spawn Vehicles", "Vehicles") then
 		
