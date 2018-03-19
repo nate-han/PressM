@@ -176,21 +176,21 @@ Citizen.CreateThread(function()
 		-- MAIN MENU
 	
 		if WarMenu.IsMenuOpened("PressM") then
-		
-			if WarMenu.MenuButton('Spawn Weapons', 'Weapons') then
-			
-			elseif WarMenu.MenuButton("Spawn Vehicles", "Vehicles") then
-			
-			elseif WarMenu.MenuButton('Set Invincibility', 'Invincibility') then
 				
-			elseif WarMenu.Button('Get Coordinates') then
+			if WarMenu.Button('Get Coordinates') then
 		
 				local x, y, z = getCoords(target)
 				showNote(x .. "~n~" .. y .. "~n~" .. z .. "~n~(also saved in F8)")
 				
+			elseif WarMenu.MenuButton('Set Invincibility', 'Invincibility') then
+				
 			elseif WarMenu.MenuButton(" Set Wanted Level", "Wanted") then
 			
 			elseif WarMenu.MenuButton(" Set Weather", "Weather") then
+			
+			elseif WarMenu.MenuButton("Spawn Vehicles", "Vehicles") then
+		
+			elseif WarMenu.MenuButton('Spawn Weapons', 'Weapons') then
 				
 			end
 			
@@ -278,30 +278,8 @@ Citizen.CreateThread(function()
 		-- WEAPONS MENU
 			
 		elseif WarMenu.IsMenuOpened("Weapons") then
-			
-			if WarMenu.MenuButton("Pistols", "Pistols") then
-				
-			elseif WarMenu.MenuButton("SMGs", "SMGs") then	
-			
-			elseif WarMenu.MenuButton("Rifles", "Rifles") then
-			
-			elseif WarMenu.MenuButton("Machine Guns", "Machine Guns") then
-			
-			elseif WarMenu.MenuButton("Shotguns", "Shotguns") then
-			
-			elseif WarMenu.MenuButton("Sniper Rifles", "Sniper Rifles") then
-			
-			elseif WarMenu.MenuButton("Launchers", "Launchers") then
-			
-			elseif WarMenu.MenuButton("Thrown", "Thrown") then
-			
-			elseif WarMenu.MenuButton("Melee", "Melee") then
-			
-			elseif WarMenu.MenuButton("Gadgets", "Gadgets") then
-			
-			elseif WarMenu.MenuButton("OP", "OP") then
-			
-			elseif WarMenu.Button("Full Loadout") then
+		
+			if WarMenu.Button("Full Loadout") then
 			
 				for i = 1, #pistols do
 				
@@ -368,6 +346,28 @@ Citizen.CreateThread(function()
 					giveWeapon(target, op[i], 100)
 					
 				end
+			
+			elseif WarMenu.MenuButton("Gadgets", "Gadgets") then
+			
+			elseif WarMenu.MenuButton("Launchers", "Launchers") then
+			
+			elseif WarMenu.MenuButton("Machine Guns", "Machine Guns") then
+			
+			elseif WarMenu.MenuButton("Melee", "Melee") then
+			
+			elseif WarMenu.MenuButton("OP", "OP") then
+			
+			elseif WarMenu.MenuButton("Rifles", "Rifles") then
+			
+			elseif WarMenu.MenuButton("SMGs", "SMGs") then	
+			
+			elseif WarMenu.MenuButton("Shotguns", "Shotguns") then
+			
+			elseif WarMenu.MenuButton("Sniper Rifles", "Sniper Rifles") then
+			
+			elseif WarMenu.MenuButton("Thrown", "Thrown") then
+			
+			elseif WarMenu.MenuButton("Pistols", "Pistols") then
 			
 			end
 				
@@ -782,51 +782,51 @@ Citizen.CreateThread(function()
 		-- VEHICLE MENU
 		
 		elseif WarMenu.IsMenuOpened("Vehicles") then
-			
-			if WarMenu.MenuButton("Super", "Super") then
-				
-			elseif WarMenu.MenuButton("Sports", "Sports") then
-			
-			elseif WarMenu.MenuButton("Sedan", "Sedan") then
-			
-			elseif WarMenu.MenuButton("Utility", "Utility") then
-			
-			elseif WarMenu.MenuButton("Emergency", "Emergency") then
-			
-			elseif WarMenu.MenuButton("Compact", "Compact") then
-			
-			elseif WarMenu.MenuButton("Service", "Service") then
-			
-			elseif WarMenu.MenuButton("Military", "Military") then
-			
-			elseif WarMenu.MenuButton("SUV", "SUV") then
+		
+			if WarMenu.MenuButton("Boat", "Boat") then
 			
 			elseif WarMenu.MenuButton("Commercial", "Commercial") then
 			
-			elseif WarMenu.MenuButton("Off Road", "Off Road") then
-			
-			elseif WarMenu.MenuButton("Van", "Van") then
-			
-			elseif WarMenu.MenuButton("Muscle", "Muscle") then
-			
-			elseif WarMenu.MenuButton("Industrial", "Industrial") then
-			
-			elseif WarMenu.MenuButton("Plane", "Plane") then
-			
-			elseif WarMenu.MenuButton("Helicopter", "Helicopter") then
-			
-			elseif WarMenu.MenuButton("Motorcycle", "Motorcycle") then
-			
-			elseif WarMenu.MenuButton("Rail", "Rail") then
+			elseif WarMenu.MenuButton("Compact", "Compact") then
 			
 			elseif WarMenu.MenuButton("Coupe", "Coupe") then
 			
-			elseif WarMenu.MenuButton("Sports Classic", "Sports Classic") then
-			
 			elseif WarMenu.MenuButton("Cycle", "Cycle") then
 			
-			elseif WarMenu.MenuButton("Boat", "Boat") then
+			elseif WarMenu.MenuButton("Emergency", "Emergency") then
 			
+			elseif WarMenu.MenuButton("Helicopter", "Helicopter") then
+			
+			elseif WarMenu.MenuButton("Industrial", "Industrial") then
+			
+			elseif WarMenu.MenuButton("Military", "Military") then
+			
+			elseif WarMenu.MenuButton("Motorcycle", "Motorcycle") then
+			
+			elseif WarMenu.MenuButton("Muscle", "Muscle") then
+			
+			elseif WarMenu.MenuButton("Off Road", "Off Road") then
+			
+			elseif WarMenu.MenuButton("Plane", "Plane") then
+			
+			elseif WarMenu.MenuButton("Rail", "Rail") then
+			
+			elseif WarMenu.MenuButton("Sedan", "Sedan") then
+			
+			elseif WarMenu.MenuButton("Service", "Service") then
+			
+			elseif WarMenu.MenuButton("SUV", "SUV") then
+			
+			elseif WarMenu.MenuButton("Super", "Super") then
+				
+			elseif WarMenu.MenuButton("Sports", "Sports") then
+			
+			elseif WarMenu.MenuButton("Sports Classic", "Sports Classic") then
+			
+			elseif WarMenu.MenuButton("Utility", "Utility") then
+
+			elseif WarMenu.MenuButton("Van", "Van") then
+
 			end
 			
 			WarMenu.Display()
