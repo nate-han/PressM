@@ -70,6 +70,17 @@ function spawnVeh(who, model)
 
 end
 
+function setWeather(weather)
+
+	ClearOverrideWeather()
+	ClearWeatherTypePersist()
+	SetWeatherTypePersist(weather)
+	SetWeatherTypeNow(weather)
+	SetWeatherTypeNowPersist(weather)
+	showNote("Setting Weather: ~g~" .. weather)
+
+end
+
 Citizen.CreateThread(function()
 
 	local pistols = {"WEAPON_APPISTOL","WEAPON_COMBATPISTOL","WEAPON_FLAREGUN","WEAPON_HEAVYPISTOL","WEAPON_MARKSMANPISTOL","WEAPON_PISTOL","WEAPON_PISTOL50","WEAPON_REVOLVER","WEAPON_SNSPISTOL","WEAPON_STUNGUN","WEAPON_VINTAGEPISTOL"}
@@ -107,11 +118,14 @@ Citizen.CreateThread(function()
 	local cycle = {"BMX","cruiser","fixter","scorcher","tribike","tribike2","tribike3"}
 	local boat = {"dinghy","dinghy2","dinghy3","dinghy4","jetmax","marquis","predator","seashark","seashark2","seashark3","speeder2","squalo","submersible","submersible2","suntrap","toro","toro2","tropic","tropic2","tug"}
 	
+	local weather = {"Random","BLIZZARD","CLEAR","CLEARING","CLOUDS","EXTRASUNNY","FOGGY","OVERCAST","RAIN","SMOG","SNOWLIGHT","THUNDER","XMAS"}
+	
     WarMenu.CreateMenu('PressM', 'PressM')
 	
 	-- SET STATE
 	WarMenu.CreateSubMenu('Invincibility', 'PressM', 'Set Invincibility')
 	WarMenu.CreateSubMenu('Wanted', 'PressM', 'Set Wanted Level')
+	WarMenu.CreateSubMenu('Weather', 'PressM', 'Set Weather')
 	
 	--WEAPONS
 	WarMenu.CreateSubMenu('Weapons', 'PressM', 'Choose Your Weapons')
@@ -175,6 +189,8 @@ Citizen.CreateThread(function()
 				showNote(x .. "~n~" .. y .. "~n~" .. z .. "~n~(also saved in F8)")
 				
 			elseif WarMenu.MenuButton(" Set Wanted Level", "Wanted") then
+			
+			elseif WarMenu.MenuButton(" Set Weather", "Weather") then
 				
 			end
 			
@@ -195,6 +211,69 @@ Citizen.CreateThread(function()
 			end
 			
 			WarMenu.Display()
+			
+		-- WEATHER MENU
+			
+		elseif WarMenu.IsMenuOpened("Weather") then
+				
+			if WarMenu.Button(weather[1]) then
+				
+				local i = math.random(2, 13)
+				
+				setWeather(weather[i])
+				
+			elseif WarMenu.Button(weather[2]) then
+			
+				setWeather(weather[2])
+				
+			elseif WarMenu.Button(weather[3]) then
+			
+				setWeather(weather[3])
+				
+			elseif WarMenu.Button(weather[4]) then
+			
+				setWeather(weather[4])
+				
+			elseif WarMenu.Button(weather[5]) then
+			
+				setWeather(weather[5])
+				
+			elseif WarMenu.Button(weather[6]) then
+			
+				setWeather(weather[6])
+				
+			elseif WarMenu.Button(weather[7]) then
+			
+				setWeather(weather[7])
+				
+			elseif WarMenu.Button(weather[8]) then
+			
+				setWeather(weather[8])
+				
+			elseif WarMenu.Button(weather[9]) then
+			
+				setWeather(weather[9])
+				
+			elseif WarMenu.Button(weather[10]) then
+			
+				setWeather(weather[10])
+				
+			elseif WarMenu.Button(weather[11]) then
+			
+				setWeather(weather[11])
+				
+			elseif WarMenu.Button(weather[12]) then
+			
+				setWeather(weather[12])
+				
+			elseif WarMenu.Button(weather[13]) then
+			
+				setWeather(weather[13])
+				
+			end
+			
+			WarMenu.Display()
+			
 			
 		-- WEAPONS MENU
 			
