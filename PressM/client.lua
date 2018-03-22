@@ -56,7 +56,7 @@ function spawnVeh(who, model)
 
 	local x, y, z = getCoords(who)
 	
-		RequestModel(model)
+	-- RequestModel(model)
 	
 	while not HasModelLoaded(model) do
 	
@@ -66,8 +66,46 @@ function spawnVeh(who, model)
 		
 	end
 	
-	CreateVehicle(model, x + 4, y + 4, z + 2, 0.0, true, false)
-
+	local veh = CreateVehicle(model, x + 4, y + 4, z + 2, 0.0, true, false)
+	
+	ToggleVehicleMod(veh, 18, true)
+	ToggleVehicleMod(veh, 22, true)
+	SetVehicleCanBeVisiblyDamaged(veh, true)
+	SetVehicleCanBreak(veh, true)
+	SetVehicleModKit(veh, 0)
+	
+	local total = 1
+	
+	-- while total < 19 do
+	
+		-- Citizen.Trace("LOOP:" .. total)
+		-- SetVehicleMod(veh, total, math.random(1, 3), true)
+		
+		-- total = total + 1
+		
+	-- end
+	
+	SetVehicleMod(veh, 0, math.random(0, 7), true)
+	SetVehicleMod(veh, 1, math.random(0, 7), true)
+	SetVehicleMod(veh, 2, math.random(0, 7), true)
+	SetVehicleMod(veh, 3, math.random(0, 7), true)
+	SetVehicleMod(veh, 4, math.random(0, 7), true)
+	SetVehicleMod(veh, 5, math.random(0, 7), true)
+	SetVehicleMod(veh, 6, math.random(0, 7), true)
+	SetVehicleMod(veh, 7, math.random(0, 7), true)
+	SetVehicleMod(veh, 8, math.random(0, 7), true)
+	SetVehicleMod(veh, 9, math.random(0, 7), true)
+	SetVehicleMod(veh, 10, math.random(0, 7), true)
+	SetVehicleMod(veh, 11, 3, true)
+	SetVehicleMod(veh, 12, 3, true)
+	SetVehicleMod(veh, 13, 3, true)
+	SetVehicleMod(veh, 14, math.random(0, 10), true)
+	SetVehicleMod(veh, 16, 3, true)
+	SetVehicleMod(veh, 23, math.random(0, 20), true)
+	--SetVehicleMod(veh, 22, math.random(0, 5), true)
+	--SetVehicleMod(veh, 0, math.random(0, 5), true)
+	
+	
 end
 
 function setWeather(weather)
@@ -78,6 +116,12 @@ function setWeather(weather)
 	SetWeatherTypeNow(weather)
 	SetWeatherTypeNowPersist(weather)
 	showNote("Setting Weather: ~g~" .. weather)
+
+end
+
+function setTime(hour)
+
+	AddToClockTime(hour, 00, 00)
 
 end
 
@@ -120,12 +164,15 @@ Citizen.CreateThread(function()
 	
 	local weather = {"Random","BLIZZARD","CLEAR","CLEARING","CLOUDS","EXTRASUNNY","FOGGY","OVERCAST","RAIN","SMOG","SNOWLIGHT","THUNDER","XMAS"}
 	
+	local hour = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"}
+	
     WarMenu.CreateMenu('PressM', 'PressM')
 	
 	-- SET STATE
 	WarMenu.CreateSubMenu('Invincibility', 'PressM', 'Set Invincibility')
 	WarMenu.CreateSubMenu('Wanted', 'PressM', 'Set Wanted Level')
 	WarMenu.CreateSubMenu('Weather', 'PressM', 'Set Weather')
+	WarMenu.CreateSubMenu('Time', 'PressM', 'Set Time')
 	
 	--WEAPONS
 	WarMenu.CreateSubMenu('Weapons', 'PressM', 'Choose Your Weapons')
@@ -143,8 +190,10 @@ Citizen.CreateThread(function()
 	WarMenu.CreateSubMenu('OP', 'Weapons', 'OP List')
 	
 	--VEHICLES
+	
 	WarMenu.CreateSubMenu('Vehicles', 'PressM', 'Choose Your Vehicles')
 	
+	WarMenu.CreateSubMenu('Gravity', 'Vehicles', 'Toggle Gravity')
 	WarMenu.CreateSubMenu('Super', 'Vehicles', 'Super List')
 	WarMenu.CreateSubMenu('Sports', 'Vehicles', 'Sports List')
 	WarMenu.CreateSubMenu('Sports Classic', 'Vehicles', 'Sports Classic List')
@@ -183,14 +232,120 @@ Citizen.CreateThread(function()
 				showNote(x .. "~n~" .. y .. "~n~" .. z .. "~n~(also saved in F8)")
 				
 			elseif WarMenu.MenuButton('Set Invincibility', 'Invincibility') then
+			
+			elseif WarMenu.MenuButton("Time", "Time") then
 				
-			elseif WarMenu.MenuButton("Set Wanted Level", "Wanted") then
+			elseif WarMenu.MenuButton("Wanted Level", "Wanted") then
 			
-			elseif WarMenu.MenuButton("Set Weather", "Weather") then
+			elseif WarMenu.MenuButton("Weather", "Weather") then
 			
-			elseif WarMenu.MenuButton("Spawn Vehicles", "Vehicles") then
+			elseif WarMenu.MenuButton("Vehicles", "Vehicles") then
 		
-			elseif WarMenu.MenuButton('Spawn Weapons', 'Weapons') then
+			elseif WarMenu.MenuButton('Weapons', 'Weapons') then
+				
+			end
+			
+			WarMenu.Display()
+			
+		-- TIME MENU
+		
+		elseif WarMenu.IsMenuOpened("Time") then
+				
+			if WarMenu.Button(hour[1] .. ":00") then
+		
+				setTime(hour[1])
+				
+			elseif WarMenu.Button(hour[2] .. ":00") then
+			
+				setTime(hour[2])
+				
+			elseif WarMenu.Button(hour[3] .. ":00") then
+			
+				setTime(hour[3])
+				
+			elseif WarMenu.Button(hour[4] .. ":00") then
+			
+				setTime(hour[4])
+				
+			elseif WarMenu.Button(hour[5] .. ":00") then
+			
+				setTime(hour[5])
+				
+			elseif WarMenu.Button(hour[6] .. ":00") then
+			
+				setTime(hour[6])
+				
+			elseif WarMenu.Button(hour[7] .. ":00") then
+			
+				setTime(hour[7])
+				
+			elseif WarMenu.Button(hour[8] .. ":00") then
+			
+				setTime(hour[8])
+				
+			elseif WarMenu.Button(hour[9] .. ":00") then
+			
+				setTime(hour[9])
+				
+			elseif WarMenu.Button(hour[10] .. ":00") then
+			
+				setTime(hour[10])
+				
+			elseif WarMenu.Button(hour[11] .. ":00") then
+			
+				setTime(hour[11])
+				
+			elseif WarMenu.Button(hour[12] .. ":00") then
+			
+				setTime(hour[12])
+				
+			elseif WarMenu.Button(hour[13] .. ":00") then
+			
+				setTime(hour[13])
+				
+			elseif WarMenu.Button(hour[14] .. ":00") then
+			
+				setTime(hour[14])
+				
+			elseif WarMenu.Button(hour[15] .. ":00") then
+			
+				setTime(hour[15])
+				
+			elseif WarMenu.Button(hour[16] .. ":00") then
+			
+				setTime(hour[16])
+				
+			elseif WarMenu.Button(hour[17] .. ":00") then
+			
+				setTime(hour[17])
+				
+			elseif WarMenu.Button(hour[18] .. ":00") then
+			
+				setTime(hour[18])
+				
+			elseif WarMenu.Button(hour[19] .. ":00") then
+			
+				setTime(hour[19])
+				
+			elseif WarMenu.Button(hour[20] .. ":00") then
+			
+				setTime(hour[20])
+				
+			elseif WarMenu.Button(hour[21] .. ":00") then
+			
+				setTime(hour[21])
+				
+			elseif WarMenu.Button(hour[22] .. ":00") then
+			
+				setTime(hour[22])
+				
+			elseif WarMenu.Button(hour[23] .. ":00") then
+			
+				setTime(hour[23])
+				
+			elseif WarMenu.Button(hour[24] .. ":00") then
+			
+				setTime(hour[24])
 				
 			end
 			
@@ -218,7 +373,7 @@ Citizen.CreateThread(function()
 				
 			if WarMenu.Button(weather[1]) then
 				
-				local i = math.random(2, 13)
+				local i = math.random(2, #weather)
 				
 				setWeather(weather[i])
 				
@@ -783,7 +938,21 @@ Citizen.CreateThread(function()
 		
 		elseif WarMenu.IsMenuOpened("Vehicles") then
 		
-			if WarMenu.MenuButton("Boat", "Boat") then
+			if WarMenu.Button("Repair Vehicle") then
+			
+				if IsPedInVehicle(target, GetVehiclePedIsIn(target), true) then
+				
+					SetVehicleFixed(GetVehiclePedIsIn(target))
+				
+				else
+				
+					showNote("You are not in a vehicle")
+					
+				end
+				
+			elseif WarMenu.MenuButton("Gravity", "Gravity") then
+		
+			elseif WarMenu.MenuButton("Boat", "Boat") then
 			
 			elseif WarMenu.MenuButton("Commercial", "Commercial") then
 			
@@ -831,7 +1000,23 @@ Citizen.CreateThread(function()
 			
 			WarMenu.Display()
 			
-		--SUPER MENU
+		--GRAVITY MENU
+		
+		elseif WarMenu.IsMenuOpened("Gravity") then
+		
+			if WarMenu.Button("On") then
+			
+				SetVehicleGravity(GetVehiclePedIsIn(target), true)
+			
+			elseif WarMenu.Button("Off", "DON'T DO IT!") then
+		
+				SetVehicleGravity(GetVehiclePedIsIn(target), false)
+				
+			end
+		
+			WarMenu.Display()
+		
+		-- SUPER MENU
 		
 		elseif WarMenu.IsMenuOpened("Super") then
 			
