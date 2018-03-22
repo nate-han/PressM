@@ -74,7 +74,7 @@ function spawnVeh(who, model)
 	SetVehicleCanBreak(veh, true)
 	SetVehicleModKit(veh, 0)
 	
-	local total = 1
+	-- local total = 1
 	
 	-- while total < 19 do
 	
@@ -97,15 +97,36 @@ function spawnVeh(who, model)
 	SetVehicleMod(veh, 9, math.random(0, 7), true)
 	SetVehicleMod(veh, 10, math.random(0, 7), true)
 	SetVehicleMod(veh, 11, 3, true)
-	SetVehicleMod(veh, 12, 3, true)
-	SetVehicleMod(veh, 13, 3, true)
-	SetVehicleMod(veh, 14, math.random(0, 10), true)
-	SetVehicleMod(veh, 16, 3, true)
+	SetVehicleMod(veh, 12, 2, true)
+	SetVehicleMod(veh, 13, 2, true)
+	SetVehicleMod(veh, 14, math.random(0, 34), true)
+	SetVehicleMod(veh, 14, 3, true)
+	SetVehicleMod(veh, 16, 4, true)
 	SetVehicleMod(veh, 23, math.random(0, 20), true)
-	--SetVehicleMod(veh, 22, math.random(0, 5), true)
-	--SetVehicleMod(veh, 0, math.random(0, 5), true)
+	SetVehicleMod(veh, 46, 2, true)
+	SetVehicleMod(veh, 62, math.random(0, 3), true)
 	
-	
+end
+
+function cosReroll(who)
+
+	local veh = GetVehiclePedIsIn(who)
+
+	SetVehicleMod(veh, 0, math.random(0, 7), true)
+	SetVehicleMod(veh, 1, math.random(0, 7), true)
+	SetVehicleMod(veh, 2, math.random(0, 7), true)
+	SetVehicleMod(veh, 3, math.random(0, 7), true)
+	SetVehicleMod(veh, 4, math.random(0, 7), true)
+	SetVehicleMod(veh, 5, math.random(0, 7), true)
+	SetVehicleMod(veh, 6, math.random(0, 7), true)
+	SetVehicleMod(veh, 7, math.random(0, 7), true)
+	SetVehicleMod(veh, 8, math.random(0, 7), true)
+	SetVehicleMod(veh, 9, math.random(0, 7), true)
+	SetVehicleMod(veh, 10, math.random(0, 7), true)
+	SetVehicleMod(veh, 14, math.random(0, 34), true)
+	SetVehicleMod(veh, 23, math.random(0, 20), true)
+	SetVehicleMod(veh, 62, math.random(0, 3), true)
+
 end
 
 function setWeather(weather)
@@ -943,6 +964,18 @@ Citizen.CreateThread(function()
 				if IsPedInVehicle(target, GetVehiclePedIsIn(target), true) then
 				
 					SetVehicleFixed(GetVehiclePedIsIn(target))
+				
+				else
+				
+					showNote("You are not in a vehicle")
+					
+				end
+				
+			elseif WarMenu.Button("Reroll Cosmetics") then
+			
+				if IsPedInVehicle(target, GetVehiclePedIsIn(target), true) then
+					
+					cosReroll(target)
 				
 				else
 				
@@ -3467,7 +3500,10 @@ Citizen.CreateThread(function()
 		
 		elseif IsControlJustReleased(0, 244) then
 		
+		
 			WarMenu.OpenMenu("PressM")
+			
+			--Citizen.Trace("yo: " .. target2 .. target)
 		
 		end
 		
