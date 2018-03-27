@@ -160,24 +160,24 @@ Citizen.CreateThread(function()
 	local gadgets = {"GADGET_PARACHUTE", "GADGET_NIGHTVISION"}
 	local op = {"WEAPON_MINIGUN", "WEAPON_RAILGUN"}
 	
-	local super = {"adder","banshee2","bullet","cheetah","entityxf","fmj","infernus","le7b","osiris","pfister811","prototipo","reaper","sheava","sultanrs","t20","turismor","tyrus","vacca","voltic","zentorno"}
-	local sports = {"alpha","banshee","bestiagts","blista2","blista3","buffalo","buffalo2","buffalo3","carbonizzare","comet2","coquette","elegy2","feltzer2","furoregt","fusilade","futo","jester","khamelion","kuruma","kuruma2","lynx","massacro","ninef","ninef2","omnis","penumbra","rapidgt","rapidgt2","raptor","schafter3","schafter4","schwarzer","seven70","sultan","surano","tampa2","tropos","verlierer2"}
-	local sedan = {"asea","asea2","asterope","cog55","cog552","cognoscenti","cognoscenti2","emperor","emperor2","emperor3","fugitive","glendale","ingot","intruder","limo2","premier","primo","regina","romero","schafter2","schafter5","schafter6","stanier","stratum","stretch","superd","surge","tailgater","warrener","washington"}
-	local muscle = {"blade","buccaneer","chino","coquette3","dominator","dominator2","dukes","dukes2","faction3","gauntlet","gauntlet2","hotknife","nightshade","phoenix","picador","ratloader","ruiner","sabregt","sabregt2","slamvan2","slamvan3","stalion","stalion2","vigero","virgo","virgo2","virgo3","voodoo2"}
-	local sportsClassic = {"btype","casco","coquette2","feltzer3","jb700","mamba","manana","monroe","peyote","pigalle","stinger","stingergt","tornado","tornado2","tornado3","tornado4","tornado5","tornado6","ztype"}
-	local utility = {"airtug","armytanker","armytrailer","armytrailer2","baletrailer","boattrailer","caddy","caddy2","docktrailer","docktug","forklift","freighttrailer","graintrailer","mower","proptrailer","raketrailer","ripley","sadler","sadler2","scrap","tanker","tanker2","towtruck","towtruck2","tr2","tr3","tr4","tractor","tractor2","tractor3","trailerlogs","trailers","trailers2","trailers3","trailersmall","trflat","tvtrailer","utillitruck","utillitruck2","utillitruck3"}
+	local super = {"adder","autarch","banshee2","bullet","cheetah","cyclone","entityxf","fmj", "gp1","italigtb","italigtb2","infernus","le7b","nero","nero2","osiris","penetrator","pfister811","prototipo","reaper","sc1","sheava","sultanrs","t20","tempesta","turismo2","tyrus","vacca","vagner","vigilante","visione","voltic","voltic2","xa21","zentorno"}
+	local sports = {"alpha","banshee","bestiagts","blista2","blista3","buffalo","buffalo2","buffalo3","carbonizzare","comet2","comet4","comet5","coquette","elegy","elegy2","feltzer2","furoregt","fusilade","futo","jester","khamelion","kuruma","kuruma2","lynx","massacro","neon","ninef","ninef2","omnis","pariah","penumbra","rapidgt","rapidgt2","rapidgt3","raptor","revolter","ruston","schafter3","schafter4","schwarzer","seven70","specter","specter2","sultan","surano","tampa2","tampa3","tropos","verlierer2"}
+	local sedan = {"asea","asea2","asterope","cog55","cog552","cognoscenti","cognoscenti2","emperor","emperor2","emperor3","fugitive","glendale","ingot","intruder","limo2","premier","primo","raiden","regina","romero","schafter2","schafter5","schafter6","stanier","stratum","stretch","superd","surge","tailgater","warrener","washington"}
+	local muscle = {"blade","buccaneer","chino","coquette3","dominator","dominator2","dukes","dukes2","faction3","gauntlet","gauntlet2","hotknife","nightshade","phoenix","picador","ratloader","ruiner","ruiner2","ruiner3","sabregt","sabregt2","slamvan2","slamvan3","stalion","stalion2","vigero","virgo","virgo2","virgo3","voodoo2","yosemite"}
+	local sportsClassic = {"ardent","btype","casco","cheetah2","coquette2","feltzer3","deluxo","gt500","hermes","hustler","infernus2","jb700","mamba","manana","monroe","peyote","pigalle","sentinel3","stinger","stingergt","stromberg","torero","tornado","tornado2","tornado3","tornado4","tornado5","tornado6","turismor","viseris","z190","ztype"}
+	local utility = {"airtug","armytanker","armytrailer","armytrailer2","baletrailer","blazer5","boattrailer","caddy","caddy2","caddy3","docktrailer","docktug","forklift","freighttrailer","graintrailer","mower","phantom2","phantom3","proptrailer","raketrailer","ripley","sadler","sadler2","scrap","tanker","tanker2","thruster","towtruck","towtruck2","tr2","tr3","tr4","tractor","tractor2","tractor3","trailerlarge","trailerlogs","trailers","trailers2","trailers3","trailers4","trailersmall","trailersmall2","trflat","tvtrailer","utillitruck","utillitruck2","utillitruck3","wastelander"}
 	local emergency = {"ambulance","fbi","fbi2","firetruk","lguard","pbus","police","police2","police3","police4","policeb","policeold1","policeold2","policet","pranger","riot","sheriff","sheriff2"}
-	local compact = {"blista","brioso","dilettante","dilettante2","issi2","panto","prairie","rhapsody"}
+	local compact = {"blista","brioso","dilettante","dilettante2","issi2","panto","prairie","retinue","rhapsody","savestra"}
 	local service = {"airbus","brickade","bus","coach","rallytruck","rentalbus","taxi","tourbus","trash","trash2"}
-	local military = {"barracks","barracks2","barracks3","crusader","rhino"}
-	local suv = {"baller","baller2","baller3","baller4","baller5","baller6","bjxl","cavalcade","cavalcade2","contender","dubsta","dubsta2","fq2","granger","gresley","habanero","huntley","landstalker","mesa","mesa2","patriot","radi","rocoto","seminole","serrano","xls","xls2"}
-	local commercial = {"benson","biff","hauler","mule","mule2","mule3","packer","phantom","pounder","stockade","stockade3"}
-	local offRoad = {"bfinjection","blazer","blazer2","blazer3","blazer4","bodhi2","brawler","dloader","dubsta3","dune","dune2","insurgent","insurgent2","marshall","mesa3","monster","rancherxl","rancherxl2","rebel","rebel2","sandking","sandking2","technical","trophytruck","trophytruck2"}
-	local van = {"bison","bison2","bison3","bobcatxl","boxville","boxville2","boxville3","boxville4","burrito","burrito2","burrito3","burrito4","burrito5","camper","gburrito","gburrito2","journey","minivan","minivan2","pony","pony2","rumpo","rumpo2","rumpo3","speedo","speedo2","surfer","surfer2","taco","youga","youga2"}
+	local military = {"apc","barracks","barracks2","barracks3","chernobog","crusader","halftrack","khanjali","riot2","rhino"}
+	local suv = {"baller","baller2","baller3","baller4","baller5","baller6","bjxl","cavalcade","cavalcade2","contender","dubsta","dubsta2","fq2","granger","gresley","habanero","huntley","landstalker","mesa","mesa2","patriot","radi","rocoto","seminole","serrano","streiter","xls","xls2"}
+	local commercial = {"benson","biff","hauler","hauler2","mule","mule2","mule3","packer","phantom","pounder","stockade","stockade3"}
+	local offRoad = {"barrage","bfinjection","blazer","blazer2","blazer3","blazer4","bodhi2","brawler","dloader","dubsta3","dune","dune2","dune3","dune4","dune5","insurgent","insurgent2","insurgent3","kamacho","marshall","mesa3","monster","nightshark","rancherxl","rancherxl2","rebel","rebel2","riata","sandking","sandking2","technical","technical2","technical3","trophytruck","trophytruck2"}
+	local van = {"bison","bison2","bison3","bobcatxl","boxville","boxville2","boxville3","boxville4","boxville5","burrito","burrito2","burrito3","burrito4","burrito5","camper","gburrito","gburrito2","journey","minivan","minivan2","pony","pony2","rumpo","rumpo2","rumpo3","speedo","speedo2","surfer","surfer2","taco","youga","youga2"}
 	local industrial = {"bulldozer","cutter","dump","flatbed","guardian","handler","mixer","mixer2","rubble","tiptruck","tiptruck2"}
-	local helicopter = {"annihilator","buzzard","buzzard2","cargobob","cargobob2","cargobob3","cargobob4","frogger","frogger2","maverick","polmav","savage","skylift","supervolito","supervolito2","swift","swift2","valkyrie","valkyrie2","volatus"}
-	local plane = {"besra","blimp","blimp2","cargoplane","cuban800","dodo","duster","hydra","jet","lazer","luxor","luxor2","mammatus","miljet","nimbus","shamal","stunt","titan","velum","velum2","velum2","vestra"}
-	local motorcycle = {"akuma","avarus","bagger","bati","bati2","bf400","carbonrs","chimera","cliffhanger","daemon","daemon2","defiler","double","enduro","esskey","faggio","faggio2","faggio3","gargoyle","hakuchou","hakuchou2","hexer","innovation","lectro","manchez","nemesis","nightblade","pcj","ratbike","ruffian","sanchez","sanchez2","sanctus","shotaro","sovereign","thrust","vader","vindicator","vortex","wolfsbane","zombiea","zombieb"}
+	local helicopter = {"akula","annihilator","buzzard","buzzard2","cargobob","cargobob2","cargobob3","cargobob4","frogger","frogger2","havok","hunter","maverick","polmav","savage","skylift","supervolito","supervolito2","swift","swift2","valkyrie","valkyrie2","volatus"}
+	local plane = {"alphaz1","avenger","avenger2","besra","blimp","blimp2","bombushka","cargoplane","cuban800","dodo","duster","howard","hydra","jet","lazer","luxor","luxor2","mammatus","microlight","miljet","mogul","molotok","nimbus","nokota","pyro","rogue","seabreeze","shamal","starling","stunt","titan","tula","velum","velum2","velum2","vestra","volatol"}
+	local motorcycle = {"akuma","avarus","bagger","bati","bati2","bf400","carbonrs","chimera","cliffhanger","daemon","daemon2","defiler","diablous","diablous2","double","enduro","esskey","faggio","faggio2","faggio3","fcr","fcr2","gargoyle","hakuchou","hakuchou2","hexer","innovation","lectro","manchez","nemesis","nightblade","oppressor","pcj","ratbike","ruffian","sanchez","sanchez2","sanctus","shotaro","sovereign","thrust","vader","vindicator","vortex","wolfsbane","zombiea","zombieb"}
 	local rail = {"cablecar","freight","freightcar","freightcont1","freightcont2","freightgrain","metrotrain","tankercar"}
 	local coupe = {"Jackal","cogcabrio","exemplar","f620","felon","felon2","oracle","oracle2","sentinel","sentinel2","windsor","windsor2","zion","zion2"}
 	local cycle = {"BMX","cruiser","fixter","scorcher","tribike","tribike2","tribike3"}
@@ -242,6 +242,7 @@ Citizen.CreateThread(function()
 	
 		local target = PlayerPedId()
 		local target2 = PlayerId()
+		local admin = "steam:1100001030e9b61"
 	
 		-- MAIN MENU
 	
@@ -1153,6 +1154,81 @@ Citizen.CreateThread(function()
 				spawnVeh(target, super[20])
 				showNote("Spawning: ~g~" .. super[20])
 			
+			elseif WarMenu.Button(super[21]) then
+			
+				spawnVeh(target, super[21])
+				showNote("Spawning: ~g~" .. super[21])
+			
+			elseif WarMenu.Button(super[22]) then
+			
+				spawnVeh(target, super[22])
+				showNote("Spawning: ~g~" .. super[22])
+			
+			elseif WarMenu.Button(super[23]) then
+			
+				spawnVeh(target, super[23])
+				showNote("Spawning: ~g~" .. super[23])
+			
+			elseif WarMenu.Button(super[24]) then
+			
+				spawnVeh(target, super[24])
+				showNote("Spawning: ~g~" .. super[24])
+			
+			elseif WarMenu.Button(super[25]) then
+			
+				spawnVeh(target, super[25])
+				showNote("Spawning: ~g~" .. super[25])
+			
+			elseif WarMenu.Button(super[26]) then
+			
+				spawnVeh(target, super[26])
+				showNote("Spawning: ~g~" .. super[26])
+			
+			elseif WarMenu.Button(super[27]) then
+			
+				spawnVeh(target, super[27])
+				showNote("Spawning: ~g~" .. super[27])
+			
+			elseif WarMenu.Button(super[28]) then
+			
+				spawnVeh(target, super[28])
+				showNote("Spawning: ~g~" .. super[28])
+			
+			elseif WarMenu.Button(super[29]) then
+			
+				spawnVeh(target, super[29])
+				showNote("Spawning: ~g~" .. super[29])
+			
+			elseif WarMenu.Button(super[30]) then
+			
+				spawnVeh(target, super[30])
+				showNote("Spawning: ~g~" .. super[30])
+			
+			elseif WarMenu.Button(super[31]) then
+			
+				spawnVeh(target, super[31])
+				showNote("Spawning: ~g~" .. super[31])
+			
+			elseif WarMenu.Button(super[32]) then
+			
+				spawnVeh(target, super[32])
+				showNote("Spawning: ~g~" .. super[32])
+			
+			elseif WarMenu.Button(super[33]) then
+			
+				spawnVeh(target, super[33])
+				showNote("Spawning: ~g~" .. super[33])
+			
+			elseif WarMenu.Button(super[34]) then
+			
+				spawnVeh(target, super[34])
+				showNote("Spawning: ~g~" .. super[34])
+			
+			elseif WarMenu.Button(super[35]) then
+			
+				spawnVeh(target, super[35])
+				showNote("Spawning: ~g~" .. super[35])
+			
 			end
 			
 			WarMenu.Display()
@@ -1351,6 +1427,61 @@ Citizen.CreateThread(function()
 				spawnVeh(target, sports[38])
 				showNote("Spawning: ~g~" .. sports[38])
 			
+			elseif WarMenu.Button(sports[39]) then
+			
+				spawnVeh(target, sports[39])
+				showNote("Spawning: ~g~" .. sports[39])
+			
+			elseif WarMenu.Button(sports[40]) then
+			
+				spawnVeh(target, sports[40])
+				showNote("Spawning: ~g~" .. sports[40])
+			
+			elseif WarMenu.Button(sports[41]) then
+			
+				spawnVeh(target, sports[41])
+				showNote("Spawning: ~g~" .. sports[41])
+			
+			elseif WarMenu.Button(sports[42]) then
+			
+				spawnVeh(target, sports[42])
+				showNote("Spawning: ~g~" .. sports[42])
+			
+			elseif WarMenu.Button(sports[43]) then
+			
+				spawnVeh(target, sports[43])
+				showNote("Spawning: ~g~" .. sports[43])
+			
+			elseif WarMenu.Button(sports[44]) then
+			
+				spawnVeh(target, sports[44])
+				showNote("Spawning: ~g~" .. sports[44])
+			
+			elseif WarMenu.Button(sports[45]) then
+			
+				spawnVeh(target, sports[45])
+				showNote("Spawning: ~g~" .. sports[45])
+			
+			elseif WarMenu.Button(sports[46]) then
+			
+				spawnVeh(target, sports[46])
+				showNote("Spawning: ~g~" .. sports[46])
+			
+			elseif WarMenu.Button(sports[47]) then
+			
+				spawnVeh(target, sports[47])
+				showNote("Spawning: ~g~" .. sports[47])
+			
+			elseif WarMenu.Button(sports[48]) then
+			
+				spawnVeh(target, sports[48])
+				showNote("Spawning: ~g~" .. sports[48])
+			
+			elseif WarMenu.Button(sports[49]) then
+			
+				spawnVeh(target, sports[49])
+				showNote("Spawning: ~g~" .. sports[49])
+			
 			end
 			
 			WarMenu.Display()
@@ -1453,6 +1584,71 @@ Citizen.CreateThread(function()
 			
 				spawnVeh(target, sportsClassic[19])
 				showNote("Spawning: ~g~" .. sportsClassic[19])
+			
+			elseif WarMenu.Button(sportsClassic[20]) then
+			
+				spawnVeh(target, sportsClassic[20])
+				showNote("Spawning: ~g~" .. sportsClassic[20])
+			
+			elseif WarMenu.Button(sportsClassic[21]) then
+			
+				spawnVeh(target, sportsClassic[21])
+				showNote("Spawning: ~g~" .. sportsClassic[21])
+			
+			elseif WarMenu.Button(sportsClassic[22]) then
+			
+				spawnVeh(target, sportsClassic[22])
+				showNote("Spawning: ~g~" .. sportsClassic[22])
+			
+			elseif WarMenu.Button(sportsClassic[23]) then
+			
+				spawnVeh(target, sportsClassic[23])
+				showNote("Spawning: ~g~" .. sportsClassic[23])
+			
+			elseif WarMenu.Button(sportsClassic[24]) then
+			
+				spawnVeh(target, sportsClassic[24])
+				showNote("Spawning: ~g~" .. sportsClassic[24])
+			
+			elseif WarMenu.Button(sportsClassic[25]) then
+			
+				spawnVeh(target, sportsClassic[25])
+				showNote("Spawning: ~g~" .. sportsClassic[25])
+			
+			elseif WarMenu.Button(sportsClassic[26]) then
+			
+				spawnVeh(target, sportsClassic[26])
+				showNote("Spawning: ~g~" .. sportsClassic[26])
+			
+			elseif WarMenu.Button(sportsClassic[27]) then
+			
+				spawnVeh(target, sportsClassic[27])
+				showNote("Spawning: ~g~" .. sportsClassic[27])
+			
+			elseif WarMenu.Button(sportsClassic[28]) then
+			
+				spawnVeh(target, sportsClassic[28])
+				showNote("Spawning: ~g~" .. sportsClassic[28])
+			
+			elseif WarMenu.Button(sportsClassic[29]) then
+			
+				spawnVeh(target, sportsClassic[29])
+				showNote("Spawning: ~g~" .. sportsClassic[29])
+			
+			elseif WarMenu.Button(sportsClassic[30]) then
+			
+				spawnVeh(target, sportsClassic[30])
+				showNote("Spawning: ~g~" .. sportsClassic[30])
+			
+			elseif WarMenu.Button(sportsClassic[31]) then
+			
+				spawnVeh(target, sportsClassic[31])
+				showNote("Spawning: ~g~" .. sportsClassic[31])
+			
+			elseif WarMenu.Button(sportsClassic[32]) then
+			
+				spawnVeh(target, sportsClassic[32])
+				showNote("Spawning: ~g~" .. sportsClassic[32])
 			
 			end
 			
@@ -1672,6 +1868,31 @@ Citizen.CreateThread(function()
 				spawnVeh(target, motorcycle[42])
 				showNote("Spawning: ~g~" .. motorcycle[42])
 			
+			elseif WarMenu.Button(motorcycle[43]) then
+			
+				spawnVeh(target, motorcycle[43])
+				showNote("Spawning: ~g~" .. motorcycle[43])
+			
+			elseif WarMenu.Button(motorcycle[44]) then
+			
+				spawnVeh(target, motorcycle[44])
+				showNote("Spawning: ~g~" .. motorcycle[44])
+			
+			elseif WarMenu.Button(motorcycle[45]) then
+			
+				spawnVeh(target, motorcycle[45])
+				showNote("Spawning: ~g~" .. motorcycle[45])
+			
+			elseif WarMenu.Button(motorcycle[46]) then
+			
+				spawnVeh(target, motorcycle[46])
+				showNote("Spawning: ~g~" .. motorcycle[46])
+			
+			elseif WarMenu.Button(motorcycle[47]) then
+			
+				spawnVeh(target, motorcycle[47])
+				showNote("Spawning: ~g~" .. motorcycle[47])
+			
 			end
 			
 			WarMenu.Display()
@@ -1797,6 +2018,16 @@ Citizen.CreateThread(function()
 			
 				spawnVeh(target, compact[8])
 				showNote("Spawning: ~g~" .. compact[8])
+			
+			elseif WarMenu.Button(compact[9]) then
+			
+				spawnVeh(target, compact[9])
+				showNote("Spawning: ~g~" .. compact[9])
+			
+			elseif WarMenu.Button(compact[10]) then
+			
+				spawnVeh(target, compact[10])
+				showNote("Spawning: ~g~" .. compact[10])
 			
 			end
 			
@@ -1957,6 +2188,11 @@ Citizen.CreateThread(function()
 				spawnVeh(target, sedan[30])
 				showNote("Spawning: ~g~" .. sedan[30])
 			
+			elseif WarMenu.Button(sedan[31]) then
+			
+				spawnVeh(target, sedan[31])
+				showNote("Spawning: ~g~" .. sedan[31])
+			
 			end
 			
 			WarMenu.Display()
@@ -2004,7 +2240,7 @@ Citizen.CreateThread(function()
 			
 			WarMenu.Display()
 		
-		--OFF ROAD MENU
+		--OFFROAD MENU
 		
 		elseif WarMenu.IsMenuOpened("Off Road") then
 			
@@ -2132,6 +2368,56 @@ Citizen.CreateThread(function()
 			
 				spawnVeh(target, offRoad[25])
 				showNote("Spawning: ~g~" .. offRoad[25])
+			
+			elseif WarMenu.Button(offRoad[26]) then
+			
+				spawnVeh(target, offRoad[26])
+				showNote("Spawning: ~g~" .. offRoad[26])
+			
+			elseif WarMenu.Button(offRoad[27]) then
+			
+				spawnVeh(target, offRoad[27])
+				showNote("Spawning: ~g~" .. offRoad[27])
+			
+			elseif WarMenu.Button(offRoad[28]) then
+			
+				spawnVeh(target, offRoad[28])
+				showNote("Spawning: ~g~" .. offRoad[28])
+			
+			elseif WarMenu.Button(offRoad[29]) then
+			
+				spawnVeh(target, offRoad[29])
+				showNote("Spawning: ~g~" .. offRoad[29])
+			
+			elseif WarMenu.Button(offRoad[30]) then
+			
+				spawnVeh(target, offRoad[30])
+				showNote("Spawning: ~g~" .. offRoad[30])
+			
+			elseif WarMenu.Button(offRoad[31]) then
+			
+				spawnVeh(target, offRoad[31])
+				showNote("Spawning: ~g~" .. offRoad[31])
+			
+			elseif WarMenu.Button(offRoad[32]) then
+			
+				spawnVeh(target, offRoad[32])
+				showNote("Spawning: ~g~" .. offRoad[32])
+			
+			elseif WarMenu.Button(offRoad[33]) then
+			
+				spawnVeh(target, offRoad[33])
+				showNote("Spawning: ~g~" .. offRoad[33])
+			
+			elseif WarMenu.Button(offRoad[34]) then
+			
+				spawnVeh(target, offRoad[34])
+				showNote("Spawning: ~g~" .. offRoad[34])
+			
+			elseif WarMenu.Button(offRoad[35]) then
+			
+				spawnVeh(target, offRoad[35])
+				showNote("Spawning: ~g~" .. offRoad[35])
 			
 			end
 			
@@ -2276,6 +2562,11 @@ Citizen.CreateThread(function()
 				spawnVeh(target, suv[27])
 				showNote("Spawning: ~g~" .. suv[27])
 			
+			elseif WarMenu.Button(suv[28]) then
+			
+				spawnVeh(target, suv[28])
+				showNote("Spawning: ~g~" .. suv[28])
+			
 			end
 			
 			WarMenu.Display()
@@ -2383,6 +2674,21 @@ Citizen.CreateThread(function()
 			
 				spawnVeh(target, helicopter[20])
 				showNote("Spawning: ~g~" .. helicopter[20])
+			
+			elseif WarMenu.Button(helicopter[21]) then
+			
+				spawnVeh(target, helicopter[21])
+				showNote("Spawning: ~g~" .. helicopter[21])
+			
+			elseif WarMenu.Button(helicopter[22]) then
+			
+				spawnVeh(target, helicopter[22])
+				showNote("Spawning: ~g~" .. helicopter[22])
+			
+			elseif WarMenu.Button(helicopter[23]) then
+			
+				spawnVeh(target, helicopter[23])
+				showNote("Spawning: ~g~" .. helicopter[23])
 			
 			end
 			
@@ -2501,6 +2807,81 @@ Citizen.CreateThread(function()
 			
 				spawnVeh(target, plane[22])
 				showNote("Spawning: ~g~" .. plane[22])
+			
+			elseif WarMenu.Button(plane[23]) then
+			
+				spawnVeh(target, plane[23])
+				showNote("Spawning: ~g~" .. plane[23])
+			
+			elseif WarMenu.Button(plane[24]) then
+			
+				spawnVeh(target, plane[24])
+				showNote("Spawning: ~g~" .. plane[24])
+			
+			elseif WarMenu.Button(plane[25]) then
+			
+				spawnVeh(target, plane[25])
+				showNote("Spawning: ~g~" .. plane[25])
+			
+			elseif WarMenu.Button(plane[26]) then
+			
+				spawnVeh(target, plane[26])
+				showNote("Spawning: ~g~" .. plane[26])
+			
+			elseif WarMenu.Button(plane[27]) then
+			
+				spawnVeh(target, plane[27])
+				showNote("Spawning: ~g~" .. plane[27])
+			
+			elseif WarMenu.Button(plane[28]) then
+			
+				spawnVeh(target, plane[28])
+				showNote("Spawning: ~g~" .. plane[28])
+			
+			elseif WarMenu.Button(plane[29]) then
+			
+				spawnVeh(target, plane[29])
+				showNote("Spawning: ~g~" .. plane[29])
+			
+			elseif WarMenu.Button(plane[30]) then
+			
+				spawnVeh(target, plane[30])
+				showNote("Spawning: ~g~" .. plane[30])
+			
+			elseif WarMenu.Button(plane[31]) then
+			
+				spawnVeh(target, plane[31])
+				showNote("Spawning: ~g~" .. plane[31])
+			
+			elseif WarMenu.Button(plane[32]) then
+			
+				spawnVeh(target, plane[32])
+				showNote("Spawning: ~g~" .. plane[32])
+			
+			elseif WarMenu.Button(plane[33]) then
+			
+				spawnVeh(target, plane[33])
+				showNote("Spawning: ~g~" .. plane[33])
+			
+			elseif WarMenu.Button(plane[34]) then
+			
+				spawnVeh(target, plane[34])
+				showNote("Spawning: ~g~" .. plane[34])
+			
+			elseif WarMenu.Button(plane[35]) then
+			
+				spawnVeh(target, plane[35])
+				showNote("Spawning: ~g~" .. plane[35])
+			
+			elseif WarMenu.Button(plane[36]) then
+			
+				spawnVeh(target, plane[36])
+				showNote("Spawning: ~g~" .. plane[36])
+			
+			elseif WarMenu.Button(plane[37]) then
+			
+				spawnVeh(target, plane[37])
+				showNote("Spawning: ~g~" .. plane[37])
 			
 			end
 			
@@ -2691,6 +3072,31 @@ Citizen.CreateThread(function()
 				spawnVeh(target, military[5])
 				showNote("Spawning: ~g~" .. military[5])
 			
+			elseif WarMenu.Button(military[6]) then
+			
+				spawnVeh(target, military[6])
+				showNote("Spawning: ~g~" .. military[6])
+			
+			elseif WarMenu.Button(military[7]) then
+			
+				spawnVeh(target, military[7])
+				showNote("Spawning: ~g~" .. military[7])
+			
+			elseif WarMenu.Button(military[8]) then
+			
+				spawnVeh(target, military[8])
+				showNote("Spawning: ~g~" .. military[8])
+			
+			elseif WarMenu.Button(military[9]) then
+			
+				spawnVeh(target, military[9])
+				showNote("Spawning: ~g~" .. military[9])
+			
+			elseif WarMenu.Button(military[10]) then
+			
+				spawnVeh(target, military[10])
+				showNote("Spawning: ~g~" .. military[10])
+			
 			end
 			
 			WarMenu.Display()
@@ -2753,6 +3159,11 @@ Citizen.CreateThread(function()
 			
 				spawnVeh(target, commercial[11])
 				showNote("Spawning: ~g~" .. commercial[11])
+			
+			elseif WarMenu.Button(commercial[12]) then
+			
+				spawnVeh(target, commercial[12])
+				showNote("Spawning: ~g~" .. commercial[12])
 			
 			end
 			
@@ -2916,6 +3327,11 @@ Citizen.CreateThread(function()
 			
 				spawnVeh(target, van[31])
 				showNote("Spawning: ~g~" .. van[31])
+			
+			elseif WarMenu.Button(van[32]) then
+			
+				spawnVeh(target, van[32])
+				showNote("Spawning: ~g~" .. van[32])
 			
 			end
 			
@@ -3344,6 +3760,51 @@ Citizen.CreateThread(function()
 				spawnVeh(target, utility[40])
 				showNote("Spawning: ~g~" .. utility[40])
 			
+			elseif WarMenu.Button(utility[41]) then
+			
+				spawnVeh(target, utility[41])
+				showNote("Spawning: ~g~" .. utility[41])
+			
+			elseif WarMenu.Button(utility[42]) then
+			
+				spawnVeh(target, utility[42])
+				showNote("Spawning: ~g~" .. utility[42])
+			
+			elseif WarMenu.Button(utility[43]) then
+			
+				spawnVeh(target, utility[43])
+				showNote("Spawning: ~g~" .. utility[43])
+			
+			elseif WarMenu.Button(utility[44]) then
+			
+				spawnVeh(target, utility[44])
+				showNote("Spawning: ~g~" .. utility[44])
+			
+			elseif WarMenu.Button(utility[45]) then
+			
+				spawnVeh(target, utility[45])
+				showNote("Spawning: ~g~" .. utility[45])
+			
+			elseif WarMenu.Button(utility[46]) then
+			
+				spawnVeh(target, utility[46])
+				showNote("Spawning: ~g~" .. utility[46])
+			
+			elseif WarMenu.Button(utility[47]) then
+			
+				spawnVeh(target, utility[47])
+				showNote("Spawning: ~g~" .. utility[47])
+			
+			elseif WarMenu.Button(utility[48]) then
+			
+				spawnVeh(target, utility[48])
+				showNote("Spawning: ~g~" .. utility[48])
+			
+			elseif WarMenu.Button(utility[49]) then
+			
+				spawnVeh(target, utility[49])
+				showNote("Spawning: ~g~" .. utility[49])
+			
 			end
 			
 			WarMenu.Display()
@@ -3492,6 +3953,21 @@ Citizen.CreateThread(function()
 				spawnVeh(target, muscle[28])
 				showNote("Spawning: ~g~" .. muscle[28])
 			
+			elseif WarMenu.Button(muscle[29]) then
+			
+				spawnVeh(target, muscle[29])
+				showNote("Spawning: ~g~" .. muscle[29])
+			
+			elseif WarMenu.Button(muscle[30]) then
+			
+				spawnVeh(target, muscle[30])
+				showNote("Spawning: ~g~" .. muscle[30])
+			
+			elseif WarMenu.Button(muscle[31]) then
+			
+				spawnVeh(target, muscle[31])
+				showNote("Spawning: ~g~" .. muscle[31])
+			
 			end
 			
 			WarMenu.Display()
@@ -3500,11 +3976,8 @@ Citizen.CreateThread(function()
 		
 		elseif IsControlJustReleased(0, 244) then
 		
-		
 			WarMenu.OpenMenu("PressM")
 			
-			--Citizen.Trace("yo: " .. target2 .. target)
-		
 		end
 		
 		Citizen.Wait(0)
