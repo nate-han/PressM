@@ -10,3 +10,4 @@ Implemented (so far):
 - Get Coordinates
 - Set Wanted Level
 - Change Weather
+- Change Skin

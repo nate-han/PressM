@@ -146,6 +146,23 @@ function setTime(hour)
 
 end
 
+function changeSkin(who, skin)
+
+	local modelName = skin
+    local modelHash = (GetHashKey(modelName))
+
+    RequestModel(modelHash) 
+    
+    while not HasModelLoaded(modelHash) do
+        RequestModel(modelHash)      
+        Citizen.Wait(0)
+    end
+
+    SetPlayerModel(PlayerId(), modelHash)    
+    SetModelAsNoLongerNeeded(modelHash)
+
+end
+
 Citizen.CreateThread(function()
 
 	local pistols = {"WEAPON_APPISTOL","WEAPON_COMBATPISTOL","WEAPON_FLAREGUN","WEAPON_HEAVYPISTOL","WEAPON_MARKSMANPISTOL","WEAPON_PISTOL","WEAPON_PISTOL50","WEAPON_REVOLVER","WEAPON_SNSPISTOL","WEAPON_STUNGUN","WEAPON_VINTAGEPISTOL"}
@@ -183,6 +200,11 @@ Citizen.CreateThread(function()
 	local cycle = {"BMX","cruiser","fixter","scorcher","tribike","tribike2","tribike3"}
 	local boat = {"dinghy","dinghy2","dinghy3","dinghy4","jetmax","marquis","predator","seashark","seashark2","seashark3","speeder2","squalo","submersible","submersible2","suntrap","toro","toro2","tropic","tropic2","tug"}
 	
+	local animalSkin = {"a_c_boar", "a_c_cat_01", "a_c_chickenhawk", "a_c_chimp", "a_c_chop", "a_c_cormorant", "a_c_cow", "a_c_coyote", "a_c_crow", "a_c_deer", "a_c_dolphin", "a_c_fish", "a_c_hen", "a_c_humpback", "a_c_husky", "a_c_killerwhale", "a_c_mtlion", "a_c_pig", "a_c_pigeon", "a_c_poodle", "a_c_rabbit_01", "a_c_rat", "a_c_retriever", "a_c_rhesus", "a_c_rottweiler", "a_c_seagull", "a_c_sharkhammer", "a_c_sharktiger", "a_c_shepherd", "a_c_westy"}
+	local femaleSkin = {"a_f_m_beach_01", "a_f_m_bevhills_01", "a_f_m_bevhills_02", "a_f_m_bodybuild_01", "a_f_m_business_02", "a_f_m_downtown_01", "a_f_m_eastsa_01", "a_f_m_eastsa_02", "a_f_m_fatbla_01", "a_f_m_fatcult_01", "a_f_m_fatwhite_01", "a_f_m_ktown_01", "a_f_m_ktown_02", "a_f_m_prolhost_01", "a_f_m_salton_01", "a_f_m_skidrow_01", "a_f_m_soucent_01", "a_f_m_soucent_02", "a_f_m_soucentmc_01", "a_f_m_tourist_01", "a_f_m_tramp_01", "a_f_m_trampbeac_01", "a_f_o_genstreet_01", "a_f_o_indian_01", "a_f_o_ktown_01", "a_f_o_salton_01", "a_f_o_soucent_01", "a_f_o_soucent_02", "a_f_y_beach_01", "a_f_y_bevhills_01", "a_f_y_bevhills_02", "a_f_y_bevhills_03", "a_f_y_bevhills_04", "a_f_y_business_01", "a_f_y_business_02", "a_f_y_business_03", "a_f_y_business_04", "a_f_y_eastsa_01", "a_f_y_eastsa_02", "a_f_y_eastsa_03", "a_f_y_epsilon_01", "a_f_y_fitness_01", "a_f_y_fitness_02", "a_f_y_genhot_01", "a_f_y_golfer_01", "a_f_y_hiker_01", "a_f_y_hippie_01", "a_f_y_hipster_01", "a_f_y_hipster_02", "a_f_y_hipster_03", "a_f_y_hipster_04", "a_f_y_indian_01", "a_f_y_juggalo_01", "a_f_y_runner_01", "a_f_y_rurmeth_01", "a_f_y_scdressy_01", "a_f_y_skater_01", "a_f_y_soucent_01", "a_f_y_soucent_02", "a_f_y_soucent_03", "a_f_y_tennis_01", "a_f_y_topless_01", "a_f_y_tourist_01", "a_f_y_tourist_02", "a_f_y_vinewood_01", "a_f_y_vinewood_02", "a_f_y_vinewood_03", "a_f_y_vinewood_04", "a_f_y_yoga_01", "g_f_importexport_01", "g_f_y_ballas_01", "g_f_y_families_01", "g_f_y_lost_01", "g_f_y_vagos_01", "mp_f_boatstaff_01", "mp_f_cardesign_01", "mp_f_chbar_01", "mp_f_cocaine_01", "mp_f_counterfeit_01", "mp_f_deadhooker", "mp_f_execpa_01", "mp_f_forgery_01", "mp_f_freemode_01", "mp_f_helistaff_01", "mp_f_meth_01", "mp_f_misty_01", "mp_f_stripperlite", "mp_f_weed_01", "s_f_m_fembarber", "s_f_m_maid_01", "s_f_m_shop_high", "s_f_m_sweatshop_01", "s_f_y_airhostess_01", "s_f_y_bartender_01", "s_f_y_baywatch_01", "s_f_y_cop_01", "s_f_y_factory_01", "s_f_y_hooker_01", "s_f_y_hooker_02", "s_f_y_hooker_03", "s_f_y_migrant_01", "s_f_y_movprem_01", "s_f_y_ranger_01", "s_f_y_scrubs_01", "s_f_y_sheriff_01", "s_f_y_shop_low", "s_f_y_shop_mid", "s_f_y_stripper_01", "s_f_y_stripper_02", "s_f_y_stripperlite", "s_f_y_sweatshop_01", "u_f_m_corpse_01", "u_f_m_miranda", "u_f_m_promourn_01", "u_f_o_moviestar", "u_f_o_prolhost_01", "u_f_y_bikerchic", "u_f_y_comjane", "u_f_y_corpse_01", "u_f_y_corpse_02", "u_f_y_hotposh_01", "u_f_y_jewelass_01", "u_f_y_mistress", "u_f_y_poppymich", "u_f_y_princess", "u_f_y_spyactress"}
+	local maleSkin = {"a_m_m_acult_01", "a_m_m_afriamer_01", "a_m_m_beach_01", "a_m_m_beach_02", "a_m_m_bevhills_01", "a_m_m_bevhills_02", "a_m_m_business_01", "a_m_m_eastsa_01", "a_m_m_eastsa_02", "a_m_m_farmer_01", "a_m_m_fatlatin_01", "a_m_m_genfat_01", "a_m_m_genfat_02", "a_m_m_golfer_01", "a_m_m_hasjew_01", "a_m_m_hillbilly_01", "a_m_m_hillbilly_02", "a_m_m_indian_01", "a_m_m_ktown_01", "a_m_m_malibu_01", "a_m_m_mexcntry_01", "a_m_m_mexlabor_01", "a_m_m_og_boss_01", "a_m_m_paparazzi_01", "a_m_m_polynesian_01", "a_m_m_prolhost_01", "a_m_m_rurmeth_01", "a_m_m_salton_01", "a_m_m_salton_02", "a_m_m_salton_03", "a_m_m_salton_04", "a_m_m_skater_01", "a_m_m_skidrow_01", "a_m_m_socenlat_01", "a_m_m_soucent_01", "a_m_m_soucent_02", "a_m_m_soucent_03", "a_m_m_soucent_04", "a_m_m_stlat_02", "a_m_m_tennis_01", "a_m_m_tourist_01", "a_m_m_tramp_01", "a_m_m_trampbeac_01", "a_m_m_tranvest_01", "a_m_m_tranvest_02", "a_m_o_acult_01", "a_m_o_acult_02", "a_m_o_beach_01", "a_m_o_genstreet_01", "a_m_o_ktown_01", "a_m_o_salton_01", "a_m_o_soucent_01", "a_m_o_soucent_02", "a_m_o_soucent_03", "a_m_o_tramp_01", "a_m_y_acult_01", "a_m_y_acult_02", "a_m_y_beach_01", "a_m_y_beach_02", "a_m_y_beach_03", "a_m_y_beachvesp_01", "a_m_y_beachvesp_02", "a_m_y_bevhills_01", "a_m_y_bevhills_02", "a_m_y_breakdance_01", "a_m_y_busicas_01", "a_m_y_business_01", "a_m_y_business_02", "a_m_y_business_03", "a_m_y_cyclist_01", "a_m_y_dhill_01", "a_m_y_downtown_01", "a_m_y_eastsa_01", "a_m_y_eastsa_02", "a_m_y_epsilon_01", "a_m_y_epsilon_02", "a_m_y_gay_01", "a_m_y_gay_02", "a_m_y_genstreet_01", "a_m_y_genstreet_02", "a_m_y_golfer_01", "a_m_y_hasjew_01", "a_m_y_hiker_01", "a_m_y_hippy_01", "a_m_y_hipster_01", "a_m_y_hipster_02", "a_m_y_hipster_03", "a_m_y_indian_01", "a_m_y_jetski_01", "a_m_y_juggalo_01", "a_m_y_ktown_01", "a_m_y_ktown_02", "a_m_y_latino_01", "a_m_y_methhead_01", "a_m_y_mexthug_01", "a_m_y_motox_01", "a_m_y_motox_02", "a_m_y_musclbeac_01", "a_m_y_musclbeac_02", "a_m_y_polynesian_01", "a_m_y_roadcyc_01", "a_m_y_runner_01", "a_m_y_runner_02", "a_m_y_salton_01", "a_m_y_skater_01", "a_m_y_skater_02", "a_m_y_soucent_01", "a_m_y_soucent_02", "a_m_y_soucent_03", "a_m_y_soucent_04", "a_m_y_stbla_01", "a_m_y_stbla_02", "a_m_y_stlat_01", "a_m_y_stwhi_01", "a_m_y_stwhi_02", "a_m_y_sunbathe_01", "a_m_y_surfer_01", "a_m_y_vindouche_01", "a_m_y_vinewood_01", "a_m_y_vinewood_02", "a_m_y_vinewood_03", "a_m_y_vinewood_04", "a_m_y_yoga_01", "g_m_importexport_01", "g_m_m_armboss_01", "g_m_m_armgoon_01", "g_m_m_armlieut_01", "g_m_m_chemwork_01", "g_m_m_chiboss_01", "g_m_m_chicold_01", "g_m_m_chigoon_01", "g_m_m_chigoon_02", "g_m_m_korboss_01", "g_m_m_mexboss_01", "g_m_m_mexboss_02", "g_m_y_armgoon_02", "g_m_y_azteca_01", "g_m_y_ballaeast_01", "g_m_y_ballaorig_01", "g_m_y_ballasout_01", "g_m_y_famca_01", "g_m_y_famdnf_01", "g_m_y_famfor_01", "g_m_y_korean_01", "g_m_y_korean_02", "g_m_y_korlieut_01", "g_m_y_lost_01", "g_m_y_lost_02", "g_m_y_lost_03", "g_m_y_mexgang_01", "g_m_y_mexgoon_01", "g_m_y_mexgoon_02", "g_m_y_mexgoon_03", "g_m_y_pologoon_01", "g_m_y_pologoon_02", "g_m_y_salvaboss_01", "g_m_y_salvagoon_01", "g_m_y_salvagoon_02", "g_m_y_salvagoon_03", "g_m_y_strpunk_01", "g_m_y_strpunk_02", "mp_g_m_pros_01", "mp_headtargets", "mp_m_boatstaff_01", "mp_m_claude_01", "mp_m_cocaine_01", "mp_m_counterfeit_01", "mp_m_exarmy_01", "mp_m_execpa_01", "mp_m_famdd_01", "mp_m_fibsec_01", "mp_m_forgery_01", "mp_m_freemode_01", "mp_m_g_vagfun_01", "mp_m_marston_01", "mp_m_meth_01", "mp_m_niko_01", "mp_m_securoguard_01", "mp_m_shopkeep_01", "mp_m_waremech_01", "mp_m_weed_01", "mp_s_m_armoured_01", "player_one", "player_two", "player_zero", "s_m_m_ammucountry", "s_m_m_armoured_01", "s_m_m_armoured_02", "s_m_m_autoshop_01", "s_m_m_autoshop_02", "s_m_m_bouncer_01", "s_m_m_chemsec_01", "s_m_m_ciasec_01", "s_m_m_cntrybar_01", "s_m_m_dockwork_01", "s_m_m_doctor_01", "s_m_m_fiboffice_01", "s_m_m_fiboffice_02", "s_m_m_gaffer_01", "s_m_m_gardener_01", "s_m_m_gentransport", "s_m_m_hairdress_01", "s_m_m_highsec_01", "s_m_m_highsec_02", "s_m_m_janitor", "s_m_m_lathandy_01", "s_m_m_lifeinvad_01", "s_m_m_linecook", "s_m_m_lsmetro_01", "s_m_m_mariachi_01", "s_m_m_marine_01", "s_m_m_marine_02", "s_m_m_migrant_01", "s_m_m_movalien_01", "s_m_m_movprem_01", "s_m_m_movspace_01", "s_m_m_paramedic_01", "s_m_m_pilot_01", "s_m_m_pilot_02", "s_m_m_postal_01", "s_m_m_postal_02", "s_m_m_prisguard_01", "s_m_m_scientist_01", "s_m_m_security_01", "s_m_m_snowcop_01", "s_m_m_strperf_01", "s_m_m_strpreach_01", "s_m_m_strvend_01", "s_m_m_trucker_01", "s_m_m_ups_01", "s_m_m_ups_02", "s_m_o_busker_01", "s_m_y_airworker", "s_m_y_ammucity_01", "s_m_y_armymech_01", "s_m_y_autopsy_01", "s_m_y_barman_01", "s_m_y_baywatch_01", "s_m_y_blackops_01", "s_m_y_blackops_02", "s_m_y_busboy_01", "s_m_y_chef_01", "s_m_y_clown_01", "s_m_y_construct_01", "s_m_y_construct_02", "s_m_y_cop_01", "s_m_y_dealer_01", "s_m_y_devinsec_01", "s_m_y_dockwork_01", "s_m_y_doorman_01", "s_m_y_dwservice_01", "s_m_y_dwservice_02", "s_m_y_factory_01", "s_m_y_fireman_01", "s_m_y_garbage", "s_m_y_grip_01", "s_m_y_hwaycop_01", "s_m_y_marine_01", "s_m_y_marine_02", "s_m_y_marine_03", "s_m_y_mime", "s_m_y_pestcont_01", "s_m_y_pilot_01", "s_m_y_prismuscl_01", "s_m_y_prisoner_01", "s_m_y_ranger_01", "s_m_y_robber_01", "s_m_y_sheriff_01", "s_m_y_shop_mask", "s_m_y_strvend_01", "s_m_y_swat_01", "s_m_y_uscg_01", "s_m_y_valet_01", "s_m_y_waiter_01", "s_m_y_winclean_01", "s_m_y_xmech_01", "s_m_y_xmech_02", "s_m_y_xmech_02_mp", "u_m_m_aldinapoli", "u_m_m_bankman", "u_m_m_bikehire_01", "u_m_m_fibarchitect", "u_m_m_filmdirector", "u_m_m_glenstank_01", "u_m_m_griff_01", "u_m_m_jesus_01", "u_m_m_jewelsec_01", "u_m_m_jewelthief", "u_m_m_markfost", "u_m_m_partytarget", "u_m_m_prolsec_01", "u_m_m_promourn_01", "u_m_m_rivalpap", "u_m_m_spyactor", "u_m_m_willyfist", "u_m_o_finguru_01", "u_m_o_taphillbilly", "u_m_o_tramp_01", "u_m_y_abner", "u_m_y_antonb", "u_m_y_babyd", "u_m_y_baygor", "u_m_y_burgerdrug_01", "u_m_y_chip", "u_m_y_cyclist_01", "u_m_y_fibmugger_01", "u_m_y_guido_01", "u_m_y_gunvend_01", "u_m_y_hippie_01", "u_m_y_imporage", "u_m_y_justin", "u_m_y_mani", "u_m_y_militarybum", "u_m_y_paparazzi", "u_m_y_party_01", "u_m_y_pogo_01", "u_m_y_prisoner_01", "u_m_y_proldriver_01", "u_m_y_rsranger_01", "u_m_y_sbike", "u_m_y_staggrm_01", "u_m_y_tattoo_01", "u_m_y_zombie_01"}
+	local charSkin = {"cs_amandatownley", "cs_andreas", "cs_ashley", "cs_bankman", "cs_barry", "cs_beverly", "cs_brad", "cs_bradcadaver", "cs_carbuyer", "cs_casey", "cs_chengsr", "cs_chrisformage", "cs_clay", "cs_dale", "cs_davenorton", "cs_debra", "cs_denise", "cs_devin", "cs_dom", "cs_dreyfuss", "cs_drfriedlander", "cs_fabien", "cs_fbisuit_01", "cs_floyd", "cs_guadalope", "cs_gurk", "cs_hunter", "cs_janet", "cs_jewelass", "cs_jimmyboston", "cs_jimmydisanto", "cs_joeminuteman", "cs_johnnyklebitz", "cs_josef", "cs_josh", "cs_lamardavis", "cs_lazlow", "cs_lestercrest", "cs_lifeinvad_01", "cs_magenta", "cs_manuel", "cs_marnie", "cs_martinmadrazo", "cs_maryann", "cs_michelle", "cs_milton", "cs_molly", "cs_movpremf_01", "cs_movpremmale", "cs_mrk", "cs_mrs_thornhill", "cs_mrsphillips", "cs_natalia", "cs_nervousron", "cs_nigel", "cs_old_man1a", "cs_old_man2", "cs_omega", "cs_orleans", "cs_paper", "cs_patricia", "cs_priest", "cs_prolsec_02", "cs_russiandrunk", "cs_siemonyetarian", "cs_solomon", "cs_stevehains", "cs_stretch", "cs_tanisha", "cs_taocheng", "cs_taostranslator", "cs_tenniscoach", "cs_terry", "cs_tom", "cs_tomepsilon", "cs_tracydisanto", "cs_wade", "cs_zimbor", "csb_abigail", "csb_anita", "csb_anton", "csb_ballasog", "csb_bride", "csb_burgerdrug", "csb_car3guy1", "csb_car3guy2", "csb_chef", "csb_chin_goon", "csb_cletus", "csb_cop", "csb_customer", "csb_denise_friend", "csb_fos_rep", "csb_g", "csb_groom", "csb_grove_str_dlr", "csb_hao", "csb_hugh", "csb_imran", "csb_janitor", "csb_maude", "csb_mweather", "csb_ortega", "csb_oscar", "csb_porndudes", "csb_prologuedriver", "csb_prolsec", "csb_ramp_gang", "csb_ramp_hic", "csb_ramp_hipster", "csb_ramp_marine", "csb_ramp_mex", "csb_reporter", "csb_roccopelosi", "csb_screen_writer", "csb_stripper_01", "csb_stripper_02", "csb_tonya", "csb_trafficwarden", "csb_vagspeak", "hc_driver", "hc_gunman", "hc_hacker", "ig_abigail", "ig_amandatownley", "ig_andreas", "ig_ashley", "ig_ballasog", "ig_bankman", "ig_barry", "ig_benny", "ig_bestmen", "ig_beverly", "ig_brad", "ig_bride", "ig_car3guy1", "ig_car3guy2", "ig_casey", "ig_chef", "ig_chengsr", "ig_chrisformage", "ig_clay", "ig_claypain", "ig_cletus", "ig_dale", "ig_davenorton", "ig_denise", "ig_devin", "ig_dom", "ig_dreyfuss", "ig_drfriedlander", "ig_fabien", "ig_fbisuit_01", "ig_floyd", "ig_g", "ig_groom", "ig_hao", "ig_hunter", "ig_janet", "ig_jay_norris", "ig_jewelass", "ig_jimmyboston", "ig_jimmydisanto", "ig_joeminuteman", "ig_johnnyklebitz", "ig_josef", "ig_josh", "ig_kerrymcintosh", "ig_lamardavis", "ig_lazlow", "ig_lestercrest", "ig_lifeinvad_01", "ig_lifeinvad_02", "ig_magenta", "ig_malc", "ig_manuel", "ig_marnie", "ig_maryann", "ig_maude", "ig_michelle", "ig_milton", "ig_molly", "ig_mrk", "ig_mrs_thornhill", "ig_mrsphillips", "ig_natalia", "ig_nervousron", "ig_nigel", "ig_old_man1a", "ig_old_man2", "ig_omega", "ig_oneil", "ig_orleans", "ig_ortega", "ig_paper", "ig_patricia", "ig_priest", "ig_prolsec_02", "ig_ramp_gang", "ig_ramp_hic", "ig_ramp_hipster", "ig_ramp_mex", "ig_roccopelosi", "ig_russiandrunk", "ig_screen_writer", "ig_siemonyetarian", "ig_solomon", "ig_stevehains", "ig_stretch", "ig_talina", "ig_tanisha", "ig_taocheng", "ig_taostranslator", "ig_tenniscoach", "ig_terry", "ig_tomepsilon", "ig_tonya", "ig_tracydisanto", "ig_trafficwarden", "ig_tylerdix", "ig_vagspeak", "ig_wade", "ig_zimbor"}
+	
 	local weather = {"Random","BLIZZARD","CLEAR","CLEARING","CLOUDS","EXTRASUNNY","FOGGY","OVERCAST","RAIN","SMOG","SNOWLIGHT","THUNDER","XMAS"}
 	
 	local hour = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"}
@@ -194,6 +216,15 @@ Citizen.CreateThread(function()
 	WarMenu.CreateSubMenu('Wanted', 'PressM', 'Set Wanted Level')
 	WarMenu.CreateSubMenu('Weather', 'PressM', 'Set Weather')
 	WarMenu.CreateSubMenu('Time', 'PressM', 'Set Time')
+	
+	--PED
+	
+	WarMenu.CreateSubMenu('Ped', 'PressM', 'Choose Your Skin')
+	
+	WarMenu.CreateSubMenu('Male', 'Ped', 'Male List')
+	WarMenu.CreateSubMenu('Female', 'Ped', 'Female List')
+	WarMenu.CreateSubMenu('Animals', 'Ped', 'Animal List')
+	WarMenu.CreateSubMenu('Characters', 'Ped', 'Characters List')
 	
 	--WEAPONS
 	WarMenu.CreateSubMenu('Weapons', 'PressM', 'Choose Your Weapons')
@@ -261,10 +292,2868 @@ Citizen.CreateThread(function()
 			
 			elseif WarMenu.MenuButton("Weather", "Weather") then
 			
+			elseif WarMenu.MenuButton("Peds", "Ped") then
+			
 			elseif WarMenu.MenuButton("Vehicles", "Vehicles") then
 		
 			elseif WarMenu.MenuButton('Weapons', 'Weapons') then
 				
+			end
+			
+			WarMenu.Display()
+			
+		-- PED MENU
+			
+		elseif WarMenu.IsMenuOpened("Ped") then
+		
+			if WarMenu.MenuButton("Animals", "Animals") then
+			
+			elseif WarMenu.MenuButton("Male", "Male") then
+			
+			elseif WarMenu.MenuButton("Female", "Female") then
+			
+			elseif WarMenu.MenuButton("Characters", "Characters") then
+			
+			end
+			
+			WarMenu.Display()
+			
+		--ANIMAL MENU
+		
+		elseif WarMenu.IsMenuOpened("Animals") then
+		
+			if WarMenu.Button(animalSkin[1]) then
+
+				changeSkin(target, animalSkin[1])
+
+			elseif WarMenu.Button(animalSkin[2]) then
+
+				changeSkin(target, animalSkin[2])
+
+			elseif WarMenu.Button(animalSkin[3]) then
+
+				changeSkin(target, animalSkin[3])
+
+			elseif WarMenu.Button(animalSkin[4]) then
+
+				changeSkin(target, animalSkin[4])
+
+			elseif WarMenu.Button(animalSkin[5]) then
+
+				changeSkin(target, animalSkin[5])
+
+			elseif WarMenu.Button(animalSkin[6]) then
+
+				changeSkin(target, animalSkin[6])
+
+			elseif WarMenu.Button(animalSkin[7]) then
+
+				changeSkin(target, animalSkin[7])
+
+			elseif WarMenu.Button(animalSkin[8]) then
+
+				changeSkin(target, animalSkin[8])
+
+			elseif WarMenu.Button(animalSkin[9]) then
+
+				changeSkin(target, animalSkin[9])
+
+			elseif WarMenu.Button(animalSkin[10]) then
+
+				changeSkin(target, animalSkin[10])
+
+			elseif WarMenu.Button(animalSkin[11]) then
+
+				changeSkin(target, animalSkin[11])
+
+			elseif WarMenu.Button(animalSkin[12]) then
+
+				changeSkin(target, animalSkin[12])
+
+			elseif WarMenu.Button(animalSkin[13]) then
+
+				changeSkin(target, animalSkin[13])
+
+			elseif WarMenu.Button(animalSkin[14]) then
+
+				changeSkin(target, animalSkin[14])
+
+			elseif WarMenu.Button(animalSkin[15]) then
+
+				changeSkin(target, animalSkin[15])
+
+			elseif WarMenu.Button(animalSkin[16]) then
+
+				changeSkin(target, animalSkin[16])
+
+			elseif WarMenu.Button(animalSkin[17]) then
+
+				changeSkin(target, animalSkin[17])
+
+			elseif WarMenu.Button(animalSkin[18]) then
+
+				changeSkin(target, animalSkin[18])
+
+			elseif WarMenu.Button(animalSkin[19]) then
+
+				changeSkin(target, animalSkin[19])
+
+			elseif WarMenu.Button(animalSkin[20]) then
+
+				changeSkin(target, animalSkin[20])
+
+			elseif WarMenu.Button(animalSkin[21]) then
+
+				changeSkin(target, animalSkin[21])
+
+			elseif WarMenu.Button(animalSkin[22]) then
+
+				changeSkin(target, animalSkin[22])
+
+			elseif WarMenu.Button(animalSkin[23]) then
+
+				changeSkin(target, animalSkin[23])
+
+			elseif WarMenu.Button(animalSkin[24]) then
+
+				changeSkin(target, animalSkin[24])
+
+			elseif WarMenu.Button(animalSkin[25]) then
+
+				changeSkin(target, animalSkin[25])
+
+			elseif WarMenu.Button(animalSkin[26]) then
+
+				changeSkin(target, animalSkin[26])
+
+			elseif WarMenu.Button(animalSkin[27]) then
+
+				changeSkin(target, animalSkin[27])
+
+			elseif WarMenu.Button(animalSkin[28]) then
+
+				changeSkin(target, animalSkin[28])
+
+			elseif WarMenu.Button(animalSkin[29]) then
+
+				changeSkin(target, animalSkin[29])
+
+			elseif WarMenu.Button(animalSkin[30]) then
+
+				changeSkin(target, animalSkin[30])
+
+			end
+			
+			WarMenu.Display()
+			
+		--FEMALE MENU
+		
+		elseif WarMenu.IsMenuOpened("Female") then
+		
+			if WarMenu.Button(femaleSkin[1]) then
+
+				changeSkin(target, femaleSkin[1])
+
+			elseif WarMenu.Button(femaleSkin[2]) then
+
+				changeSkin(target, femaleSkin[2])
+
+			elseif WarMenu.Button(femaleSkin[3]) then
+
+				changeSkin(target, femaleSkin[3])
+
+			elseif WarMenu.Button(femaleSkin[4]) then
+
+				changeSkin(target, femaleSkin[4])
+
+			elseif WarMenu.Button(femaleSkin[5]) then
+
+				changeSkin(target, femaleSkin[5])
+
+			elseif WarMenu.Button(femaleSkin[6]) then
+
+				changeSkin(target, femaleSkin[6])
+
+			elseif WarMenu.Button(femaleSkin[7]) then
+
+				changeSkin(target, femaleSkin[7])
+
+			elseif WarMenu.Button(femaleSkin[8]) then
+
+				changeSkin(target, femaleSkin[8])
+
+			elseif WarMenu.Button(femaleSkin[9]) then
+
+				changeSkin(target, femaleSkin[9])
+
+			elseif WarMenu.Button(femaleSkin[10]) then
+
+				changeSkin(target, femaleSkin[10])
+
+			elseif WarMenu.Button(femaleSkin[11]) then
+
+				changeSkin(target, femaleSkin[11])
+
+			elseif WarMenu.Button(femaleSkin[12]) then
+
+				changeSkin(target, femaleSkin[12])
+
+			elseif WarMenu.Button(femaleSkin[13]) then
+
+				changeSkin(target, femaleSkin[13])
+
+			elseif WarMenu.Button(femaleSkin[14]) then
+
+				changeSkin(target, femaleSkin[14])
+
+			elseif WarMenu.Button(femaleSkin[15]) then
+
+				changeSkin(target, femaleSkin[15])
+
+			elseif WarMenu.Button(femaleSkin[16]) then
+
+				changeSkin(target, femaleSkin[16])
+
+			elseif WarMenu.Button(femaleSkin[17]) then
+
+				changeSkin(target, femaleSkin[17])
+
+			elseif WarMenu.Button(femaleSkin[18]) then
+
+				changeSkin(target, femaleSkin[18])
+
+			elseif WarMenu.Button(femaleSkin[19]) then
+
+				changeSkin(target, femaleSkin[19])
+
+			elseif WarMenu.Button(femaleSkin[20]) then
+
+				changeSkin(target, femaleSkin[20])
+
+			elseif WarMenu.Button(femaleSkin[21]) then
+
+				changeSkin(target, femaleSkin[21])
+
+			elseif WarMenu.Button(femaleSkin[22]) then
+
+				changeSkin(target, femaleSkin[22])
+
+			elseif WarMenu.Button(femaleSkin[23]) then
+
+				changeSkin(target, femaleSkin[23])
+
+			elseif WarMenu.Button(femaleSkin[24]) then
+
+				changeSkin(target, femaleSkin[24])
+
+			elseif WarMenu.Button(femaleSkin[25]) then
+
+				changeSkin(target, femaleSkin[25])
+
+			elseif WarMenu.Button(femaleSkin[26]) then
+
+				changeSkin(target, femaleSkin[26])
+
+			elseif WarMenu.Button(femaleSkin[27]) then
+
+				changeSkin(target, femaleSkin[27])
+
+			elseif WarMenu.Button(femaleSkin[28]) then
+
+				changeSkin(target, femaleSkin[28])
+
+			elseif WarMenu.Button(femaleSkin[29]) then
+
+				changeSkin(target, femaleSkin[29])
+
+			elseif WarMenu.Button(femaleSkin[30]) then
+
+				changeSkin(target, femaleSkin[30])
+
+			elseif WarMenu.Button(femaleSkin[31]) then
+
+				changeSkin(target, femaleSkin[31])
+
+			elseif WarMenu.Button(femaleSkin[32]) then
+
+				changeSkin(target, femaleSkin[32])
+
+			elseif WarMenu.Button(femaleSkin[33]) then
+
+				changeSkin(target, femaleSkin[33])
+
+			elseif WarMenu.Button(femaleSkin[34]) then
+
+				changeSkin(target, femaleSkin[34])
+
+			elseif WarMenu.Button(femaleSkin[35]) then
+
+				changeSkin(target, femaleSkin[35])
+
+			elseif WarMenu.Button(femaleSkin[36]) then
+
+				changeSkin(target, femaleSkin[36])
+
+			elseif WarMenu.Button(femaleSkin[37]) then
+
+				changeSkin(target, femaleSkin[37])
+
+			elseif WarMenu.Button(femaleSkin[38]) then
+
+				changeSkin(target, femaleSkin[38])
+
+			elseif WarMenu.Button(femaleSkin[39]) then
+
+				changeSkin(target, femaleSkin[39])
+
+			elseif WarMenu.Button(femaleSkin[40]) then
+
+				changeSkin(target, femaleSkin[40])
+
+			elseif WarMenu.Button(femaleSkin[41]) then
+
+				changeSkin(target, femaleSkin[41])
+
+			elseif WarMenu.Button(femaleSkin[42]) then
+
+				changeSkin(target, femaleSkin[42])
+
+			elseif WarMenu.Button(femaleSkin[43]) then
+
+				changeSkin(target, femaleSkin[43])
+
+			elseif WarMenu.Button(femaleSkin[44]) then
+
+				changeSkin(target, femaleSkin[44])
+
+			elseif WarMenu.Button(femaleSkin[45]) then
+
+				changeSkin(target, femaleSkin[45])
+
+			elseif WarMenu.Button(femaleSkin[46]) then
+
+				changeSkin(target, femaleSkin[46])
+
+			elseif WarMenu.Button(femaleSkin[47]) then
+
+				changeSkin(target, femaleSkin[47])
+
+			elseif WarMenu.Button(femaleSkin[48]) then
+
+				changeSkin(target, femaleSkin[48])
+
+			elseif WarMenu.Button(femaleSkin[49]) then
+
+				changeSkin(target, femaleSkin[49])
+
+			elseif WarMenu.Button(femaleSkin[50]) then
+
+				changeSkin(target, femaleSkin[50])
+
+			elseif WarMenu.Button(femaleSkin[51]) then
+
+				changeSkin(target, femaleSkin[51])
+
+			elseif WarMenu.Button(femaleSkin[52]) then
+
+				changeSkin(target, femaleSkin[52])
+
+			elseif WarMenu.Button(femaleSkin[53]) then
+
+				changeSkin(target, femaleSkin[53])
+
+			elseif WarMenu.Button(femaleSkin[54]) then
+
+				changeSkin(target, femaleSkin[54])
+
+			elseif WarMenu.Button(femaleSkin[55]) then
+
+				changeSkin(target, femaleSkin[55])
+
+			elseif WarMenu.Button(femaleSkin[56]) then
+
+				changeSkin(target, femaleSkin[56])
+
+			elseif WarMenu.Button(femaleSkin[57]) then
+
+				changeSkin(target, femaleSkin[57])
+
+			elseif WarMenu.Button(femaleSkin[58]) then
+
+				changeSkin(target, femaleSkin[58])
+
+			elseif WarMenu.Button(femaleSkin[59]) then
+
+				changeSkin(target, femaleSkin[59])
+
+			elseif WarMenu.Button(femaleSkin[60]) then
+
+				changeSkin(target, femaleSkin[60])
+
+			elseif WarMenu.Button(femaleSkin[61]) then
+
+				changeSkin(target, femaleSkin[61])
+
+			elseif WarMenu.Button(femaleSkin[62]) then
+
+				changeSkin(target, femaleSkin[62])
+
+			elseif WarMenu.Button(femaleSkin[63]) then
+
+				changeSkin(target, femaleSkin[63])
+
+			elseif WarMenu.Button(femaleSkin[64]) then
+
+				changeSkin(target, femaleSkin[64])
+
+			elseif WarMenu.Button(femaleSkin[65]) then
+
+				changeSkin(target, femaleSkin[65])
+
+			elseif WarMenu.Button(femaleSkin[66]) then
+
+				changeSkin(target, femaleSkin[66])
+
+			elseif WarMenu.Button(femaleSkin[67]) then
+
+				changeSkin(target, femaleSkin[67])
+
+			elseif WarMenu.Button(femaleSkin[68]) then
+
+				changeSkin(target, femaleSkin[68])
+
+			elseif WarMenu.Button(femaleSkin[69]) then
+
+				changeSkin(target, femaleSkin[69])
+
+			elseif WarMenu.Button(femaleSkin[70]) then
+
+				changeSkin(target, femaleSkin[70])
+
+			elseif WarMenu.Button(femaleSkin[71]) then
+
+				changeSkin(target, femaleSkin[71])
+
+			elseif WarMenu.Button(femaleSkin[72]) then
+
+				changeSkin(target, femaleSkin[72])
+
+			elseif WarMenu.Button(femaleSkin[73]) then
+
+				changeSkin(target, femaleSkin[73])
+
+			elseif WarMenu.Button(femaleSkin[74]) then
+
+				changeSkin(target, femaleSkin[74])
+
+			elseif WarMenu.Button(femaleSkin[75]) then
+
+				changeSkin(target, femaleSkin[75])
+
+			elseif WarMenu.Button(femaleSkin[76]) then
+
+				changeSkin(target, femaleSkin[76])
+
+			elseif WarMenu.Button(femaleSkin[77]) then
+
+				changeSkin(target, femaleSkin[77])
+
+			elseif WarMenu.Button(femaleSkin[78]) then
+
+				changeSkin(target, femaleSkin[78])
+
+			elseif WarMenu.Button(femaleSkin[79]) then
+
+				changeSkin(target, femaleSkin[79])
+
+			elseif WarMenu.Button(femaleSkin[80]) then
+
+				changeSkin(target, femaleSkin[80])
+
+			elseif WarMenu.Button(femaleSkin[81]) then
+
+				changeSkin(target, femaleSkin[81])
+
+			elseif WarMenu.Button(femaleSkin[82]) then
+
+				changeSkin(target, femaleSkin[82])
+
+			elseif WarMenu.Button(femaleSkin[83]) then
+
+				changeSkin(target, femaleSkin[83])
+
+			elseif WarMenu.Button(femaleSkin[84]) then
+
+				changeSkin(target, femaleSkin[84])
+
+			elseif WarMenu.Button(femaleSkin[85]) then
+
+				changeSkin(target, femaleSkin[85])
+
+			elseif WarMenu.Button(femaleSkin[86]) then
+
+				changeSkin(target, femaleSkin[86])
+
+			elseif WarMenu.Button(femaleSkin[87]) then
+
+				changeSkin(target, femaleSkin[87])
+
+			elseif WarMenu.Button(femaleSkin[88]) then
+
+				changeSkin(target, femaleSkin[88])
+
+			elseif WarMenu.Button(femaleSkin[89]) then
+
+				changeSkin(target, femaleSkin[89])
+
+			elseif WarMenu.Button(femaleSkin[90]) then
+
+				changeSkin(target, femaleSkin[90])
+
+			elseif WarMenu.Button(femaleSkin[91]) then
+
+				changeSkin(target, femaleSkin[91])
+
+			elseif WarMenu.Button(femaleSkin[92]) then
+
+				changeSkin(target, femaleSkin[92])
+
+			elseif WarMenu.Button(femaleSkin[93]) then
+
+				changeSkin(target, femaleSkin[93])
+
+			elseif WarMenu.Button(femaleSkin[94]) then
+
+				changeSkin(target, femaleSkin[94])
+
+			elseif WarMenu.Button(femaleSkin[95]) then
+
+				changeSkin(target, femaleSkin[95])
+
+			elseif WarMenu.Button(femaleSkin[96]) then
+
+				changeSkin(target, femaleSkin[96])
+
+			elseif WarMenu.Button(femaleSkin[97]) then
+
+				changeSkin(target, femaleSkin[97])
+
+			elseif WarMenu.Button(femaleSkin[98]) then
+
+				changeSkin(target, femaleSkin[98])
+
+			elseif WarMenu.Button(femaleSkin[99]) then
+
+				changeSkin(target, femaleSkin[99])
+
+			elseif WarMenu.Button(femaleSkin[100]) then
+
+				changeSkin(target, femaleSkin[100])
+
+			elseif WarMenu.Button(femaleSkin[101]) then
+
+				changeSkin(target, femaleSkin[101])
+
+			elseif WarMenu.Button(femaleSkin[102]) then
+
+				changeSkin(target, femaleSkin[102])
+
+			elseif WarMenu.Button(femaleSkin[103]) then
+
+				changeSkin(target, femaleSkin[103])
+
+			elseif WarMenu.Button(femaleSkin[104]) then
+
+				changeSkin(target, femaleSkin[104])
+
+			elseif WarMenu.Button(femaleSkin[105]) then
+
+				changeSkin(target, femaleSkin[105])
+
+			elseif WarMenu.Button(femaleSkin[106]) then
+
+				changeSkin(target, femaleSkin[106])
+
+			elseif WarMenu.Button(femaleSkin[107]) then
+
+				changeSkin(target, femaleSkin[107])
+
+			elseif WarMenu.Button(femaleSkin[108]) then
+
+				changeSkin(target, femaleSkin[108])
+
+			elseif WarMenu.Button(femaleSkin[109]) then
+
+				changeSkin(target, femaleSkin[109])
+
+			elseif WarMenu.Button(femaleSkin[110]) then
+
+				changeSkin(target, femaleSkin[110])
+
+			elseif WarMenu.Button(femaleSkin[111]) then
+
+				changeSkin(target, femaleSkin[111])
+
+			elseif WarMenu.Button(femaleSkin[112]) then
+
+				changeSkin(target, femaleSkin[112])
+
+			elseif WarMenu.Button(femaleSkin[113]) then
+
+				changeSkin(target, femaleSkin[113])
+
+			elseif WarMenu.Button(femaleSkin[114]) then
+
+				changeSkin(target, femaleSkin[114])
+
+			elseif WarMenu.Button(femaleSkin[115]) then
+
+				changeSkin(target, femaleSkin[115])
+
+			elseif WarMenu.Button(femaleSkin[116]) then
+
+				changeSkin(target, femaleSkin[116])
+
+			elseif WarMenu.Button(femaleSkin[117]) then
+
+				changeSkin(target, femaleSkin[117])
+
+			elseif WarMenu.Button(femaleSkin[118]) then
+
+				changeSkin(target, femaleSkin[118])
+
+			elseif WarMenu.Button(femaleSkin[119]) then
+
+				changeSkin(target, femaleSkin[119])
+
+			elseif WarMenu.Button(femaleSkin[120]) then
+
+				changeSkin(target, femaleSkin[120])
+
+			elseif WarMenu.Button(femaleSkin[121]) then
+
+				changeSkin(target, femaleSkin[121])
+
+			elseif WarMenu.Button(femaleSkin[122]) then
+
+				changeSkin(target, femaleSkin[122])
+
+			elseif WarMenu.Button(femaleSkin[123]) then
+
+				changeSkin(target, femaleSkin[123])
+
+			elseif WarMenu.Button(femaleSkin[124]) then
+
+				changeSkin(target, femaleSkin[124])
+
+			elseif WarMenu.Button(femaleSkin[125]) then
+
+				changeSkin(target, femaleSkin[125])
+				
+			elseif WarMenu.Button(femaleSkin[126]) then
+
+				changeSkin(target, femaleSkin[126])
+			
+			end
+			
+			WarMenu.Display()
+			
+		-- MALE MENU
+		
+		elseif WarMenu.IsMenuOpened("Male") then
+		
+			if WarMenu.Button(maleSkin[1]) then
+
+				changeSkin(target, maleSkin[1])
+
+			elseif WarMenu.Button(maleSkin[2]) then
+
+				changeSkin(target, maleSkin[2])
+
+			elseif WarMenu.Button(maleSkin[3]) then
+
+				changeSkin(target, maleSkin[3])
+
+			elseif WarMenu.Button(maleSkin[4]) then
+
+				changeSkin(target, maleSkin[4])
+
+			elseif WarMenu.Button(maleSkin[5]) then
+
+				changeSkin(target, maleSkin[5])
+
+			elseif WarMenu.Button(maleSkin[6]) then
+
+				changeSkin(target, maleSkin[6])
+
+			elseif WarMenu.Button(maleSkin[7]) then
+
+				changeSkin(target, maleSkin[7])
+
+			elseif WarMenu.Button(maleSkin[8]) then
+
+				changeSkin(target, maleSkin[8])
+
+			elseif WarMenu.Button(maleSkin[9]) then
+
+				changeSkin(target, maleSkin[9])
+
+			elseif WarMenu.Button(maleSkin[10]) then
+
+				changeSkin(target, maleSkin[10])
+
+			elseif WarMenu.Button(maleSkin[11]) then
+
+				changeSkin(target, maleSkin[11])
+
+			elseif WarMenu.Button(maleSkin[12]) then
+
+				changeSkin(target, maleSkin[12])
+
+			elseif WarMenu.Button(maleSkin[13]) then
+
+				changeSkin(target, maleSkin[13])
+
+			elseif WarMenu.Button(maleSkin[14]) then
+
+				changeSkin(target, maleSkin[14])
+
+			elseif WarMenu.Button(maleSkin[15]) then
+
+				changeSkin(target, maleSkin[15])
+
+			elseif WarMenu.Button(maleSkin[16]) then
+
+				changeSkin(target, maleSkin[16])
+
+			elseif WarMenu.Button(maleSkin[17]) then
+
+				changeSkin(target, maleSkin[17])
+
+			elseif WarMenu.Button(maleSkin[18]) then
+
+				changeSkin(target, maleSkin[18])
+
+			elseif WarMenu.Button(maleSkin[19]) then
+
+				changeSkin(target, maleSkin[19])
+
+			elseif WarMenu.Button(maleSkin[20]) then
+
+				changeSkin(target, maleSkin[20])
+
+			elseif WarMenu.Button(maleSkin[21]) then
+
+				changeSkin(target, maleSkin[21])
+
+			elseif WarMenu.Button(maleSkin[22]) then
+
+				changeSkin(target, maleSkin[22])
+
+			elseif WarMenu.Button(maleSkin[23]) then
+
+				changeSkin(target, maleSkin[23])
+
+			elseif WarMenu.Button(maleSkin[24]) then
+
+				changeSkin(target, maleSkin[24])
+
+			elseif WarMenu.Button(maleSkin[25]) then
+
+				changeSkin(target, maleSkin[25])
+
+			elseif WarMenu.Button(maleSkin[26]) then
+
+				changeSkin(target, maleSkin[26])
+
+			elseif WarMenu.Button(maleSkin[27]) then
+
+				changeSkin(target, maleSkin[27])
+
+			elseif WarMenu.Button(maleSkin[28]) then
+
+				changeSkin(target, maleSkin[28])
+
+			elseif WarMenu.Button(maleSkin[29]) then
+
+				changeSkin(target, maleSkin[29])
+
+			elseif WarMenu.Button(maleSkin[30]) then
+
+				changeSkin(target, maleSkin[30])
+
+			elseif WarMenu.Button(maleSkin[31]) then
+
+				changeSkin(target, maleSkin[31])
+
+			elseif WarMenu.Button(maleSkin[32]) then
+
+				changeSkin(target, maleSkin[32])
+
+			elseif WarMenu.Button(maleSkin[33]) then
+
+				changeSkin(target, maleSkin[33])
+
+			elseif WarMenu.Button(maleSkin[34]) then
+
+				changeSkin(target, maleSkin[34])
+
+			elseif WarMenu.Button(maleSkin[35]) then
+
+				changeSkin(target, maleSkin[35])
+
+			elseif WarMenu.Button(maleSkin[36]) then
+
+				changeSkin(target, maleSkin[36])
+
+			elseif WarMenu.Button(maleSkin[37]) then
+
+				changeSkin(target, maleSkin[37])
+
+			elseif WarMenu.Button(maleSkin[38]) then
+
+				changeSkin(target, maleSkin[38])
+
+			elseif WarMenu.Button(maleSkin[39]) then
+
+				changeSkin(target, maleSkin[39])
+
+			elseif WarMenu.Button(maleSkin[40]) then
+
+				changeSkin(target, maleSkin[40])
+
+			elseif WarMenu.Button(maleSkin[41]) then
+
+				changeSkin(target, maleSkin[41])
+
+			elseif WarMenu.Button(maleSkin[42]) then
+
+				changeSkin(target, maleSkin[42])
+
+			elseif WarMenu.Button(maleSkin[43]) then
+
+				changeSkin(target, maleSkin[43])
+
+			elseif WarMenu.Button(maleSkin[44]) then
+
+				changeSkin(target, maleSkin[44])
+
+			elseif WarMenu.Button(maleSkin[45]) then
+
+				changeSkin(target, maleSkin[45])
+
+			elseif WarMenu.Button(maleSkin[46]) then
+
+				changeSkin(target, maleSkin[46])
+
+			elseif WarMenu.Button(maleSkin[47]) then
+
+				changeSkin(target, maleSkin[47])
+
+			elseif WarMenu.Button(maleSkin[48]) then
+
+				changeSkin(target, maleSkin[48])
+
+			elseif WarMenu.Button(maleSkin[49]) then
+
+				changeSkin(target, maleSkin[49])
+
+			elseif WarMenu.Button(maleSkin[50]) then
+
+				changeSkin(target, maleSkin[50])
+
+			elseif WarMenu.Button(maleSkin[51]) then
+
+				changeSkin(target, maleSkin[51])
+
+			elseif WarMenu.Button(maleSkin[52]) then
+
+				changeSkin(target, maleSkin[52])
+
+			elseif WarMenu.Button(maleSkin[53]) then
+
+				changeSkin(target, maleSkin[53])
+
+			elseif WarMenu.Button(maleSkin[54]) then
+
+				changeSkin(target, maleSkin[54])
+
+			elseif WarMenu.Button(maleSkin[55]) then
+
+				changeSkin(target, maleSkin[55])
+
+			elseif WarMenu.Button(maleSkin[56]) then
+
+				changeSkin(target, maleSkin[56])
+
+			elseif WarMenu.Button(maleSkin[57]) then
+
+				changeSkin(target, maleSkin[57])
+
+			elseif WarMenu.Button(maleSkin[58]) then
+
+				changeSkin(target, maleSkin[58])
+
+			elseif WarMenu.Button(maleSkin[59]) then
+
+				changeSkin(target, maleSkin[59])
+
+			elseif WarMenu.Button(maleSkin[60]) then
+
+				changeSkin(target, maleSkin[60])
+
+			elseif WarMenu.Button(maleSkin[61]) then
+
+				changeSkin(target, maleSkin[61])
+
+			elseif WarMenu.Button(maleSkin[62]) then
+
+				changeSkin(target, maleSkin[62])
+
+			elseif WarMenu.Button(maleSkin[63]) then
+
+				changeSkin(target, maleSkin[63])
+
+			elseif WarMenu.Button(maleSkin[64]) then
+
+				changeSkin(target, maleSkin[64])
+
+			elseif WarMenu.Button(maleSkin[65]) then
+
+				changeSkin(target, maleSkin[65])
+
+			elseif WarMenu.Button(maleSkin[66]) then
+
+				changeSkin(target, maleSkin[66])
+
+			elseif WarMenu.Button(maleSkin[67]) then
+
+				changeSkin(target, maleSkin[67])
+
+			elseif WarMenu.Button(maleSkin[68]) then
+
+				changeSkin(target, maleSkin[68])
+
+			elseif WarMenu.Button(maleSkin[69]) then
+
+				changeSkin(target, maleSkin[69])
+
+			elseif WarMenu.Button(maleSkin[70]) then
+
+				changeSkin(target, maleSkin[70])
+
+			elseif WarMenu.Button(maleSkin[71]) then
+
+				changeSkin(target, maleSkin[71])
+
+			elseif WarMenu.Button(maleSkin[72]) then
+
+				changeSkin(target, maleSkin[72])
+
+			elseif WarMenu.Button(maleSkin[73]) then
+
+				changeSkin(target, maleSkin[73])
+
+			elseif WarMenu.Button(maleSkin[74]) then
+
+				changeSkin(target, maleSkin[74])
+
+			elseif WarMenu.Button(maleSkin[75]) then
+
+				changeSkin(target, maleSkin[75])
+
+			elseif WarMenu.Button(maleSkin[76]) then
+
+				changeSkin(target, maleSkin[76])
+
+			elseif WarMenu.Button(maleSkin[77]) then
+
+				changeSkin(target, maleSkin[77])
+
+			elseif WarMenu.Button(maleSkin[78]) then
+
+				changeSkin(target, maleSkin[78])
+
+			elseif WarMenu.Button(maleSkin[79]) then
+
+				changeSkin(target, maleSkin[79])
+
+			elseif WarMenu.Button(maleSkin[80]) then
+
+				changeSkin(target, maleSkin[80])
+
+			elseif WarMenu.Button(maleSkin[81]) then
+
+				changeSkin(target, maleSkin[81])
+
+			elseif WarMenu.Button(maleSkin[82]) then
+
+				changeSkin(target, maleSkin[82])
+
+			elseif WarMenu.Button(maleSkin[83]) then
+
+				changeSkin(target, maleSkin[83])
+
+			elseif WarMenu.Button(maleSkin[84]) then
+
+				changeSkin(target, maleSkin[84])
+
+			elseif WarMenu.Button(maleSkin[85]) then
+
+				changeSkin(target, maleSkin[85])
+
+			elseif WarMenu.Button(maleSkin[86]) then
+
+				changeSkin(target, maleSkin[86])
+
+			elseif WarMenu.Button(maleSkin[87]) then
+
+				changeSkin(target, maleSkin[87])
+
+			elseif WarMenu.Button(maleSkin[88]) then
+
+				changeSkin(target, maleSkin[88])
+
+			elseif WarMenu.Button(maleSkin[89]) then
+
+				changeSkin(target, maleSkin[89])
+
+			elseif WarMenu.Button(maleSkin[90]) then
+
+				changeSkin(target, maleSkin[90])
+
+			elseif WarMenu.Button(maleSkin[91]) then
+
+				changeSkin(target, maleSkin[91])
+
+			elseif WarMenu.Button(maleSkin[92]) then
+
+				changeSkin(target, maleSkin[92])
+
+			elseif WarMenu.Button(maleSkin[93]) then
+
+				changeSkin(target, maleSkin[93])
+
+			elseif WarMenu.Button(maleSkin[94]) then
+
+				changeSkin(target, maleSkin[94])
+
+			elseif WarMenu.Button(maleSkin[95]) then
+
+				changeSkin(target, maleSkin[95])
+
+			elseif WarMenu.Button(maleSkin[96]) then
+
+				changeSkin(target, maleSkin[96])
+
+			elseif WarMenu.Button(maleSkin[97]) then
+
+				changeSkin(target, maleSkin[97])
+
+			elseif WarMenu.Button(maleSkin[98]) then
+
+				changeSkin(target, maleSkin[98])
+
+			elseif WarMenu.Button(maleSkin[99]) then
+
+				changeSkin(target, maleSkin[99])
+
+			elseif WarMenu.Button(maleSkin[100]) then
+
+				changeSkin(target, maleSkin[100])
+
+			elseif WarMenu.Button(maleSkin[101]) then
+
+				changeSkin(target, maleSkin[101])
+
+			elseif WarMenu.Button(maleSkin[102]) then
+
+				changeSkin(target, maleSkin[102])
+
+			elseif WarMenu.Button(maleSkin[103]) then
+
+				changeSkin(target, maleSkin[103])
+
+			elseif WarMenu.Button(maleSkin[104]) then
+
+				changeSkin(target, maleSkin[104])
+
+			elseif WarMenu.Button(maleSkin[105]) then
+
+				changeSkin(target, maleSkin[105])
+
+			elseif WarMenu.Button(maleSkin[106]) then
+
+				changeSkin(target, maleSkin[106])
+
+			elseif WarMenu.Button(maleSkin[107]) then
+
+				changeSkin(target, maleSkin[107])
+
+			elseif WarMenu.Button(maleSkin[108]) then
+
+				changeSkin(target, maleSkin[108])
+
+			elseif WarMenu.Button(maleSkin[109]) then
+
+				changeSkin(target, maleSkin[109])
+
+			elseif WarMenu.Button(maleSkin[110]) then
+
+				changeSkin(target, maleSkin[110])
+
+			elseif WarMenu.Button(maleSkin[111]) then
+
+				changeSkin(target, maleSkin[111])
+
+			elseif WarMenu.Button(maleSkin[112]) then
+
+				changeSkin(target, maleSkin[112])
+
+			elseif WarMenu.Button(maleSkin[113]) then
+
+				changeSkin(target, maleSkin[113])
+
+			elseif WarMenu.Button(maleSkin[114]) then
+
+				changeSkin(target, maleSkin[114])
+
+			elseif WarMenu.Button(maleSkin[115]) then
+
+				changeSkin(target, maleSkin[115])
+
+			elseif WarMenu.Button(maleSkin[116]) then
+
+				changeSkin(target, maleSkin[116])
+
+			elseif WarMenu.Button(maleSkin[117]) then
+
+				changeSkin(target, maleSkin[117])
+
+			elseif WarMenu.Button(maleSkin[118]) then
+
+				changeSkin(target, maleSkin[118])
+
+			elseif WarMenu.Button(maleSkin[119]) then
+
+				changeSkin(target, maleSkin[119])
+
+			elseif WarMenu.Button(maleSkin[120]) then
+
+				changeSkin(target, maleSkin[120])
+
+			elseif WarMenu.Button(maleSkin[121]) then
+
+				changeSkin(target, maleSkin[121])
+
+			elseif WarMenu.Button(maleSkin[122]) then
+
+				changeSkin(target, maleSkin[122])
+
+			elseif WarMenu.Button(maleSkin[123]) then
+
+				changeSkin(target, maleSkin[123])
+
+			elseif WarMenu.Button(maleSkin[124]) then
+
+				changeSkin(target, maleSkin[124])
+
+			elseif WarMenu.Button(maleSkin[125]) then
+
+				changeSkin(target, maleSkin[125])
+
+			elseif WarMenu.Button(maleSkin[126]) then
+
+				changeSkin(target, maleSkin[126])
+
+			elseif WarMenu.Button(maleSkin[127]) then
+
+				changeSkin(target, maleSkin[127])
+
+			elseif WarMenu.Button(maleSkin[128]) then
+
+				changeSkin(target, maleSkin[128])
+
+			elseif WarMenu.Button(maleSkin[129]) then
+
+				changeSkin(target, maleSkin[129])
+
+			elseif WarMenu.Button(maleSkin[130]) then
+
+				changeSkin(target, maleSkin[130])
+
+			elseif WarMenu.Button(maleSkin[131]) then
+
+				changeSkin(target, maleSkin[131])
+
+			elseif WarMenu.Button(maleSkin[132]) then
+
+				changeSkin(target, maleSkin[132])
+
+			elseif WarMenu.Button(maleSkin[133]) then
+
+				changeSkin(target, maleSkin[133])
+
+			elseif WarMenu.Button(maleSkin[134]) then
+
+				changeSkin(target, maleSkin[134])
+
+			elseif WarMenu.Button(maleSkin[135]) then
+
+				changeSkin(target, maleSkin[135])
+
+			elseif WarMenu.Button(maleSkin[136]) then
+
+				changeSkin(target, maleSkin[136])
+
+			elseif WarMenu.Button(maleSkin[137]) then
+
+				changeSkin(target, maleSkin[137])
+
+			elseif WarMenu.Button(maleSkin[138]) then
+
+				changeSkin(target, maleSkin[138])
+
+			elseif WarMenu.Button(maleSkin[139]) then
+
+				changeSkin(target, maleSkin[139])
+
+			elseif WarMenu.Button(maleSkin[140]) then
+
+				changeSkin(target, maleSkin[140])
+
+			elseif WarMenu.Button(maleSkin[141]) then
+
+				changeSkin(target, maleSkin[141])
+
+			elseif WarMenu.Button(maleSkin[142]) then
+
+				changeSkin(target, maleSkin[142])
+
+			elseif WarMenu.Button(maleSkin[143]) then
+
+				changeSkin(target, maleSkin[143])
+
+			elseif WarMenu.Button(maleSkin[144]) then
+
+				changeSkin(target, maleSkin[144])
+
+			elseif WarMenu.Button(maleSkin[145]) then
+
+				changeSkin(target, maleSkin[145])
+
+			elseif WarMenu.Button(maleSkin[146]) then
+
+				changeSkin(target, maleSkin[146])
+
+			elseif WarMenu.Button(maleSkin[147]) then
+
+				changeSkin(target, maleSkin[147])
+
+			elseif WarMenu.Button(maleSkin[148]) then
+
+				changeSkin(target, maleSkin[148])
+
+			elseif WarMenu.Button(maleSkin[149]) then
+
+				changeSkin(target, maleSkin[149])
+
+			elseif WarMenu.Button(maleSkin[150]) then
+
+				changeSkin(target, maleSkin[150])
+
+			elseif WarMenu.Button(maleSkin[151]) then
+
+				changeSkin(target, maleSkin[151])
+
+			elseif WarMenu.Button(maleSkin[152]) then
+
+				changeSkin(target, maleSkin[152])
+
+			elseif WarMenu.Button(maleSkin[153]) then
+
+				changeSkin(target, maleSkin[153])
+
+			elseif WarMenu.Button(maleSkin[154]) then
+
+				changeSkin(target, maleSkin[154])
+
+			elseif WarMenu.Button(maleSkin[155]) then
+
+				changeSkin(target, maleSkin[155])
+
+			elseif WarMenu.Button(maleSkin[156]) then
+
+				changeSkin(target, maleSkin[156])
+
+			elseif WarMenu.Button(maleSkin[157]) then
+
+				changeSkin(target, maleSkin[157])
+
+			elseif WarMenu.Button(maleSkin[158]) then
+
+				changeSkin(target, maleSkin[158])
+
+			elseif WarMenu.Button(maleSkin[159]) then
+
+				changeSkin(target, maleSkin[159])
+
+			elseif WarMenu.Button(maleSkin[160]) then
+
+				changeSkin(target, maleSkin[160])
+
+			elseif WarMenu.Button(maleSkin[161]) then
+
+				changeSkin(target, maleSkin[161])
+
+			elseif WarMenu.Button(maleSkin[162]) then
+
+				changeSkin(target, maleSkin[162])
+
+			elseif WarMenu.Button(maleSkin[163]) then
+
+				changeSkin(target, maleSkin[163])
+
+			elseif WarMenu.Button(maleSkin[164]) then
+
+				changeSkin(target, maleSkin[164])
+
+			elseif WarMenu.Button(maleSkin[165]) then
+
+				changeSkin(target, maleSkin[165])
+
+			elseif WarMenu.Button(maleSkin[166]) then
+
+				changeSkin(target, maleSkin[166])
+
+			elseif WarMenu.Button(maleSkin[167]) then
+
+				changeSkin(target, maleSkin[167])
+
+			elseif WarMenu.Button(maleSkin[168]) then
+
+				changeSkin(target, maleSkin[168])
+
+			elseif WarMenu.Button(maleSkin[169]) then
+
+				changeSkin(target, maleSkin[169])
+
+			elseif WarMenu.Button(maleSkin[170]) then
+
+				changeSkin(target, maleSkin[170])
+
+			elseif WarMenu.Button(maleSkin[171]) then
+
+				changeSkin(target, maleSkin[171])
+
+			elseif WarMenu.Button(maleSkin[172]) then
+
+				changeSkin(target, maleSkin[172])
+
+			elseif WarMenu.Button(maleSkin[173]) then
+
+				changeSkin(target, maleSkin[173])
+
+			elseif WarMenu.Button(maleSkin[174]) then
+
+				changeSkin(target, maleSkin[174])
+
+			elseif WarMenu.Button(maleSkin[175]) then
+
+				changeSkin(target, maleSkin[175])
+
+			elseif WarMenu.Button(maleSkin[176]) then
+
+				changeSkin(target, maleSkin[176])
+
+			elseif WarMenu.Button(maleSkin[177]) then
+
+				changeSkin(target, maleSkin[177])
+
+			elseif WarMenu.Button(maleSkin[178]) then
+
+				changeSkin(target, maleSkin[178])
+
+			elseif WarMenu.Button(maleSkin[179]) then
+
+				changeSkin(target, maleSkin[179])
+
+			elseif WarMenu.Button(maleSkin[180]) then
+
+				changeSkin(target, maleSkin[180])
+
+			elseif WarMenu.Button(maleSkin[181]) then
+
+				changeSkin(target, maleSkin[181])
+
+			elseif WarMenu.Button(maleSkin[182]) then
+
+				changeSkin(target, maleSkin[182])
+
+			elseif WarMenu.Button(maleSkin[183]) then
+
+				changeSkin(target, maleSkin[183])
+
+			elseif WarMenu.Button(maleSkin[184]) then
+
+				changeSkin(target, maleSkin[184])
+
+			elseif WarMenu.Button(maleSkin[185]) then
+
+				changeSkin(target, maleSkin[185])
+
+			elseif WarMenu.Button(maleSkin[186]) then
+
+				changeSkin(target, maleSkin[186])
+
+			elseif WarMenu.Button(maleSkin[187]) then
+
+				changeSkin(target, maleSkin[187])
+
+			elseif WarMenu.Button(maleSkin[188]) then
+
+				changeSkin(target, maleSkin[188])
+
+			elseif WarMenu.Button(maleSkin[189]) then
+
+				changeSkin(target, maleSkin[189])
+
+			elseif WarMenu.Button(maleSkin[190]) then
+
+				changeSkin(target, maleSkin[190])
+
+			elseif WarMenu.Button(maleSkin[191]) then
+
+				changeSkin(target, maleSkin[191])
+
+			elseif WarMenu.Button(maleSkin[192]) then
+
+				changeSkin(target, maleSkin[192])
+
+			elseif WarMenu.Button(maleSkin[193]) then
+
+				changeSkin(target, maleSkin[193])
+
+			elseif WarMenu.Button(maleSkin[194]) then
+
+				changeSkin(target, maleSkin[194])
+
+			elseif WarMenu.Button(maleSkin[195]) then
+
+				changeSkin(target, maleSkin[195])
+
+			elseif WarMenu.Button(maleSkin[196]) then
+
+				changeSkin(target, maleSkin[196])
+
+			elseif WarMenu.Button(maleSkin[197]) then
+
+				changeSkin(target, maleSkin[197])
+
+			elseif WarMenu.Button(maleSkin[198]) then
+
+				changeSkin(target, maleSkin[198])
+
+			elseif WarMenu.Button(maleSkin[199]) then
+
+				changeSkin(target, maleSkin[199])
+
+			elseif WarMenu.Button(maleSkin[200]) then
+
+				changeSkin(target, maleSkin[200])
+
+			elseif WarMenu.Button(maleSkin[201]) then
+
+				changeSkin(target, maleSkin[201])
+
+			elseif WarMenu.Button(maleSkin[202]) then
+
+				changeSkin(target, maleSkin[202])
+
+			elseif WarMenu.Button(maleSkin[203]) then
+
+				changeSkin(target, maleSkin[203])
+
+			elseif WarMenu.Button(maleSkin[204]) then
+
+				changeSkin(target, maleSkin[204])
+
+			elseif WarMenu.Button(maleSkin[205]) then
+
+				changeSkin(target, maleSkin[205])
+
+			elseif WarMenu.Button(maleSkin[206]) then
+
+				changeSkin(target, maleSkin[206])
+
+			elseif WarMenu.Button(maleSkin[207]) then
+
+				changeSkin(target, maleSkin[207])
+
+			elseif WarMenu.Button(maleSkin[208]) then
+
+				changeSkin(target, maleSkin[208])
+
+			elseif WarMenu.Button(maleSkin[209]) then
+
+				changeSkin(target, maleSkin[209])
+
+			elseif WarMenu.Button(maleSkin[210]) then
+
+				changeSkin(target, maleSkin[210])
+
+			elseif WarMenu.Button(maleSkin[211]) then
+
+				changeSkin(target, maleSkin[211])
+
+			elseif WarMenu.Button(maleSkin[212]) then
+
+				changeSkin(target, maleSkin[212])
+
+			elseif WarMenu.Button(maleSkin[213]) then
+
+				changeSkin(target, maleSkin[213])
+
+			elseif WarMenu.Button(maleSkin[214]) then
+
+				changeSkin(target, maleSkin[214])
+
+			elseif WarMenu.Button(maleSkin[215]) then
+
+				changeSkin(target, maleSkin[215])
+
+			elseif WarMenu.Button(maleSkin[216]) then
+
+				changeSkin(target, maleSkin[216])
+
+			elseif WarMenu.Button(maleSkin[217]) then
+
+				changeSkin(target, maleSkin[217])
+
+			elseif WarMenu.Button(maleSkin[218]) then
+
+				changeSkin(target, maleSkin[218])
+
+			elseif WarMenu.Button(maleSkin[219]) then
+
+				changeSkin(target, maleSkin[219])
+
+			elseif WarMenu.Button(maleSkin[220]) then
+
+				changeSkin(target, maleSkin[220])
+
+			elseif WarMenu.Button(maleSkin[221]) then
+
+				changeSkin(target, maleSkin[221])
+
+			elseif WarMenu.Button(maleSkin[222]) then
+
+				changeSkin(target, maleSkin[222])
+
+			elseif WarMenu.Button(maleSkin[223]) then
+
+				changeSkin(target, maleSkin[223])
+
+			elseif WarMenu.Button(maleSkin[224]) then
+
+				changeSkin(target, maleSkin[224])
+
+			elseif WarMenu.Button(maleSkin[225]) then
+
+				changeSkin(target, maleSkin[225])
+
+			elseif WarMenu.Button(maleSkin[226]) then
+
+				changeSkin(target, maleSkin[226])
+
+			elseif WarMenu.Button(maleSkin[227]) then
+
+				changeSkin(target, maleSkin[227])
+
+			elseif WarMenu.Button(maleSkin[228]) then
+
+				changeSkin(target, maleSkin[228])
+
+			elseif WarMenu.Button(maleSkin[229]) then
+
+				changeSkin(target, maleSkin[229])
+
+			elseif WarMenu.Button(maleSkin[230]) then
+
+				changeSkin(target, maleSkin[230])
+
+			elseif WarMenu.Button(maleSkin[231]) then
+
+				changeSkin(target, maleSkin[231])
+
+			elseif WarMenu.Button(maleSkin[232]) then
+
+				changeSkin(target, maleSkin[232])
+
+			elseif WarMenu.Button(maleSkin[233]) then
+
+				changeSkin(target, maleSkin[233])
+
+			elseif WarMenu.Button(maleSkin[234]) then
+
+				changeSkin(target, maleSkin[234])
+
+			elseif WarMenu.Button(maleSkin[235]) then
+
+				changeSkin(target, maleSkin[235])
+
+			elseif WarMenu.Button(maleSkin[236]) then
+
+				changeSkin(target, maleSkin[236])
+
+			elseif WarMenu.Button(maleSkin[237]) then
+
+				changeSkin(target, maleSkin[237])
+
+			elseif WarMenu.Button(maleSkin[238]) then
+
+				changeSkin(target, maleSkin[238])
+
+			elseif WarMenu.Button(maleSkin[239]) then
+
+				changeSkin(target, maleSkin[239])
+
+			elseif WarMenu.Button(maleSkin[240]) then
+
+				changeSkin(target, maleSkin[240])
+
+			elseif WarMenu.Button(maleSkin[241]) then
+
+				changeSkin(target, maleSkin[241])
+
+			elseif WarMenu.Button(maleSkin[242]) then
+
+				changeSkin(target, maleSkin[242])
+
+			elseif WarMenu.Button(maleSkin[243]) then
+
+				changeSkin(target, maleSkin[243])
+
+			elseif WarMenu.Button(maleSkin[244]) then
+
+				changeSkin(target, maleSkin[244])
+
+			elseif WarMenu.Button(maleSkin[245]) then
+
+				changeSkin(target, maleSkin[245])
+
+			elseif WarMenu.Button(maleSkin[246]) then
+
+				changeSkin(target, maleSkin[246])
+
+			elseif WarMenu.Button(maleSkin[247]) then
+
+				changeSkin(target, maleSkin[247])
+
+			elseif WarMenu.Button(maleSkin[248]) then
+
+				changeSkin(target, maleSkin[248])
+
+			elseif WarMenu.Button(maleSkin[249]) then
+
+				changeSkin(target, maleSkin[249])
+
+			elseif WarMenu.Button(maleSkin[250]) then
+
+				changeSkin(target, maleSkin[250])
+
+			elseif WarMenu.Button(maleSkin[251]) then
+
+				changeSkin(target, maleSkin[251])
+
+			elseif WarMenu.Button(maleSkin[252]) then
+
+				changeSkin(target, maleSkin[252])
+
+			elseif WarMenu.Button(maleSkin[253]) then
+
+				changeSkin(target, maleSkin[253])
+
+			elseif WarMenu.Button(maleSkin[254]) then
+
+				changeSkin(target, maleSkin[254])
+
+			elseif WarMenu.Button(maleSkin[255]) then
+
+				changeSkin(target, maleSkin[255])
+
+			elseif WarMenu.Button(maleSkin[256]) then
+
+				changeSkin(target, maleSkin[256])
+
+			elseif WarMenu.Button(maleSkin[257]) then
+
+				changeSkin(target, maleSkin[257])
+
+			elseif WarMenu.Button(maleSkin[258]) then
+
+				changeSkin(target, maleSkin[258])
+
+			elseif WarMenu.Button(maleSkin[259]) then
+
+				changeSkin(target, maleSkin[259])
+
+			elseif WarMenu.Button(maleSkin[260]) then
+
+				changeSkin(target, maleSkin[260])
+
+			elseif WarMenu.Button(maleSkin[261]) then
+
+				changeSkin(target, maleSkin[261])
+
+			elseif WarMenu.Button(maleSkin[262]) then
+
+				changeSkin(target, maleSkin[262])
+
+			elseif WarMenu.Button(maleSkin[263]) then
+
+				changeSkin(target, maleSkin[263])
+
+			elseif WarMenu.Button(maleSkin[264]) then
+
+				changeSkin(target, maleSkin[264])
+
+			elseif WarMenu.Button(maleSkin[265]) then
+
+				changeSkin(target, maleSkin[265])
+
+			elseif WarMenu.Button(maleSkin[266]) then
+
+				changeSkin(target, maleSkin[266])
+
+			elseif WarMenu.Button(maleSkin[267]) then
+
+				changeSkin(target, maleSkin[267])
+
+			elseif WarMenu.Button(maleSkin[268]) then
+
+				changeSkin(target, maleSkin[268])
+
+			elseif WarMenu.Button(maleSkin[269]) then
+
+				changeSkin(target, maleSkin[269])
+
+			elseif WarMenu.Button(maleSkin[270]) then
+
+				changeSkin(target, maleSkin[270])
+
+			elseif WarMenu.Button(maleSkin[271]) then
+
+				changeSkin(target, maleSkin[271])
+
+			elseif WarMenu.Button(maleSkin[272]) then
+
+				changeSkin(target, maleSkin[272])
+
+			elseif WarMenu.Button(maleSkin[273]) then
+
+				changeSkin(target, maleSkin[273])
+
+			elseif WarMenu.Button(maleSkin[274]) then
+
+				changeSkin(target, maleSkin[274])
+
+			elseif WarMenu.Button(maleSkin[275]) then
+
+				changeSkin(target, maleSkin[275])
+
+			elseif WarMenu.Button(maleSkin[276]) then
+
+				changeSkin(target, maleSkin[276])
+
+			elseif WarMenu.Button(maleSkin[277]) then
+
+				changeSkin(target, maleSkin[277])
+
+			elseif WarMenu.Button(maleSkin[278]) then
+
+				changeSkin(target, maleSkin[278])
+
+			elseif WarMenu.Button(maleSkin[279]) then
+
+				changeSkin(target, maleSkin[279])
+
+			elseif WarMenu.Button(maleSkin[280]) then
+
+				changeSkin(target, maleSkin[280])
+
+			elseif WarMenu.Button(maleSkin[281]) then
+
+				changeSkin(target, maleSkin[281])
+
+			elseif WarMenu.Button(maleSkin[282]) then
+
+				changeSkin(target, maleSkin[282])
+
+			elseif WarMenu.Button(maleSkin[283]) then
+
+				changeSkin(target, maleSkin[283])
+
+			elseif WarMenu.Button(maleSkin[284]) then
+
+				changeSkin(target, maleSkin[284])
+
+			elseif WarMenu.Button(maleSkin[285]) then
+
+				changeSkin(target, maleSkin[285])
+
+			elseif WarMenu.Button(maleSkin[286]) then
+
+				changeSkin(target, maleSkin[286])
+
+			elseif WarMenu.Button(maleSkin[287]) then
+
+				changeSkin(target, maleSkin[287])
+
+			elseif WarMenu.Button(maleSkin[288]) then
+
+				changeSkin(target, maleSkin[288])
+
+			elseif WarMenu.Button(maleSkin[289]) then
+
+				changeSkin(target, maleSkin[289])
+
+			elseif WarMenu.Button(maleSkin[290]) then
+
+				changeSkin(target, maleSkin[290])
+
+			elseif WarMenu.Button(maleSkin[291]) then
+
+				changeSkin(target, maleSkin[291])
+
+			elseif WarMenu.Button(maleSkin[292]) then
+
+				changeSkin(target, maleSkin[292])
+
+			elseif WarMenu.Button(maleSkin[293]) then
+
+				changeSkin(target, maleSkin[293])
+
+			elseif WarMenu.Button(maleSkin[294]) then
+
+				changeSkin(target, maleSkin[294])
+
+			elseif WarMenu.Button(maleSkin[295]) then
+
+				changeSkin(target, maleSkin[295])
+
+			elseif WarMenu.Button(maleSkin[296]) then
+
+				changeSkin(target, maleSkin[296])
+
+			elseif WarMenu.Button(maleSkin[297]) then
+
+				changeSkin(target, maleSkin[297])
+
+			elseif WarMenu.Button(maleSkin[298]) then
+
+				changeSkin(target, maleSkin[298])
+
+			elseif WarMenu.Button(maleSkin[299]) then
+
+				changeSkin(target, maleSkin[299])
+
+			elseif WarMenu.Button(maleSkin[300]) then
+
+				changeSkin(target, maleSkin[300])
+
+			elseif WarMenu.Button(maleSkin[301]) then
+
+				changeSkin(target, maleSkin[301])
+
+			elseif WarMenu.Button(maleSkin[302]) then
+
+				changeSkin(target, maleSkin[302])
+
+			elseif WarMenu.Button(maleSkin[303]) then
+
+				changeSkin(target, maleSkin[303])
+
+			elseif WarMenu.Button(maleSkin[304]) then
+
+				changeSkin(target, maleSkin[304])
+
+			elseif WarMenu.Button(maleSkin[305]) then
+
+				changeSkin(target, maleSkin[305])
+
+			elseif WarMenu.Button(maleSkin[306]) then
+
+				changeSkin(target, maleSkin[306])
+
+			elseif WarMenu.Button(maleSkin[307]) then
+
+				changeSkin(target, maleSkin[307])
+
+			elseif WarMenu.Button(maleSkin[308]) then
+
+				changeSkin(target, maleSkin[308])
+
+			elseif WarMenu.Button(maleSkin[309]) then
+
+				changeSkin(target, maleSkin[309])
+
+			elseif WarMenu.Button(maleSkin[310]) then
+
+				changeSkin(target, maleSkin[310])
+
+			elseif WarMenu.Button(maleSkin[311]) then
+
+				changeSkin(target, maleSkin[311])
+
+			elseif WarMenu.Button(maleSkin[312]) then
+
+				changeSkin(target, maleSkin[312])
+
+			elseif WarMenu.Button(maleSkin[313]) then
+
+				changeSkin(target, maleSkin[313])
+
+			elseif WarMenu.Button(maleSkin[314]) then
+
+				changeSkin(target, maleSkin[314])
+
+			elseif WarMenu.Button(maleSkin[315]) then
+
+				changeSkin(target, maleSkin[315])
+
+			elseif WarMenu.Button(maleSkin[316]) then
+
+				changeSkin(target, maleSkin[316])
+
+			elseif WarMenu.Button(maleSkin[317]) then
+
+				changeSkin(target, maleSkin[317])
+
+			elseif WarMenu.Button(maleSkin[318]) then
+
+				changeSkin(target, maleSkin[318])
+
+			elseif WarMenu.Button(maleSkin[319]) then
+
+				changeSkin(target, maleSkin[319])
+
+			elseif WarMenu.Button(maleSkin[320]) then
+
+				changeSkin(target, maleSkin[320])
+
+			elseif WarMenu.Button(maleSkin[321]) then
+
+				changeSkin(target, maleSkin[321])
+
+			elseif WarMenu.Button(maleSkin[322]) then
+
+				changeSkin(target, maleSkin[322])
+				
+			elseif WarMenu.Button(maleSkin[323]) then
+
+				changeSkin(target, maleSkin[323])
+				
+			end
+			
+			WarMenu.Display()
+			
+		--CHARACTER MENU
+		
+		elseif WarMenu.IsMenuOpened("Characters") then
+		
+			if WarMenu.Button(charSkin[1]) then
+
+				changeSkin(target, charSkin[1])
+
+			elseif WarMenu.Button(charSkin[2]) then
+
+				changeSkin(target, charSkin[2])
+
+			elseif WarMenu.Button(charSkin[3]) then
+
+				changeSkin(target, charSkin[3])
+
+			elseif WarMenu.Button(charSkin[4]) then
+
+				changeSkin(target, charSkin[4])
+
+			elseif WarMenu.Button(charSkin[5]) then
+
+				changeSkin(target, charSkin[5])
+
+			elseif WarMenu.Button(charSkin[6]) then
+
+				changeSkin(target, charSkin[6])
+
+			elseif WarMenu.Button(charSkin[7]) then
+
+				changeSkin(target, charSkin[7])
+
+			elseif WarMenu.Button(charSkin[8]) then
+
+				changeSkin(target, charSkin[8])
+
+			elseif WarMenu.Button(charSkin[9]) then
+
+				changeSkin(target, charSkin[9])
+
+			elseif WarMenu.Button(charSkin[10]) then
+
+				changeSkin(target, charSkin[10])
+
+			elseif WarMenu.Button(charSkin[11]) then
+
+				changeSkin(target, charSkin[11])
+
+			elseif WarMenu.Button(charSkin[12]) then
+
+				changeSkin(target, charSkin[12])
+
+			elseif WarMenu.Button(charSkin[13]) then
+
+				changeSkin(target, charSkin[13])
+
+			elseif WarMenu.Button(charSkin[14]) then
+
+				changeSkin(target, charSkin[14])
+
+			elseif WarMenu.Button(charSkin[15]) then
+
+				changeSkin(target, charSkin[15])
+
+			elseif WarMenu.Button(charSkin[16]) then
+
+				changeSkin(target, charSkin[16])
+
+			elseif WarMenu.Button(charSkin[17]) then
+
+				changeSkin(target, charSkin[17])
+
+			elseif WarMenu.Button(charSkin[18]) then
+
+				changeSkin(target, charSkin[18])
+
+			elseif WarMenu.Button(charSkin[19]) then
+
+				changeSkin(target, charSkin[19])
+
+			elseif WarMenu.Button(charSkin[20]) then
+
+				changeSkin(target, charSkin[20])
+
+			elseif WarMenu.Button(charSkin[21]) then
+
+				changeSkin(target, charSkin[21])
+
+			elseif WarMenu.Button(charSkin[22]) then
+
+				changeSkin(target, charSkin[22])
+
+			elseif WarMenu.Button(charSkin[23]) then
+
+				changeSkin(target, charSkin[23])
+
+			elseif WarMenu.Button(charSkin[24]) then
+
+				changeSkin(target, charSkin[24])
+
+			elseif WarMenu.Button(charSkin[25]) then
+
+				changeSkin(target, charSkin[25])
+
+			elseif WarMenu.Button(charSkin[26]) then
+
+				changeSkin(target, charSkin[26])
+
+			elseif WarMenu.Button(charSkin[27]) then
+
+				changeSkin(target, charSkin[27])
+
+			elseif WarMenu.Button(charSkin[28]) then
+
+				changeSkin(target, charSkin[28])
+
+			elseif WarMenu.Button(charSkin[29]) then
+
+				changeSkin(target, charSkin[29])
+
+			elseif WarMenu.Button(charSkin[30]) then
+
+				changeSkin(target, charSkin[30])
+
+			elseif WarMenu.Button(charSkin[31]) then
+
+				changeSkin(target, charSkin[31])
+
+			elseif WarMenu.Button(charSkin[32]) then
+
+				changeSkin(target, charSkin[32])
+
+			elseif WarMenu.Button(charSkin[33]) then
+
+				changeSkin(target, charSkin[33])
+
+			elseif WarMenu.Button(charSkin[34]) then
+
+				changeSkin(target, charSkin[34])
+
+			elseif WarMenu.Button(charSkin[35]) then
+
+				changeSkin(target, charSkin[35])
+
+			elseif WarMenu.Button(charSkin[36]) then
+
+				changeSkin(target, charSkin[36])
+
+			elseif WarMenu.Button(charSkin[37]) then
+
+				changeSkin(target, charSkin[37])
+
+			elseif WarMenu.Button(charSkin[38]) then
+
+				changeSkin(target, charSkin[38])
+
+			elseif WarMenu.Button(charSkin[39]) then
+
+				changeSkin(target, charSkin[39])
+
+			elseif WarMenu.Button(charSkin[40]) then
+
+				changeSkin(target, charSkin[40])
+
+			elseif WarMenu.Button(charSkin[41]) then
+
+				changeSkin(target, charSkin[41])
+
+			elseif WarMenu.Button(charSkin[42]) then
+
+				changeSkin(target, charSkin[42])
+
+			elseif WarMenu.Button(charSkin[43]) then
+
+				changeSkin(target, charSkin[43])
+
+			elseif WarMenu.Button(charSkin[44]) then
+
+				changeSkin(target, charSkin[44])
+
+			elseif WarMenu.Button(charSkin[45]) then
+
+				changeSkin(target, charSkin[45])
+
+			elseif WarMenu.Button(charSkin[46]) then
+
+				changeSkin(target, charSkin[46])
+
+			elseif WarMenu.Button(charSkin[47]) then
+
+				changeSkin(target, charSkin[47])
+
+			elseif WarMenu.Button(charSkin[48]) then
+
+				changeSkin(target, charSkin[48])
+
+			elseif WarMenu.Button(charSkin[49]) then
+
+				changeSkin(target, charSkin[49])
+
+			elseif WarMenu.Button(charSkin[50]) then
+
+				changeSkin(target, charSkin[50])
+
+			elseif WarMenu.Button(charSkin[51]) then
+
+				changeSkin(target, charSkin[51])
+
+			elseif WarMenu.Button(charSkin[52]) then
+
+				changeSkin(target, charSkin[52])
+
+			elseif WarMenu.Button(charSkin[53]) then
+
+				changeSkin(target, charSkin[53])
+
+			elseif WarMenu.Button(charSkin[54]) then
+
+				changeSkin(target, charSkin[54])
+
+			elseif WarMenu.Button(charSkin[55]) then
+
+				changeSkin(target, charSkin[55])
+
+			elseif WarMenu.Button(charSkin[56]) then
+
+				changeSkin(target, charSkin[56])
+
+			elseif WarMenu.Button(charSkin[57]) then
+
+				changeSkin(target, charSkin[57])
+
+			elseif WarMenu.Button(charSkin[58]) then
+
+				changeSkin(target, charSkin[58])
+
+			elseif WarMenu.Button(charSkin[59]) then
+
+				changeSkin(target, charSkin[59])
+
+			elseif WarMenu.Button(charSkin[60]) then
+
+				changeSkin(target, charSkin[60])
+
+			elseif WarMenu.Button(charSkin[61]) then
+
+				changeSkin(target, charSkin[61])
+
+			elseif WarMenu.Button(charSkin[62]) then
+
+				changeSkin(target, charSkin[62])
+
+			elseif WarMenu.Button(charSkin[63]) then
+
+				changeSkin(target, charSkin[63])
+
+			elseif WarMenu.Button(charSkin[64]) then
+
+				changeSkin(target, charSkin[64])
+
+			elseif WarMenu.Button(charSkin[65]) then
+
+				changeSkin(target, charSkin[65])
+
+			elseif WarMenu.Button(charSkin[66]) then
+
+				changeSkin(target, charSkin[66])
+
+			elseif WarMenu.Button(charSkin[67]) then
+
+				changeSkin(target, charSkin[67])
+
+			elseif WarMenu.Button(charSkin[68]) then
+
+				changeSkin(target, charSkin[68])
+
+			elseif WarMenu.Button(charSkin[69]) then
+
+				changeSkin(target, charSkin[69])
+
+			elseif WarMenu.Button(charSkin[70]) then
+
+				changeSkin(target, charSkin[70])
+
+			elseif WarMenu.Button(charSkin[71]) then
+
+				changeSkin(target, charSkin[71])
+
+			elseif WarMenu.Button(charSkin[72]) then
+
+				changeSkin(target, charSkin[72])
+
+			elseif WarMenu.Button(charSkin[73]) then
+
+				changeSkin(target, charSkin[73])
+
+			elseif WarMenu.Button(charSkin[74]) then
+
+				changeSkin(target, charSkin[74])
+
+			elseif WarMenu.Button(charSkin[75]) then
+
+				changeSkin(target, charSkin[75])
+
+			elseif WarMenu.Button(charSkin[76]) then
+
+				changeSkin(target, charSkin[76])
+
+			elseif WarMenu.Button(charSkin[77]) then
+
+				changeSkin(target, charSkin[77])
+
+			elseif WarMenu.Button(charSkin[78]) then
+
+				changeSkin(target, charSkin[78])
+
+			elseif WarMenu.Button(charSkin[79]) then
+
+				changeSkin(target, charSkin[79])
+
+			elseif WarMenu.Button(charSkin[80]) then
+
+				changeSkin(target, charSkin[80])
+
+			elseif WarMenu.Button(charSkin[81]) then
+
+				changeSkin(target, charSkin[81])
+
+			elseif WarMenu.Button(charSkin[82]) then
+
+				changeSkin(target, charSkin[82])
+
+			elseif WarMenu.Button(charSkin[83]) then
+
+				changeSkin(target, charSkin[83])
+
+			elseif WarMenu.Button(charSkin[84]) then
+
+				changeSkin(target, charSkin[84])
+
+			elseif WarMenu.Button(charSkin[85]) then
+
+				changeSkin(target, charSkin[85])
+
+			elseif WarMenu.Button(charSkin[86]) then
+
+				changeSkin(target, charSkin[86])
+
+			elseif WarMenu.Button(charSkin[87]) then
+
+				changeSkin(target, charSkin[87])
+
+			elseif WarMenu.Button(charSkin[88]) then
+
+				changeSkin(target, charSkin[88])
+
+			elseif WarMenu.Button(charSkin[89]) then
+
+				changeSkin(target, charSkin[89])
+
+			elseif WarMenu.Button(charSkin[90]) then
+
+				changeSkin(target, charSkin[90])
+
+			elseif WarMenu.Button(charSkin[91]) then
+
+				changeSkin(target, charSkin[91])
+
+			elseif WarMenu.Button(charSkin[92]) then
+
+				changeSkin(target, charSkin[92])
+
+			elseif WarMenu.Button(charSkin[93]) then
+
+				changeSkin(target, charSkin[93])
+
+			elseif WarMenu.Button(charSkin[94]) then
+
+				changeSkin(target, charSkin[94])
+
+			elseif WarMenu.Button(charSkin[95]) then
+
+				changeSkin(target, charSkin[95])
+
+			elseif WarMenu.Button(charSkin[96]) then
+
+				changeSkin(target, charSkin[96])
+
+			elseif WarMenu.Button(charSkin[97]) then
+
+				changeSkin(target, charSkin[97])
+
+			elseif WarMenu.Button(charSkin[98]) then
+
+				changeSkin(target, charSkin[98])
+
+			elseif WarMenu.Button(charSkin[99]) then
+
+				changeSkin(target, charSkin[99])
+
+			elseif WarMenu.Button(charSkin[100]) then
+
+				changeSkin(target, charSkin[100])
+
+			elseif WarMenu.Button(charSkin[101]) then
+
+				changeSkin(target, charSkin[101])
+
+			elseif WarMenu.Button(charSkin[102]) then
+
+				changeSkin(target, charSkin[102])
+
+			elseif WarMenu.Button(charSkin[103]) then
+
+				changeSkin(target, charSkin[103])
+
+			elseif WarMenu.Button(charSkin[104]) then
+
+				changeSkin(target, charSkin[104])
+
+			elseif WarMenu.Button(charSkin[105]) then
+
+				changeSkin(target, charSkin[105])
+
+			elseif WarMenu.Button(charSkin[106]) then
+
+				changeSkin(target, charSkin[106])
+
+			elseif WarMenu.Button(charSkin[107]) then
+
+				changeSkin(target, charSkin[107])
+
+			elseif WarMenu.Button(charSkin[108]) then
+
+				changeSkin(target, charSkin[108])
+
+			elseif WarMenu.Button(charSkin[109]) then
+
+				changeSkin(target, charSkin[109])
+
+			elseif WarMenu.Button(charSkin[110]) then
+
+				changeSkin(target, charSkin[110])
+
+			elseif WarMenu.Button(charSkin[111]) then
+
+				changeSkin(target, charSkin[111])
+
+			elseif WarMenu.Button(charSkin[112]) then
+
+				changeSkin(target, charSkin[112])
+
+			elseif WarMenu.Button(charSkin[113]) then
+
+				changeSkin(target, charSkin[113])
+
+			elseif WarMenu.Button(charSkin[114]) then
+
+				changeSkin(target, charSkin[114])
+
+			elseif WarMenu.Button(charSkin[115]) then
+
+				changeSkin(target, charSkin[115])
+
+			elseif WarMenu.Button(charSkin[116]) then
+
+				changeSkin(target, charSkin[116])
+
+			elseif WarMenu.Button(charSkin[117]) then
+
+				changeSkin(target, charSkin[117])
+
+			elseif WarMenu.Button(charSkin[118]) then
+
+				changeSkin(target, charSkin[118])
+
+			elseif WarMenu.Button(charSkin[119]) then
+
+				changeSkin(target, charSkin[119])
+
+			elseif WarMenu.Button(charSkin[120]) then
+
+				changeSkin(target, charSkin[120])
+
+			elseif WarMenu.Button(charSkin[121]) then
+
+				changeSkin(target, charSkin[121])
+
+			elseif WarMenu.Button(charSkin[122]) then
+
+				changeSkin(target, charSkin[122])
+
+			elseif WarMenu.Button(charSkin[123]) then
+
+				changeSkin(target, charSkin[123])
+
+			elseif WarMenu.Button(charSkin[124]) then
+
+				changeSkin(target, charSkin[124])
+
+			elseif WarMenu.Button(charSkin[125]) then
+
+				changeSkin(target, charSkin[125])
+
+			elseif WarMenu.Button(charSkin[126]) then
+
+				changeSkin(target, charSkin[126])
+
+			elseif WarMenu.Button(charSkin[127]) then
+
+				changeSkin(target, charSkin[127])
+
+			elseif WarMenu.Button(charSkin[128]) then
+
+				changeSkin(target, charSkin[128])
+
+			elseif WarMenu.Button(charSkin[129]) then
+
+				changeSkin(target, charSkin[129])
+
+			elseif WarMenu.Button(charSkin[130]) then
+
+				changeSkin(target, charSkin[130])
+
+			elseif WarMenu.Button(charSkin[131]) then
+
+				changeSkin(target, charSkin[131])
+
+			elseif WarMenu.Button(charSkin[132]) then
+
+				changeSkin(target, charSkin[132])
+
+			elseif WarMenu.Button(charSkin[133]) then
+
+				changeSkin(target, charSkin[133])
+
+			elseif WarMenu.Button(charSkin[134]) then
+
+				changeSkin(target, charSkin[134])
+
+			elseif WarMenu.Button(charSkin[135]) then
+
+				changeSkin(target, charSkin[135])
+
+			elseif WarMenu.Button(charSkin[136]) then
+
+				changeSkin(target, charSkin[136])
+
+			elseif WarMenu.Button(charSkin[137]) then
+
+				changeSkin(target, charSkin[137])
+
+			elseif WarMenu.Button(charSkin[138]) then
+
+				changeSkin(target, charSkin[138])
+
+			elseif WarMenu.Button(charSkin[139]) then
+
+				changeSkin(target, charSkin[139])
+
+			elseif WarMenu.Button(charSkin[140]) then
+
+				changeSkin(target, charSkin[140])
+
+			elseif WarMenu.Button(charSkin[141]) then
+
+				changeSkin(target, charSkin[141])
+
+			elseif WarMenu.Button(charSkin[142]) then
+
+				changeSkin(target, charSkin[142])
+
+			elseif WarMenu.Button(charSkin[143]) then
+
+				changeSkin(target, charSkin[143])
+
+			elseif WarMenu.Button(charSkin[144]) then
+
+				changeSkin(target, charSkin[144])
+
+			elseif WarMenu.Button(charSkin[145]) then
+
+				changeSkin(target, charSkin[145])
+
+			elseif WarMenu.Button(charSkin[146]) then
+
+				changeSkin(target, charSkin[146])
+
+			elseif WarMenu.Button(charSkin[147]) then
+
+				changeSkin(target, charSkin[147])
+
+			elseif WarMenu.Button(charSkin[148]) then
+
+				changeSkin(target, charSkin[148])
+
+			elseif WarMenu.Button(charSkin[149]) then
+
+				changeSkin(target, charSkin[149])
+
+			elseif WarMenu.Button(charSkin[150]) then
+
+				changeSkin(target, charSkin[150])
+
+			elseif WarMenu.Button(charSkin[151]) then
+
+				changeSkin(target, charSkin[151])
+
+			elseif WarMenu.Button(charSkin[152]) then
+
+				changeSkin(target, charSkin[152])
+
+			elseif WarMenu.Button(charSkin[153]) then
+
+				changeSkin(target, charSkin[153])
+
+			elseif WarMenu.Button(charSkin[154]) then
+
+				changeSkin(target, charSkin[154])
+
+			elseif WarMenu.Button(charSkin[155]) then
+
+				changeSkin(target, charSkin[155])
+
+			elseif WarMenu.Button(charSkin[156]) then
+
+				changeSkin(target, charSkin[156])
+
+			elseif WarMenu.Button(charSkin[157]) then
+
+				changeSkin(target, charSkin[157])
+
+			elseif WarMenu.Button(charSkin[158]) then
+
+				changeSkin(target, charSkin[158])
+
+			elseif WarMenu.Button(charSkin[159]) then
+
+				changeSkin(target, charSkin[159])
+
+			elseif WarMenu.Button(charSkin[160]) then
+
+				changeSkin(target, charSkin[160])
+
+			elseif WarMenu.Button(charSkin[161]) then
+
+				changeSkin(target, charSkin[161])
+
+			elseif WarMenu.Button(charSkin[162]) then
+
+				changeSkin(target, charSkin[162])
+
+			elseif WarMenu.Button(charSkin[163]) then
+
+				changeSkin(target, charSkin[163])
+
+			elseif WarMenu.Button(charSkin[164]) then
+
+				changeSkin(target, charSkin[164])
+
+			elseif WarMenu.Button(charSkin[165]) then
+
+				changeSkin(target, charSkin[165])
+
+			elseif WarMenu.Button(charSkin[166]) then
+
+				changeSkin(target, charSkin[166])
+
+			elseif WarMenu.Button(charSkin[167]) then
+
+				changeSkin(target, charSkin[167])
+
+			elseif WarMenu.Button(charSkin[168]) then
+
+				changeSkin(target, charSkin[168])
+
+			elseif WarMenu.Button(charSkin[169]) then
+
+				changeSkin(target, charSkin[169])
+
+			elseif WarMenu.Button(charSkin[170]) then
+
+				changeSkin(target, charSkin[170])
+
+			elseif WarMenu.Button(charSkin[171]) then
+
+				changeSkin(target, charSkin[171])
+
+			elseif WarMenu.Button(charSkin[172]) then
+
+				changeSkin(target, charSkin[172])
+
+			elseif WarMenu.Button(charSkin[173]) then
+
+				changeSkin(target, charSkin[173])
+
+			elseif WarMenu.Button(charSkin[174]) then
+
+				changeSkin(target, charSkin[174])
+
+			elseif WarMenu.Button(charSkin[175]) then
+
+				changeSkin(target, charSkin[175])
+
+			elseif WarMenu.Button(charSkin[176]) then
+
+				changeSkin(target, charSkin[176])
+
+			elseif WarMenu.Button(charSkin[177]) then
+
+				changeSkin(target, charSkin[177])
+
+			elseif WarMenu.Button(charSkin[178]) then
+
+				changeSkin(target, charSkin[178])
+
+			elseif WarMenu.Button(charSkin[179]) then
+
+				changeSkin(target, charSkin[179])
+
+			elseif WarMenu.Button(charSkin[180]) then
+
+				changeSkin(target, charSkin[180])
+
+			elseif WarMenu.Button(charSkin[181]) then
+
+				changeSkin(target, charSkin[181])
+
+			elseif WarMenu.Button(charSkin[182]) then
+
+				changeSkin(target, charSkin[182])
+
+			elseif WarMenu.Button(charSkin[183]) then
+
+				changeSkin(target, charSkin[183])
+
+			elseif WarMenu.Button(charSkin[184]) then
+
+				changeSkin(target, charSkin[184])
+
+			elseif WarMenu.Button(charSkin[185]) then
+
+				changeSkin(target, charSkin[185])
+
+			elseif WarMenu.Button(charSkin[186]) then
+
+				changeSkin(target, charSkin[186])
+
+			elseif WarMenu.Button(charSkin[187]) then
+
+				changeSkin(target, charSkin[187])
+
+			elseif WarMenu.Button(charSkin[188]) then
+
+				changeSkin(target, charSkin[188])
+
+			elseif WarMenu.Button(charSkin[189]) then
+
+				changeSkin(target, charSkin[189])
+
+			elseif WarMenu.Button(charSkin[190]) then
+
+				changeSkin(target, charSkin[190])
+
+			elseif WarMenu.Button(charSkin[191]) then
+
+				changeSkin(target, charSkin[191])
+
+			elseif WarMenu.Button(charSkin[192]) then
+
+				changeSkin(target, charSkin[192])
+
+			elseif WarMenu.Button(charSkin[193]) then
+
+				changeSkin(target, charSkin[193])
+
+			elseif WarMenu.Button(charSkin[194]) then
+
+				changeSkin(target, charSkin[194])
+
+			elseif WarMenu.Button(charSkin[195]) then
+
+				changeSkin(target, charSkin[195])
+
+			elseif WarMenu.Button(charSkin[196]) then
+
+				changeSkin(target, charSkin[196])
+
+			elseif WarMenu.Button(charSkin[197]) then
+
+				changeSkin(target, charSkin[197])
+
+			elseif WarMenu.Button(charSkin[198]) then
+
+				changeSkin(target, charSkin[198])
+
+			elseif WarMenu.Button(charSkin[199]) then
+
+				changeSkin(target, charSkin[199])
+
+			elseif WarMenu.Button(charSkin[200]) then
+
+				changeSkin(target, charSkin[200])
+
+			elseif WarMenu.Button(charSkin[201]) then
+
+				changeSkin(target, charSkin[201])
+
+			elseif WarMenu.Button(charSkin[202]) then
+
+				changeSkin(target, charSkin[202])
+
+			elseif WarMenu.Button(charSkin[203]) then
+
+				changeSkin(target, charSkin[203])
+
+			elseif WarMenu.Button(charSkin[204]) then
+
+				changeSkin(target, charSkin[204])
+
+			elseif WarMenu.Button(charSkin[205]) then
+
+				changeSkin(target, charSkin[205])
+
+			elseif WarMenu.Button(charSkin[206]) then
+
+				changeSkin(target, charSkin[206])
+
+			elseif WarMenu.Button(charSkin[207]) then
+
+				changeSkin(target, charSkin[207])
+
+			elseif WarMenu.Button(charSkin[208]) then
+
+				changeSkin(target, charSkin[208])
+
+			elseif WarMenu.Button(charSkin[209]) then
+
+				changeSkin(target, charSkin[209])
+
+			elseif WarMenu.Button(charSkin[210]) then
+
+				changeSkin(target, charSkin[210])
+
+			elseif WarMenu.Button(charSkin[211]) then
+
+				changeSkin(target, charSkin[211])
+
+			elseif WarMenu.Button(charSkin[212]) then
+
+				changeSkin(target, charSkin[212])
+
+			elseif WarMenu.Button(charSkin[213]) then
+
+				changeSkin(target, charSkin[213])
+
+			elseif WarMenu.Button(charSkin[214]) then
+
+				changeSkin(target, charSkin[214])
+
+			elseif WarMenu.Button(charSkin[215]) then
+
+				changeSkin(target, charSkin[215])
+
+			elseif WarMenu.Button(charSkin[216]) then
+
+				changeSkin(target, charSkin[216])
+
+			elseif WarMenu.Button(charSkin[217]) then
+
+				changeSkin(target, charSkin[217])
+
+			elseif WarMenu.Button(charSkin[218]) then
+
+				changeSkin(target, charSkin[218])
+
+			elseif WarMenu.Button(charSkin[219]) then
+
+				changeSkin(target, charSkin[219])
+
+			elseif WarMenu.Button(charSkin[220]) then
+
+				changeSkin(target, charSkin[220])
+
+			elseif WarMenu.Button(charSkin[221]) then
+
+				changeSkin(target, charSkin[221])
+
+			elseif WarMenu.Button(charSkin[222]) then
+
+				changeSkin(target, charSkin[222])
+			
+			elseif WarMenu.Button(charSkin[223]) then
+
+				changeSkin(target, charSkin[223])
+			
 			end
 			
 			WarMenu.Display()
@@ -372,7 +3261,7 @@ Citizen.CreateThread(function()
 			end
 			
 			WarMenu.Display()
-			
+
 		-- INVINCIBILITY MENU
 			
 		elseif WarMenu.IsMenuOpened("Invincibility") then
