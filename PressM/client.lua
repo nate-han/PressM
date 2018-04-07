@@ -73,6 +73,8 @@ function spawnVeh(who, model)
 	SetVehicleCanBeVisiblyDamaged(veh, true)
 	SetVehicleCanBreak(veh, true)
 	SetVehicleModKit(veh, 0)
+	SetVehicleNumberPlateText(veh, "PressM")
+	SetVehicleNumberPlateTextIndex(veh, 5)
 	
 	-- local total = 1
 	
@@ -126,6 +128,7 @@ function cosReroll(who)
 	SetVehicleMod(veh, 14, math.random(0, 34), true)
 	SetVehicleMod(veh, 23, math.random(0, 20), true)
 	SetVehicleMod(veh, 62, math.random(0, 3), true)
+	SetVehicleNumberPlateTextIndex(veh, math.random(0, 7))
 
 end
 
